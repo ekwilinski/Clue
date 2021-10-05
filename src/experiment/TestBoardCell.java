@@ -5,9 +5,8 @@ import java.util.Set;
 
 public class TestBoardCell {
 	
-	private int row;
-	private int column;
-	
+	private int row, column;
+	private Boolean isRoom, isOccupied ;
 	private Set<TestBoardCell> adjacencyList = new HashSet<TestBoardCell>();
 	
 	public TestBoardCell(int row, int column) {
@@ -28,7 +27,7 @@ public class TestBoardCell {
 	}
 	
 	public boolean isRoom() {
-		return false;
+		return isRoom;
 	}
 	
 	public void setOccupied(boolean isOccupied) {
@@ -36,7 +35,7 @@ public class TestBoardCell {
 	}
 	
 	public boolean getOccupied() {
-		return false;
+		return isOccupied;
 	}
 	
 	public int getRow() {
@@ -45,5 +44,6 @@ public class TestBoardCell {
 	public int getColumn() {
 		return column;
 	}
+	
 	
 }

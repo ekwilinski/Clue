@@ -1,0 +1,29 @@
+commit cb498bb0d09bd2e672d9f77739af1cacc79f42ad
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Sun Oct 3 16:54:25 2021 -0600
+
+    Elena O - added room and occupied tests
+
+commit 9ad9f0e2b3485e8130eb33ef5c4995f31231f2e7
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Sun Oct 3 16:15:51 2021 -0600
+
+    Elliot K - added corner and edge tests
+
+commit c70beea7eea196b341628252eef05dc5569646fb
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Sun Oct 3 13:51:44 2021 -0600
+
+    Elliot K - set up experiment and test stubs
+
+commit 0c8613977a38c4b5b2a8146d4569b4838617723e
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Thu Sep 30 14:48:19 2021 -0600
+
+    Elliot K - Added ClueSetup.txt
+
+commit 6613ff534c695ebf9ccff167654b560ce45a1750
+Author: ekwilinski <90361680+ekwilinski@users.noreply.github.com>
+Date:   Thu Sep 30 14:32:31 2021 -0600
+
+    Initial commit
