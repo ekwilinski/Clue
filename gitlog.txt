@@ -1,3 +1,15 @@
+commit 38261a75eae335ea6426c44d75757e605d02b892
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Wed Oct 6 22:06:39 2021 -0600
+
+    Elliot K - calculated targets and passed all tests
+
+commit 4dd7a48d3a27ca5e45ceeca36253f15dbe921c19
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Tue Oct 5 15:23:05 2021 -0600
+
+    Elliot K - Set up adj list, passed first test
+
 commit cb498bb0d09bd2e672d9f77739af1cacc79f42ad
 Author: Elliot Kwilinski <ekwilinski@mines.edu>
 Date:   Sun Oct 3 16:54:25 2021 -0600
