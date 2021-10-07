@@ -5,16 +5,16 @@ public class TestBoard {
 	final static int COLS = 4;
 	final static int ROWS = 4;
 
-	private TestBoardCell[][] grid = new TestBoardCell[ROWS][COLS];
-	private Set<TestBoardCell> targets;
-	private Set<TestBoardCell> visited;
+	private BoardCell[][] grid = new BoardCell[ROWS][COLS];
+	private Set<BoardCell> targets;
+	private Set<BoardCell> visited;
 
 
 	public TestBoard() {
 
 		for(int i = 0; i < 4; i++) {
 			for(int j = 0; j < 4; j++) {
-				grid[i][j] = new TestBoardCell(i,j);
+				grid[i][j] = new BoardCell(i,j);
 			}
 		}
 		for(int i = 0; i < 4; i++) {
@@ -22,11 +22,9 @@ public class TestBoard {
 				generateAdjList(grid[i][j]);
 			}
 		}
-
-
 	}
 
-	private void generateAdjList(TestBoardCell cell) {
+	private void generateAdjList(BoardCell cell) {
 		//left square
 		if(cell.getRow() > 0) {
 			cell.addAdjacency(getCell(cell.getRow()-1, cell.getColumn()));
@@ -46,18 +44,18 @@ public class TestBoard {
 
 	}
 
-	public void calcTargets( TestBoardCell startCell, int pathLength) {
+	public void calcTargets( BoardCell startCell, int pathLength) {
 
-		visited = new HashSet<TestBoardCell>();
-		targets = new HashSet<TestBoardCell>();
+		visited = new HashSet<BoardCell>();
+		targets = new HashSet<BoardCell>();
 		visited.add(startCell);
 		generateTargets(startCell, pathLength);
 
 	}
 
-	public void generateTargets(TestBoardCell startCell, int pathLength) {
+	public void generateTargets(BoardCell startCell, int pathLength) {
 
-		for(TestBoardCell cell : startCell.getAdjList()) {
+		for(BoardCell cell : startCell.getAdjList()) {
 			if( !visited.contains(cell)) {
 				visited.add(cell);
 				if(pathLength == 1) {
@@ -68,20 +66,17 @@ public class TestBoard {
 				}
 				visited.remove(cell);
 			}
-	
 		}
-
 	}
 
-	public Set<TestBoardCell> getTargets() {
+	public Set<BoardCell> getTargets() {
 		return targets;
 	}
 
-	public TestBoardCell getCell( int row, int col) {
+	public BoardCell getCell( int row, int col) {
 
-		TestBoardCell e = grid[row][col];
+		BoardCell e = grid[row][col];
 		return e;
 
 	}
-
 }

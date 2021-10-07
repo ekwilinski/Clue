@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import experiment.TestBoard;
-import experiment.TestBoardCell;
+import experiment.BoardCell;
 
 class BoardTestsExp {
 	TestBoard board;
@@ -22,33 +22,33 @@ class BoardTestsExp {
 
 	@Test
 	void testCornersAndEdges() {
-		TestBoardCell cellTopLeft = board.getCell(0, 0);
-		Set<TestBoardCell> testList = cellTopLeft.getAdjList();
+		BoardCell cellTopLeft = board.getCell(0, 0);
+		Set<BoardCell> testList = cellTopLeft.getAdjList();
 		Assert.assertTrue(testList.contains(board.getCell(1,0)));
 		Assert.assertTrue(testList.contains(board.getCell(0,1)));
 		Assert.assertEquals(2, testList.size());
 		
-		TestBoardCell cellBottomRight = board.getCell(3, 3);
-		Set<TestBoardCell> testList2 = cellBottomRight.getAdjList();
+		BoardCell cellBottomRight = board.getCell(3, 3);
+		Set<BoardCell> testList2 = cellBottomRight.getAdjList();
 		Assert.assertTrue(testList2.contains(board.getCell(3,2)));
 		Assert.assertTrue(testList2.contains(board.getCell(2,3)));
 		Assert.assertEquals(2, testList2.size());
 		
-		TestBoardCell cellRightEdge = board.getCell(1, 3);
-		Set<TestBoardCell> testList3 = cellRightEdge.getAdjList();
+		BoardCell cellRightEdge = board.getCell(1, 3);
+		Set<BoardCell> testList3 = cellRightEdge.getAdjList();
 		Assert.assertTrue(testList3.contains(board.getCell(0,3)));
 		Assert.assertTrue(testList3.contains(board.getCell(1,2)));
 		Assert.assertTrue(testList3.contains(board.getCell(2,3)));
 		Assert.assertEquals(3, testList3.size());
 		
-		TestBoardCell cellLeftEdge = board.getCell(3,0);
-		Set<TestBoardCell> testList4 = cellLeftEdge.getAdjList();
+		BoardCell cellLeftEdge = board.getCell(3,0);
+		Set<BoardCell> testList4 = cellLeftEdge.getAdjList();
 		Assert.assertTrue(testList4.contains(board.getCell(2,0)));
 		Assert.assertTrue(testList4.contains(board.getCell(3,1)));
 		Assert.assertEquals(2, testList4.size());
 		
-		TestBoardCell cellMiddle = board.getCell(2, 2);
-		Set<TestBoardCell> testList5 = cellMiddle.getAdjList();
+		BoardCell cellMiddle = board.getCell(2, 2);
+		Set<BoardCell> testList5 = cellMiddle.getAdjList();
 		Assert.assertTrue(testList5.contains(board.getCell(2,1)));
 		Assert.assertTrue(testList5.contains(board.getCell(2,3)));
 		Assert.assertTrue(testList5.contains(board.getCell(1,2)));
@@ -58,9 +58,9 @@ class BoardTestsExp {
 	
 	@Test
 	void testEmptyTarget() {
-		TestBoardCell cell = board.getCell(0, 0);
+		BoardCell cell = board.getCell(0, 0);
 		board.calcTargets(cell, 2);
-		Set<TestBoardCell> targets = board.getTargets();
+		Set<BoardCell> targets = board.getTargets();
 		Assert.assertTrue(targets.contains(board.getCell(2,0)));
 		Assert.assertTrue(targets.contains(board.getCell(1,1)));
 		Assert.assertTrue(targets.contains(board.getCell(0,2)));
@@ -69,10 +69,10 @@ class BoardTestsExp {
 	
 	@Test
 	void testOccupiedTarget() {
-		TestBoardCell cell = board.getCell(0, 0);
+		BoardCell cell = board.getCell(0, 0);
 		board.calcTargets(cell, 2);
 		board.getCell(2, 0).setOccupied(true);
-		Set<TestBoardCell> targets = board.getTargets();
+		Set<BoardCell> targets = board.getTargets();
 		Assert.assertTrue(targets.contains(board.getCell(2, 0)));
 		Assert.assertTrue(targets.contains(board.getCell(1,1)));
 		Assert.assertTrue(targets.contains(board.getCell(0,2)));
@@ -81,10 +81,10 @@ class BoardTestsExp {
 	
 	@Test
 	void testRoomTarget() {
-		TestBoardCell cell = board.getCell(0, 0);
+		BoardCell cell = board.getCell(0, 0);
 		board.calcTargets(cell, 2);
 		board.getCell(2, 0).setRoom(true);
-		Set<TestBoardCell> targets = board.getTargets();
+		Set<BoardCell> targets = board.getTargets();
 		Assert.assertTrue(targets.contains(board.getCell(2, 0)));
 		Assert.assertTrue(targets.contains(board.getCell(1,1)));
 		Assert.assertTrue(targets.contains(board.getCell(0,2)));
@@ -93,11 +93,11 @@ class BoardTestsExp {
 	
 	@Test
 	void testRoomOccupied() {
-		TestBoardCell cell = board.getCell(0, 0);
+		BoardCell cell = board.getCell(0, 0);
 		board.calcTargets(cell, 2);
 		board.getCell(2, 0).setRoom(true);
 		board.getCell(1, 1).setOccupied(true);
-		Set<TestBoardCell> targets = board.getTargets();
+		Set<BoardCell> targets = board.getTargets();
 		Assert.assertTrue(targets.contains(board.getCell(2, 0)));
 		Assert.assertTrue(targets.contains(board.getCell(1,1)));
 		Assert.assertTrue(targets.contains(board.getCell(0,2)));
@@ -106,9 +106,9 @@ class BoardTestsExp {
 	
 	@Test
 	void testRollSix() {
-		TestBoardCell cell = board.getCell(3, 3);
+		BoardCell cell = board.getCell(3, 3);
 		board.calcTargets(cell, 6);
-		Set<TestBoardCell> targets = board.getTargets();
+		Set<BoardCell> targets = board.getTargets();
 		Assert.assertTrue(targets.contains(board.getCell(0, 0)));
 		Assert.assertTrue(targets.contains(board.getCell(0, 2)));
 		Assert.assertTrue(targets.contains(board.getCell(2, 0)));

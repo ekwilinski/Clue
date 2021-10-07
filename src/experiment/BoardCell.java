@@ -3,22 +3,22 @@ package experiment;
 import java.util.HashSet;
 import java.util.Set;
 
-public class TestBoardCell {
+public class BoardCell {
 	
 	private int row, column;
 	private Boolean isRoom, isOccupied ;
-	private Set<TestBoardCell> adjacencyList = new HashSet<TestBoardCell>();
+	private Set<BoardCell> adjacencyList = new HashSet<BoardCell>();
 	
-	public TestBoardCell(int row, int column) {
+	public BoardCell(int row, int column) {
 		this.row = row;
 		this.column = column;
 	}
 	
-	public void addAdjacency( TestBoardCell cell ) {
+	public void addAdjacency( BoardCell cell ) {
 		adjacencyList.add(cell);
 	}
 	
-	public Set<TestBoardCell> getAdjList() {
+	public Set<BoardCell> getAdjList() {
 		return adjacencyList;
 	}
 	
@@ -44,6 +44,4 @@ public class TestBoardCell {
 	public int getColumn() {
 		return column;
 	}
-	
-	
 }
