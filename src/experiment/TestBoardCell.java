@@ -23,7 +23,7 @@ public class TestBoardCell {
 	}
 	
 	public void setRoom(boolean roomOrNot) {
-		
+		isRoom = roomOrNot;
 	}
 	
 	public boolean isRoom() {
@@ -31,7 +31,7 @@ public class TestBoardCell {
 	}
 	
 	public void setOccupied(boolean isOccupied) {
-		
+		this.isOccupied = isOccupied;
 	}
 	
 	public boolean getOccupied() {

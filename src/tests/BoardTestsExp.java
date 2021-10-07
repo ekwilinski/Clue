@@ -110,19 +110,13 @@ class BoardTestsExp {
 		board.calcTargets(cell, 6);
 		Set<TestBoardCell> targets = board.getTargets();
 		Assert.assertTrue(targets.contains(board.getCell(0, 0)));
-		Assert.assertTrue(targets.contains(board.getCell(0, 3)));
 		Assert.assertTrue(targets.contains(board.getCell(0, 2)));
-		Assert.assertTrue(targets.contains(board.getCell(0,1)));
-		Assert.assertTrue(targets.contains(board.getCell(1, 0)));
-		Assert.assertTrue(targets.contains(board.getCell(1, 1)));
-		Assert.assertTrue(targets.contains(board.getCell(1, 2)));
-		Assert.assertTrue(targets.contains(board.getCell(1, 3)));
 		Assert.assertTrue(targets.contains(board.getCell(2, 0)));
-		Assert.assertTrue(targets.contains(board.getCell(2, 1)));
+		Assert.assertTrue(targets.contains(board.getCell(1, 1)));
+		Assert.assertTrue(targets.contains(board.getCell(1, 3)));
 		Assert.assertTrue(targets.contains(board.getCell(2, 2)));
-		Assert.assertTrue(targets.contains(board.getCell(3, 0)));
 		Assert.assertTrue(targets.contains(board.getCell(3, 1)));
-		Assert.assertEquals(13, targets.size());
+		Assert.assertEquals(7, targets.size());
 		
 		
 		

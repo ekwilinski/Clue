@@ -46,13 +46,35 @@ public class TestBoard {
 
 	}
 
-	public void calcTargets( TestBoardCell startCell, int pathlength) {
+	public void calcTargets( TestBoardCell startCell, int pathLength) {
+
+		visited = new HashSet<TestBoardCell>();
+		targets = new HashSet<TestBoardCell>();
+		visited.add(startCell);
+		generateTargets(startCell, pathLength);
+
+	}
+
+	public void generateTargets(TestBoardCell startCell, int pathLength) {
+
+		for(TestBoardCell cell : startCell.getAdjList()) {
+			if( !visited.contains(cell)) {
+				visited.add(cell);
+				if(pathLength == 1) {
+					targets.add(cell);
+				}
+				else {
+					generateTargets(cell, pathLength-1);
+				}
+				visited.remove(cell);
+			}
+	
+		}
 
 	}
 
 	public Set<TestBoardCell> getTargets() {
-		Set<TestBoardCell> emptyList = new HashSet<TestBoardCell>();
-		return emptyList;
+		return targets;
 	}
 
 	public TestBoardCell getCell( int row, int col) {
