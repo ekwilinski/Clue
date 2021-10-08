@@ -5,4 +5,20 @@ public class Room {
 	private BoardCell centerCell;
 	private BoardCell labelCell;
 	
+	public Room() {
+		
+	}
+	
+	public String getName() {
+		return "blank";
+	}
+	
+	public BoardCell getLabelCell() {
+		return labelCell;
+	}
+
+	public BoardCell getCenterCell() {
+		return centerCell;
+	}
+	
 }

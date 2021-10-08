@@ -1,7 +1,7 @@
 package clueGame;
 
 import java.util.Map;
-import experiment.BoardCell;
+import clueGame.BoardCell;
 
 public class Board {
 	private BoardCell[][] grid; //= new BoardCell[][];
@@ -41,8 +41,31 @@ public class Board {
 
 	}
 
-	public static Board getInstance() {
-		Board empty = new Board();
-		return empty;
+	public Room getRoom(char roomName) {
+		Room blank = new Room();
+		return blank;
+	}
+
+	public int getNumRows() {
+		return numRows;
+	}
+	
+	public int getNumColumns() {
+		return numColumns;
+	}
+	
+	public BoardCell getCell(int row, int column) {
+		BoardCell emptyCell = new BoardCell(row, column);
+		return emptyCell;
+	}
+	
+	public Room getRoom(BoardCell cell) {
+		Room blank = new Room();
+		return blank;
+	}
+
+	public void setConfigFiles(String string, String string2) {
+		// TODO Auto-generated method stub
+		
 	}
 }

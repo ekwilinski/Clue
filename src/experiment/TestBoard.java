@@ -5,16 +5,16 @@ public class TestBoard {
 	final static int COLS = 4;
 	final static int ROWS = 4;
 
-	private BoardCell[][] grid = new BoardCell[ROWS][COLS];
-	private Set<BoardCell> targets;
-	private Set<BoardCell> visited;
+	private TestBoardCell[][] grid = new TestBoardCell[ROWS][COLS];
+	private Set<TestBoardCell> targets;
+	private Set<TestBoardCell> visited;
 
 
 	public TestBoard() {
 
 		for(int i = 0; i < 4; i++) {
 			for(int j = 0; j < 4; j++) {
-				grid[i][j] = new BoardCell(i,j);
+				grid[i][j] = new TestBoardCell(i,j);
 			}
 		}
 		for(int i = 0; i < 4; i++) {
@@ -24,7 +24,7 @@ public class TestBoard {
 		}
 	}
 
-	private void generateAdjList(BoardCell cell) {
+	private void generateAdjList(TestBoardCell cell) {
 		//left square
 		if(cell.getRow() > 0) {
 			cell.addAdjacency(getCell(cell.getRow()-1, cell.getColumn()));
@@ -44,18 +44,18 @@ public class TestBoard {
 
 	}
 
-	public void calcTargets( BoardCell startCell, int pathLength) {
+	public void calcTargets( TestBoardCell startCell, int pathLength) {
 
-		visited = new HashSet<BoardCell>();
-		targets = new HashSet<BoardCell>();
+		visited = new HashSet<TestBoardCell>();
+		targets = new HashSet<TestBoardCell>();
 		visited.add(startCell);
 		generateTargets(startCell, pathLength);
 
 	}
 
-	public void generateTargets(BoardCell startCell, int pathLength) {
+	public void generateTargets(TestBoardCell startCell, int pathLength) {
 
-		for(BoardCell cell : startCell.getAdjList()) {
+		for(TestBoardCell cell : startCell.getAdjList()) {
 			if( !visited.contains(cell)) {
 				visited.add(cell);
 				if(pathLength == 1) {
@@ -69,13 +69,13 @@ public class TestBoard {
 		}
 	}
 
-	public Set<BoardCell> getTargets() {
+	public Set<TestBoardCell> getTargets() {
 		return targets;
 	}
 
-	public BoardCell getCell( int row, int col) {
+	public TestBoardCell getCell( int row, int col) {
 
-		BoardCell e = grid[row][col];
+		TestBoardCell e = grid[row][col];
 		return e;
 
 	}
