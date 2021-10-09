@@ -1,0 +1,15 @@
+We decided to follow the 306 Test Init pretty closely in order
+to make sure that we wrote enough good tests. We changed a number
+of parts of the code to match our board and I will document 
+those below:
+
+ROWS/COLS - We set these values to match our 20x20 board
+Setup - We changed the names of the data files to match ours
+TestRoomLabels - we changed the room names and room symbols to match our data
+TestDimensions - kept the same
+FourDoorDirections - set the specific locations of our doors
+testNumberOfDoorways - set our num of doors
+testRooms - set our room types as well as their labels
+	Ex. walkway becomes hallway and closet becomes storage
+	
+	
