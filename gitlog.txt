@@ -1,3 +1,33 @@
+commit 6f949d7b553fea970f44ac405b4b688aaa8bae64
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Fri Oct 8 22:20:35 2021 -0600
+
+    created text.txt
+
+commit 584e582020c411e3f5f38f20c52619072bebc286
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Fri Oct 8 14:23:22 2021 -0600
+
+    Elliot K - all 306 Tests fail - no errors
+
+commit 58474fb7b24db1554da19f2360723ee89a40bd39
+Author: ecorendain <ecorendain@mines.edu>
+Date:   Thu Oct 7 15:00:47 2021 -0600
+
+    Elena created java class stubs based on UML diagram.
+
+commit c6ff7857215f819fea33f6e23a72e1fae04fd686
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Thu Oct 7 14:33:17 2021 -0600
+
+    Elliot K - added csv to data
+
+commit 23139781ea5975649f80c78289be2b35376b4ccf
+Author: ecorendain <ecorendain@mines.edu>
+Date:   Thu Oct 7 14:31:14 2021 -0600
+
+    Elena added files.
+
 commit 38261a75eae335ea6426c44d75757e605d02b892
 Author: Elliot Kwilinski <ekwilinski@mines.edu>
 Date:   Wed Oct 6 22:06:39 2021 -0600

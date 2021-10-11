@@ -5,8 +5,8 @@ public class Room {
 	private BoardCell centerCell;
 	private BoardCell labelCell;
 	
-	public Room() {
-		
+	public Room(String name) {
+		this.name = name;
 	}
 	
 	public String getName() {

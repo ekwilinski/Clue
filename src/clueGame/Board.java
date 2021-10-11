@@ -2,6 +2,7 @@ package clueGame;
 
 import java.util.Map;
 import clueGame.BoardCell;
+import java.io.*;
 
 public class Board {
 	private BoardCell[][] grid; //= new BoardCell[][];
@@ -30,11 +31,27 @@ public class Board {
 	 */
 	
 	public void initialize() {
-		
+		try {
+			loadSetupConfig();
+		} catch(FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	public void loadSetupConfig() {
-
+	public void loadSetupConfig() throws IOException {
+			BufferedReader f = new BufferedReader(new FileReader(setupConfigFile));
+			String line;
+			while((line = f.readLine()) != null) {
+				if(!line.contains("//")) {
+					String[] lineData = line.split(", ");
+					Room paul = new Room(lineData[1]);
+					roomMap.put(lineData[2].charAt(0), paul);
+				}
+			f.close();
+			}
 	}
 
 	public void loadLayoutConfig() {
@@ -42,7 +59,7 @@ public class Board {
 	}
 
 	public Room getRoom(char roomName) {
-		Room blank = new Room();
+		Room blank = roomMap.get(roomName);
 		return blank;
 	}
 
@@ -60,12 +77,12 @@ public class Board {
 	}
 	
 	public Room getRoom(BoardCell cell) {
-		Room blank = new Room();
+		Room blank = new Room("");
 		return blank;
 	}
 
-	public void setConfigFiles(String string, String string2) {
-		// TODO Auto-generated method stub
-		
+	public void setConfigFiles(String csv, String txt) {
+		layoutConfigFile = csv;
+		setupConfigFile = txt;
 	}
 }
