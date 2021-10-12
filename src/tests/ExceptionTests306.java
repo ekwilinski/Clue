@@ -6,6 +6,7 @@ package tests;
  */
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.junit.Test;
 import clueGame.BadConfigFormatException;

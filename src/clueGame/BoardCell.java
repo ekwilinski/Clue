@@ -11,6 +11,7 @@ public class BoardCell {
 	private boolean roomCenter;
 	private char secretPassage;
 	private Set<BoardCell> adjList;
+	private boolean isDoorway;
 	
 	public BoardCell(int row, int column) {
 		this.row = row;
@@ -20,20 +21,26 @@ public class BoardCell {
 	public void addAdj(BoardCell adj) {
 		
 	}
-
-	public boolean isDoorway() {
-		// TODO Auto-generated method stub
-		return false;
+	
+	public void setIsDoor(boolean isDoor) {
+		isDoorway = isDoor;
 	}
 
-	public Object getDoorDirection() {
+	public boolean isDoorway() {
+		return isDoorway;
+	}
+	
+	public void setDoorDirection(DoorDirection direction) {
+		doorDirection = direction;
+	}
+
+	public DoorDirection getDoorDirection() {
 		// TODO Auto-generated method stub
-		return null;
+		return doorDirection;
 	}
 
 	public boolean isLabel() {
-		// TODO Auto-generated method stub
-		return false;
+		return roomLabel;
 	}
 
 	public boolean isRoomCenter() {
@@ -44,5 +51,13 @@ public class BoardCell {
 	public char getSecretPassage() {
 		// TODO Auto-generated method stub
 		return 'z';
+	}
+	
+	public void setInitial(char initial) {
+		this.initial = initial;
+	}
+	
+	public char getInitial() {
+		return initial;
 	}
 }

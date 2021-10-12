@@ -10,7 +10,7 @@ public class Room {
 	}
 	
 	public String getName() {
-		return "blank";
+		return name;
 	}
 	
 	public BoardCell getLabelCell() {
