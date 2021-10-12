@@ -12,6 +12,7 @@ public class BoardCell {
 	private char secretPassage;
 	private Set<BoardCell> adjList;
 	private boolean isDoorway;
+	private Boolean isRoom, isOccupied;
 	
 	public BoardCell(int row, int column) {
 		this.row = row;
@@ -19,7 +20,7 @@ public class BoardCell {
 	}
 
 	public void addAdj(BoardCell adj) {
-		
+		adjList.add(adj);
 	}
 	
 	public void setIsDoor(boolean isDoor) {
@@ -69,5 +70,9 @@ public class BoardCell {
 	
 	public char getInitial() {
 		return initial;
+	}
+
+	public void setOccupied(boolean b) {
+		isOccupied= b;
 	}
 }

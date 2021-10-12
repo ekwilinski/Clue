@@ -2,8 +2,10 @@ package clueGame;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 import clueGame.BoardCell;
 import experiment.TestBoardCell;
@@ -18,6 +20,7 @@ public class Board {
 	private String layoutConfigFile;
 	private String setupConfigFile;
 	private Map<Character, Room> roomMap = new HashMap<Character, Room>();
+	private Set<BoardCell> targets= new HashSet<>(); 
 
 	/*
 	 * variable and methods used for singleton pattern
@@ -25,7 +28,7 @@ public class Board {
 	private static Board theInstance = new Board();
 	// constructor is private to ensure only one can be created
 	private Board() {
-		super() ;
+		super();
 	}
 
 	// this method returns the only Board
@@ -158,5 +161,18 @@ public class Board {
 	public void setConfigFiles(String csv, String txt) {
 		layoutConfigFile = csv;
 		setupConfigFile = txt;
+	}
+	
+	public Set<BoardCell> getAdjList(int i, int j) {
+		Set<BoardCell> emptySet= new HashSet<>();
+		return emptySet;
+	}
+
+	public void calcTargets(BoardCell cell, int i) {
+		
+	}
+
+	public Set<BoardCell> getTargets() {
+		return targets;
 	}
 }
