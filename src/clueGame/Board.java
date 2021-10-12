@@ -66,23 +66,36 @@ public class Board {
 		FileReader f = new FileReader(layoutConfigFile);
 		Scanner in = new Scanner(f);
 		String line;
-		
+
 		ArrayList<String> temp = new ArrayList<String>();
 		while(in.hasNextLine()) {
 			line = in.nextLine();
 			temp.add(line);
 		}
-		
+
 		numRows = temp.size();
 		String[] sizeCheck = temp.get(0).split(",");
 		for(String c : sizeCheck) {
+			String[] test =  c.split(",");
+			for(String rooms : test) {
+				if((rooms.length() < 1) || (rooms.length() > 2)) {
+					throw new BadConfigFormatException();
+				}
+			}
 			numColumns++;
 		}
 		grid = new BoardCell[numRows][numColumns];
-		
+
 		int i = 0;
 		for(String lineData : temp) {
 			String[] currentLine = lineData.split(",");
+			int length = 0;
+			for(String c : currentLine) {
+				length++;
+			}
+			if(length != numColumns) {
+				throw new BadConfigFormatException();
+			}
 			for(int j = 0; j < numColumns; j++) {
 				grid[i][j] = new BoardCell(i, j);
 				grid[i][j].setInitial(currentLine[j].charAt(0));
@@ -138,7 +151,7 @@ public class Board {
 	}
 
 	public Room getRoom(BoardCell cell) {
-		
+
 		return roomMap.get(cell.getInitial()); 
 	}
 
