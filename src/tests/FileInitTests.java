@@ -140,8 +140,5 @@ class FileInitTests {
 		assertEquals( room.getName(), "Storage" ) ;
 		assertFalse( cell.isRoomCenter() );
 		assertFalse( cell.isLabel() );
-
 	}
-
-
 }
