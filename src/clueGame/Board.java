@@ -54,13 +54,12 @@ public class Board {
 		while(in.hasNextLine()) {
 			line = in.nextLine();
 			if(!line.contains("//")) {
-
 				String[] lineData = line.split(", ");
-				Room paul = new Room(lineData[1]);
-				roomMap.put(lineData[2].charAt(0), paul);
+				Room room_data = new Room(lineData[1]);
+				roomMap.put(lineData[2].charAt(0), room_data);
 			}
 		}
-
+		in.close();
 	}
 
 	public void loadLayoutConfig() throws BadConfigFormatException, FileNotFoundException {
@@ -117,6 +116,7 @@ public class Board {
 			}
 			i++;
 		}
+		in.close();
 	}
 
 	public Room getRoom(char roomName) {
