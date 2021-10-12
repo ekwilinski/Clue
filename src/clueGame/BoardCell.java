@@ -39,18 +39,28 @@ public class BoardCell {
 		return doorDirection;
 	}
 
+	public void setIsLabel() {
+		roomLabel = true;
+	}
+
 	public boolean isLabel() {
 		return roomLabel;
 	}
+	
+	public void setIsRoomCenter() {
+		roomCenter = true;
+	}
 
 	public boolean isRoomCenter() {
-		// TODO Auto-generated method stub
-		return false;
+		return roomCenter;
+	}
+	
+	public void setSecretPassage(char k) {
+		secretPassage = k;
 	}
 
 	public char getSecretPassage() {
-		// TODO Auto-generated method stub
-		return 'z';
+		return secretPassage;
 	}
 	
 	public void setInitial(char initial) {

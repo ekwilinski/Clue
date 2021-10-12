@@ -18,8 +18,8 @@ class FileInitTests {
 
 	// Constants that I will use to test whether the file was loaded correctly
 	public static final int LEGEND_SIZE = 11;
-	public static final int NUM_ROWS = 20;
-	public static final int NUM_COLUMNS = 20;
+	public static final int NUM_ROWS = 21;
+	public static final int NUM_COLUMNS = 21;
 
 	// NOTE: I made Board static because I only want to set it up one
 	// time (using @BeforeAll), no need to do setup before each test.
@@ -30,7 +30,7 @@ class FileInitTests {
 		// Board is singleton, get the only instance
 		board = Board.getInstance();
 		// set the file names to use my config files
-		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
+		board.setConfigFiles("data/ClueLayout.csv", "data/ClueSetup.txt");
 		// Initialize will load BOTH config files
 		board.initialize();
 	}
@@ -134,7 +134,7 @@ class FileInitTests {
 		assertFalse( cell.isLabel() );
 
 		// test a closet
-		cell = board.getCell(5, 15);
+		cell = board.getCell(0, 7);
 		room = board.getRoom( cell ) ;
 		assertTrue( room != null );
 		assertEquals( room.getName(), "Storage" ) ;

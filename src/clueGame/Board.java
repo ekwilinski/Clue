@@ -103,6 +103,17 @@ public class Board {
 					grid[i][j].setIsDoor(true);
 					grid[i][j].setDoorDirection(DoorDirection.RIGHT);
 				}
+				if(currentLine[j].contains("#")) {
+					grid[i][j].setIsLabel();
+					roomMap.get(grid[i][j].getInitial()).setLabelCell(grid[i][j]);
+				}
+				if(currentLine[j].contains("*")) {
+					grid[i][j].setIsRoomCenter();
+					roomMap.get(grid[i][j].getInitial()).setCenterCell(grid[i][j]);
+				}
+				if((currentLine[j].length() > 1) && roomMap.containsKey(currentLine[j].charAt(1))) {
+					grid[i][j].setSecretPassage(currentLine[j].charAt(1));
+				}
 			}
 			i++;
 		}

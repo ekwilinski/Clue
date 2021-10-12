@@ -8,7 +8,6 @@ Room, Cubicle, U
 Room, Locker Room, L
 Room, Jim Gym, G
 Room, Regional Manager's Office, M
-
 // other spaces
 Space, Storage, X
 Space, Hallway, H
