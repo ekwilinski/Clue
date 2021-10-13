@@ -1,3 +1,64 @@
+commit 86d5f65a215a73100d469c006613952af319d522
+Author: ecorendain <ecorendain@mines.edu>
+Date:   Tue Oct 12 23:29:19 2021 -0600
+
+    Elena made all boardAdjTest fail. All other tests still either pass/fail.
+
+commit ec92acf6e5cd6af42d676269e79d951aa26ba127
+Author: ecorendain <ecorendain@mines.edu>
+Date:   Tue Oct 12 22:47:14 2021 -0600
+
+    Elena- boardAdjTargetTest fail except testTargetOccupied().
+
+commit 21ca522afa2817076db1eed621c48799a155aef5
+Author: ecorendain <ecorendain@mines.edu>
+Date:   Tue Oct 12 17:05:11 2021 -0600
+
+    Elena- finsihed first half of BoardAdjTargetTest.
+
+commit ea730c140308b90d3bdae54ccc8a79531df410d2
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Tue Oct 12 14:17:12 2021 -0600
+
+    Elliot - fixed 306 exception failure
+
+commit 3b4c080cb158fa6b66b049324fb468f6f46d53c5
+Author: ecorendain <ecorendain@mines.edu>
+Date:   Mon Oct 11 23:27:03 2021 -0600
+
+    working through exceptions errors
+
+commit 9f2ab31d45188a83e7ad44fda51aff8968e975b6
+Merge: 256622d 8c0c19f
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Oct 11 21:41:04 2021 -0600
+
+    Merge branch 'main' of https://github.com/ekwilinski/Clue
+
+commit 256622d91e68aa00d0efcbe4ceae233f619aac7c
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Oct 11 21:40:45 2021 -0600
+
+    Elliot K - passed all tests
+
+commit c11c8b2d6884914a5856f88c0047b1cbae32c737
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Oct 11 20:06:07 2021 -0600
+
+    Elena O - Passed first 4 tests
+
+commit 8c0c19f7362130fdfae90c3fe7c20682873fecd6
+Author: ecorendain <ecorendain@mines.edu>
+Date:   Mon Oct 11 16:42:09 2021 -0600
+
+    Added BoardAdjTargetTest to project.
+
+commit c154288ca2bf5ea68fe21d799323000705660414
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Oct 11 16:23:12 2021 -0600
+
+    passed setup file test
+
 commit 6f949d7b553fea970f44ac405b4b688aaa8bae64
 Author: Elliot Kwilinski <ekwilinski@mines.edu>
 Date:   Fri Oct 8 22:20:35 2021 -0600
