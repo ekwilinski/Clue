@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class BoardCell {
@@ -10,9 +11,10 @@ public class BoardCell {
 	private boolean roomLabel;
 	private boolean roomCenter;
 	private char secretPassage;
-	private Set<BoardCell> adjList;
+	private boolean isSecretPassageway;
+	private Set<BoardCell> adjList = new HashSet<BoardCell>();
 	private boolean isDoorway;
-	private Boolean isRoom, isOccupied;
+	private boolean isRoom, isOccupied;
 	
 	public BoardCell(int row, int column) {
 		this.row = row;
@@ -56,8 +58,13 @@ public class BoardCell {
 		return roomCenter;
 	}
 	
+	public boolean isPassageway() {
+		return isSecretPassageway;
+	}
+	
 	public void setSecretPassage(char k) {
 		secretPassage = k;
+		isSecretPassageway = true;
 	}
 
 	public char getSecretPassage() {
@@ -74,5 +81,16 @@ public class BoardCell {
 
 	public void setOccupied(boolean b) {
 		isOccupied= b;
+	}
+	
+	public Set<BoardCell> getAdjList() {
+		return adjList;
+	}
+
+	public int getRow() {
+		return row;
+	}
+	public int getColumn() {
+		return column;
 	}
 }
