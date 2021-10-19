@@ -17,6 +17,7 @@ public class Board {
 	private BoardCell[][] grid; //= new BoardCell[][];
 	private int numRows;
 	private int numColumns;
+	private int totalLength;
 	private String layoutConfigFile;
 	private String setupConfigFile;
 	private Map<Character, Room> roomMap = new HashMap<Character, Room>();
@@ -177,21 +178,27 @@ public class Board {
 		visited = new HashSet<BoardCell>();
 		targets = new HashSet<BoardCell>();
 		visited.add(cell);
+		totalLength = pathLength;
 		generateTargets(cell, pathLength);
 	}
 
 	private void generateTargets(BoardCell startCell, int pathLength) {
 		for(BoardCell cell : startCell.getAdjList()) {
-			if( !visited.contains(cell)) {
-				visited.add(cell);
-				if(pathLength == 1) {
-					targets.add(cell);
+			if( !startCell.isDoorway() && !cell.isRoomCenter()) {
+				if(!cell.isOccupied() || cell.isRoomCenter()) {
+					if( !visited.contains(cell)) {
+						visited.add(cell);
+						if(pathLength == 1) {
+							targets.add(cell);
+						}
+						else {
+							generateTargets(cell, pathLength-1);
+						}
+						visited.remove(cell);
+					}
 				}
-				else {
-					generateTargets(cell, pathLength-1);
-				}
-				visited.remove(cell);
 			}
+
 		}
 
 	}
@@ -225,7 +232,7 @@ public class Board {
 				cell.addAdj(getCell(cell.getRow(), cell.getColumn()+1));
 			}
 		}
-		
+
 		if(cell.isDoorway()) {
 			char initial;
 			if(cell.getDoorDirection() == DoorDirection.UP) {
@@ -270,11 +277,11 @@ public class Board {
 				for(BoardCell centerCell : roomCenters) {
 					if(centerCell.getInitial() == passagewayCells.get(cell.getInitial()).getSecretPassage()) {
 						cell.addAdj(centerCell);
-						
+
 					}
 				}
 			}
-			
+
 		}
 
 	}

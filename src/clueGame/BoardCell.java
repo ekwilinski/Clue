@@ -83,6 +83,10 @@ public class BoardCell {
 		isOccupied= b;
 	}
 	
+	public boolean isOccupied() {
+		return isOccupied;
+	}
+	
 	public Set<BoardCell> getAdjList() {
 		return adjList;
 	}
