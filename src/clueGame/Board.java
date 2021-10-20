@@ -156,12 +156,11 @@ public class Board {
 	}
 
 	public BoardCell getCell(int row, int column) {
-		BoardCell emptyCell = grid[row][column];
-		return emptyCell;
+		BoardCell tempCell = grid[row][column];
+		return tempCell;
 	}
 
 	public Room getRoom(BoardCell cell) {
-
 		return roomMap.get(cell.getInitial()); 
 	}
 
@@ -206,16 +205,13 @@ public class Board {
 					visited.remove(cell);
 				}
 			}
-
-
 		}
-
 	}
 
 	private void generateAllAdjacencies() {
 		for(int i = 0; i < numRows; i++) {
 			for(int j = 0; j < numColumns; j++) {
-				if((grid[i][j].isDoorway()) || (grid[i][j].isRoomCenter()) || (grid[i][j].getInitial() == 'W')) {
+				if((grid[i][j].isDoorway()) || (grid[i][j].isRoomCenter()) || (grid[i][j].getInitial() == 'W') || (grid[i][j].getInitial() == 'H')) {
 					generateAdjList(grid[i][j]);
 				}
 			}
@@ -223,21 +219,21 @@ public class Board {
 	}
 
 	private void generateAdjList(BoardCell cell) {
-		if( (cell.isDoorway()) || (cell.getInitial() == 'W')) {
+		if( (cell.isDoorway()) || (cell.getInitial() == 'W') || (cell.getInitial() == 'H')) {
 			//left square
-			if( (cell.getRow() > 0) && (getCell(cell.getRow()-1, cell.getColumn()).getInitial() == 'W' )) {
+			if( (cell.getRow() > 0) && (getCell(cell.getRow()-1, cell.getColumn()).getInitial() == 'W') || ((cell.getRow() > 0) && (getCell(cell.getRow()-1, cell.getColumn()).getInitial() == 'H')) ) {
 				cell.addAdj(getCell(cell.getRow()-1, cell.getColumn()));
 			}
 			//right square
-			if( (cell.getRow() < (numRows - 1)) && (getCell(cell.getRow()+1, cell.getColumn()).getInitial() == 'W' )) {
+			if( (cell.getRow() < (numRows - 1)) && (getCell(cell.getRow()+1, cell.getColumn()).getInitial() == 'W') || ((cell.getRow() < (numRows - 1)) && (getCell(cell.getRow()+1, cell.getColumn()).getInitial() == 'H')) ) {
 				cell.addAdj(getCell(cell.getRow()+1, cell.getColumn()));
 			}
 			//upper square
-			if((cell.getColumn() > 0) && (getCell(cell.getRow(), cell.getColumn()-1).getInitial() == 'W' )) {
+			if( (cell.getColumn() > 0) && (getCell(cell.getRow(), cell.getColumn()-1).getInitial() == 'W') || ((cell.getColumn() > 0) && (getCell(cell.getRow(), cell.getColumn()-1).getInitial() == 'H')) ) {
 				cell.addAdj(getCell(cell.getRow(), cell.getColumn()-1));
 			}
 			//lower square
-			if((cell.getColumn() < (numColumns - 1)) && (getCell(cell.getRow(), cell.getColumn()+1).getInitial() == 'W' )) {
+			if( (cell.getColumn() < (numColumns - 1)) && (getCell(cell.getRow(), cell.getColumn()+1).getInitial() == 'W') || ((cell.getColumn() < (numColumns - 1)) && (getCell(cell.getRow(), cell.getColumn()+1).getInitial() == 'H')) ) {
 				cell.addAdj(getCell(cell.getRow(), cell.getColumn()+1));
 			}
 		}
@@ -290,9 +286,7 @@ public class Board {
 					}
 				}
 			}
-
 		}
-
 	}
 
 	public Set<BoardCell> getTargets() {
