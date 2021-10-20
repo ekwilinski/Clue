@@ -184,20 +184,29 @@ public class Board {
 
 	private void generateTargets(BoardCell startCell, int pathLength) {
 		for(BoardCell cell : startCell.getAdjList()) {
-			if( !startCell.isDoorway() && !cell.isRoomCenter()) {
-				if(!cell.isOccupied() || cell.isRoomCenter()) {
-					if( !visited.contains(cell)) {
-						visited.add(cell);
-						if(pathLength == 1) {
-							targets.add(cell);
-						}
-						else {
-							generateTargets(cell, pathLength-1);
-						}
-						visited.remove(cell);
-					}
+			if( startCell.isDoorway() && cell.isRoomCenter()) {
+				if(!visited.contains(cell)) {
+					targets.add(cell);
 				}
 			}
+			else if( startCell.isRoomCenter() && cell.isRoomCenter()) {
+				if(!visited.contains(cell)) {
+					targets.add(cell);
+				}
+			}
+			else if(!cell.isOccupied() || cell.isRoomCenter()) {
+				if( !visited.contains(cell)) {
+					visited.add(cell);
+					if(pathLength == 1) {
+						targets.add(cell);
+					}
+					else {
+						generateTargets(cell, pathLength-1);
+					}
+					visited.remove(cell);
+				}
+			}
+
 
 		}
 
