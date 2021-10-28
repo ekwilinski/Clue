@@ -176,7 +176,6 @@ public class Board {
 		visited = new HashSet<BoardCell>();
 		targets = new HashSet<BoardCell>();
 		visited.add(cell);
-		totalLength = pathLength;
 		generateTargets(cell, pathLength);
 	}
 
@@ -241,39 +240,27 @@ public class Board {
 			char initial;
 			if(cell.getDoorDirection() == DoorDirection.UP) {
 				initial = grid[cell.getRow()-1][cell.getColumn()].getInitial();
-				for(BoardCell centerCell : roomCenters) {
-					if(centerCell.getInitial() == initial) {
-						cell.addAdj(centerCell);
-						centerCell.addAdj(cell);
-					}
-				}
+				BoardCell centerCell = roomMap.get(initial).getCenterCell();
+				cell.addAdj(centerCell);
+				centerCell.addAdj(cell);
 			}
 			if(cell.getDoorDirection() == DoorDirection.DOWN) {
 				initial = grid[cell.getRow()+1][cell.getColumn()].getInitial();
-				for(BoardCell centerCell : roomCenters) {
-					if(centerCell.getInitial() == initial) {
-						cell.addAdj(centerCell);
-						centerCell.addAdj(cell);
-					}
-				}
+				BoardCell centerCell = roomMap.get(initial).getCenterCell();
+				cell.addAdj(centerCell);
+				centerCell.addAdj(cell);
 			}
 			if(cell.getDoorDirection() == DoorDirection.LEFT) {
 				initial = grid[cell.getRow()][cell.getColumn()-1].getInitial();
-				for(BoardCell centerCell : roomCenters) {
-					if(centerCell.getInitial() == initial) {
-						cell.addAdj(centerCell);
-						centerCell.addAdj(cell);
-					}
-				}
+				BoardCell centerCell = roomMap.get(initial).getCenterCell();
+				cell.addAdj(centerCell);
+				centerCell.addAdj(cell);
 			}
 			if(cell.getDoorDirection() == DoorDirection.RIGHT) {
 				initial = grid[cell.getRow()][cell.getColumn()+1].getInitial();
-				for(BoardCell centerCell : roomCenters) {
-					if(centerCell.getInitial() == initial) {
-						cell.addAdj(centerCell);
-						centerCell.addAdj(cell);
-					}
-				}
+				BoardCell centerCell = roomMap.get(initial).getCenterCell();
+				cell.addAdj(centerCell);
+				centerCell.addAdj(cell);
 			}
 		}
 		if(cell.isRoomCenter()) {
