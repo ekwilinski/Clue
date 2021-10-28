@@ -8,9 +8,9 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-import clueGame.BoardCell;
-import experiment.TestBoardCell;
-import clueGame.BadConfigFormatException;
+//import clueGame.BoardCell;
+//import experiment.TestBoardCell;
+//import clueGame.BadConfigFormatException;
 
 import java.io.*;
 
