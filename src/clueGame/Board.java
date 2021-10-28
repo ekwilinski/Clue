@@ -193,6 +193,8 @@ public class Board {
 	}
 
 	private void generateTargets(BoardCell startCell, int pathLength) {
+		// has checks for doorway(), roomCenter() and isOccupied()
+		// then add depending on which conditions are true
 		for(BoardCell cell : startCell.getAdjList()) {
 			if( startCell.isDoorway() && cell.isRoomCenter()) {
 				if(!visited.contains(cell)) {
@@ -220,6 +222,7 @@ public class Board {
 	}
 
 	private void generateAllAdjacencies() {
+		// need to figure out how to undo hardcode* 
 		for(int i = 0; i < numRows; i++) {
 			for(int j = 0; j < numColumns; j++) {
 				if((grid[i][j].isDoorway()) || (grid[i][j].isRoomCenter()) || (grid[i][j].getInitial() == 'W') || (grid[i][j].getInitial() == 'H')) {
@@ -230,6 +233,7 @@ public class Board {
 	}
 
 	private void generateAdjList(BoardCell cell) {
+		// this method look at the left, right, upper, and lower cells and then creates the adjList based on the conditions
 		if( (cell.isDoorway()) || (cell.getInitial() == 'W') || (cell.getInitial() == 'H')) {
 			//left square
 			if( (cell.getRow() > 0) && (getCell(cell.getRow()-1, cell.getColumn()).getInitial() == 'W') || ((cell.getRow() > 0) && (getCell(cell.getRow()-1, cell.getColumn()).getInitial() == 'H')) ) {
@@ -251,6 +255,7 @@ public class Board {
 
 		if(cell.isDoorway()) {
 			char initial;
+			// checks each possible door direction and then adds to adjList
 			if(cell.getDoorDirection() == DoorDirection.UP) {
 				initial = grid[cell.getRow()-1][cell.getColumn()].getInitial();
 				BoardCell centerCell = roomMap.get(initial).getCenterCell();
@@ -276,6 +281,7 @@ public class Board {
 				centerCell.addAdj(cell);
 			}
 		}
+		// checks if roomCenter then adds to adjList
 		if(cell.isRoomCenter()) {
 			if(passagewayCells.containsKey(cell.getInitial())) {
 				for(BoardCell centerCell : roomCenters) {

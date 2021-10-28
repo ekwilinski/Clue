@@ -7,14 +7,13 @@ public class BoardCell {
 	private int row;
 	private int column;
 	private char initial;
-	private DoorDirection doorDirection;
+	private DoorDirection doorDirection;		// helps us keep track of door direction
 	private boolean roomLabel;
 	private boolean roomCenter;
 	private char secretPassage;
-	private boolean isSecretPassageway;
-	private Set<BoardCell> adjList = new HashSet<BoardCell>();
-	private boolean isDoorway;
-	private boolean isRoom, isOccupied;
+	private boolean isSecretPassageway;			// tells us if a cell is secret passageway
+	private Set<BoardCell> adjList = new HashSet<BoardCell>();		//holds the adjList for cells
+	private boolean isDoorway, isRoom, isOccupied;		// bools to help with conditions for adjList	
 	
 	public BoardCell(int row, int column) {
 		this.row = row;
