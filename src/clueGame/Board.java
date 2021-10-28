@@ -17,7 +17,6 @@ public class Board {
 	private BoardCell[][] grid; //= new BoardCell[][];
 	private int numRows;
 	private int numColumns;
-	private int totalLength;
 	private String layoutConfigFile;
 	private String setupConfigFile;
 	private Map<Character, Room> roomMap = new HashMap<Character, Room>();

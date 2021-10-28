@@ -1,3 +1,33 @@
+commit 29d64a294a7a6ce8fe977f70947c581b5e38143f
+Author: ecorendain <ecorendain@mines.edu>
+Date:   Wed Oct 20 15:35:19 2021 -0600
+
+    Elena got our tests to pass.
+
+commit b9a3b05877fcff13d9e0642d44be718bbfccfa36
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Tue Oct 19 20:04:45 2021 -0600
+
+    passed all BoardAdjTargetTest306 tests
+
+commit 1d1741b2e2cdfc6e21bb726987772139307db4be
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Tue Oct 19 16:33:08 2021 -0600
+
+    testing way to end target if move into room
+
+commit 16b3077226fc9fcb05b44bd7c2c93d2bf14b316c
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Tue Oct 19 15:22:47 2021 -0600
+
+    Passed room/door/walway/dining/target2 adj
+
+commit 33572ac7edc6795af3bb8bf1e5dc9ddd911cd163
+Author: ecorendain <ecorendain@mines.edu>
+Date:   Tue Oct 12 23:32:50 2021 -0600
+
+    Elena forgot the gitlog, added gitlog.
+
 commit 86d5f65a215a73100d469c006613952af319d522
 Author: ecorendain <ecorendain@mines.edu>
 Date:   Tue Oct 12 23:29:19 2021 -0600
