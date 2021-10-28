@@ -15,17 +15,17 @@ import clueGame.BadConfigFormatException;
 import java.io.*;
 
 public class Board {
-	private BoardCell[][] grid; //= new BoardCell[][];
-	private int numRows;
-	private int numColumns;
-	private String layoutConfigFile;
-	private String setupConfigFile;
-	private Map<Character, Room> roomMap = new HashMap<Character, Room>();
-	private Set<BoardCell> targets;
-	private Set<BoardCell> visited;
-	private Set<BoardCell> roomCenters = new HashSet<BoardCell>();
+	private BoardCell[][] grid; 		// creation of grid
+	private int numRows;				// instance variables
+	private int numColumns;				//
+	private String layoutConfigFile;	//
+	private String setupConfigFile;		// 
+	private Map<Character, Room> roomMap = new HashMap<Character, Room>();		// map of all the initials w/ their room
+	private Set<BoardCell> targets;		//all target cells
+	private Set<BoardCell> visited;		// all visited cells
+	private Set<BoardCell> roomCenters = new HashSet<BoardCell>();				// set of roomCenters
 	private Map<Character, BoardCell> passagewayCells = new HashMap<Character, BoardCell>();
-	private static final Set<Character> VALID_SYMBOLS = new HashSet<Character>(Arrays.asList('<','>','^','v','#','*'));
+	private static final Set<Character> VALID_SYMBOLS = new HashSet<Character>(Arrays.asList('<','>','^','v','#','*'));		// valid characters to use
 
 	/*
 	 * variable and methods used for singleton pattern
@@ -45,10 +45,10 @@ public class Board {
 	 * initialize the board (since we are using singleton pattern)
 	 */
 
-	public void initialize() {
+	public void initialize() {		// initializing the game
 		try {
-			loadSetupConfig();
-			loadLayoutConfig();
+			loadSetupConfig();		// loading in the file
+			loadLayoutConfig();		// loading the layout
 		} catch(Exception e) {
 			System.out.println(e);
 		}
@@ -56,6 +56,8 @@ public class Board {
 	}
 
 	public void loadSetupConfig() throws BadConfigFormatException, FileNotFoundException {
+		// if the file being read in is invalid this will throw an error
+		// we read in the file using scanner
 		FileReader f = new FileReader(setupConfigFile);
 		Scanner in = new Scanner(f);
 		String line;
@@ -63,15 +65,17 @@ public class Board {
 		while(in.hasNextLine()) {
 			line = in.nextLine();
 			if(!line.contains("//")) {
-				String[] lineData = line.split(", ");
+				String[] lineData = line.split(", ");	// we use this as a delimeter
 				Room room_data = new Room(lineData[1]);
 				roomMap.put(lineData[2].charAt(0), room_data);
 			}
 		}
-		in.close();
+		in.close();		//closing the input file
 	}
 
 	public void loadLayoutConfig() throws BadConfigFormatException, FileNotFoundException {
+		// if the file being read in is invalid this will throw an error
+		// we read in the file using scanner
 		FileReader f = new FileReader(layoutConfigFile);
 		Scanner in = new Scanner(f);
 		String line;
@@ -105,16 +109,16 @@ public class Board {
 			if(length != numColumns) {
 				throw new BadConfigFormatException();
 			}
-			for(int j = 0; j < numColumns; j++) {
+			for(int j = 0; j < numColumns; j++) {		// checking if the character is to the right of the initial
 				grid[i][j] = new BoardCell(i, j);
 				grid[i][j].setInitial(currentLine[j].charAt(0));
-				
-				if(currentLine[j].length() == 2) {
+
+				if(currentLine[j].length() == 2) {		// checking if the character is NOT a valid character
 					if(!VALID_SYMBOLS.contains(currentLine[j].charAt(1))) {
 						throw new BadConfigFormatException();
 					}
 				}
-				
+				// these if statements check the door direction when reading in the board
 				if(currentLine[j].contains("^")) {
 					grid[i][j].setIsDoor(true);
 					grid[i][j].setDoorDirection(DoorDirection.UP);
@@ -147,7 +151,7 @@ public class Board {
 			}
 			i++;
 		}
-		in.close();
+		in.close();		// closing input file
 	}
 
 	public Room getRoom(char roomName) {
