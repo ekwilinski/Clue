@@ -9,6 +9,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 
+
 import java.io.*;
 
 public class Board {
@@ -116,7 +117,6 @@ public class Board {
 					if(!VALID_SYMBOLS.contains(currentLine[j].charAt(1)) && !roomMap.containsKey(currentLine[j].charAt(1))) {
 						System.out.println(currentLine[j].charAt(1));
 
-
 				if(currentLine[j].length() == 2) {		// checking if the character is NOT a valid character
 					if(!VALID_SYMBOLS.contains(currentLine[j].charAt(1))) {
 
@@ -155,7 +155,11 @@ public class Board {
 				}
 			}
 			i++;
+
 				}
+
+		}
+
 		in.close();		// closing input file
 	}
 
@@ -238,10 +242,14 @@ public class Board {
 	}
 
 	private void generateAdjList(BoardCell cell) {
+<<<<<<< HEAD
 		int row = cell.getRow();
 		int column = cell.getColumn();
 		// this method look at the left, right, upper, and lower cells and then creates the adjList based on the conditions
 
+=======
+		// this method look at the left, right, upper, and lower cells and then creates the adjList based on the conditions
+>>>>>>> 4ace7363e2608662354921b317715c7280362e99
 		if( (cell.isDoorway()) || (cell.getInitial() == 'W') || (cell.getInitial() == 'H')) {
 			//left square
 			if( (row > 0) && (getCell(row-1, column).getInitial() == 'W') || ((row > 0) && (getCell(row-1, column).getInitial() == 'H')) ) {
