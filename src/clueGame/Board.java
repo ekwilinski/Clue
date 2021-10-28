@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -24,6 +25,7 @@ public class Board {
 	private Set<BoardCell> visited;
 	private Set<BoardCell> roomCenters = new HashSet<BoardCell>();
 	private Map<Character, BoardCell> passagewayCells = new HashMap<Character, BoardCell>();
+	private static final Set<Character> VALID_SYMBOLS = new HashSet<Character>(Arrays.asList('<','>','^','v','#','*'));
 
 	/*
 	 * variable and methods used for singleton pattern
@@ -106,6 +108,13 @@ public class Board {
 			for(int j = 0; j < numColumns; j++) {
 				grid[i][j] = new BoardCell(i, j);
 				grid[i][j].setInitial(currentLine[j].charAt(0));
+				
+				if(currentLine[j].length() == 2) {
+					if(!VALID_SYMBOLS.contains(currentLine[j].charAt(1))) {
+						throw new BadConfigFormatException();
+					}
+				}
+				
 				if(currentLine[j].contains("^")) {
 					grid[i][j].setIsDoor(true);
 					grid[i][j].setDoorDirection(DoorDirection.UP);
