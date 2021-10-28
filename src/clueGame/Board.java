@@ -8,20 +8,21 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+
 import java.io.*;
 
 public class Board {
-	private BoardCell[][] grid; //= new BoardCell[][];
-	private int numRows;
-	private int numColumns;
-	private String layoutConfigFile;
-	private String setupConfigFile;
-	private Map<Character, Room> roomMap = new HashMap<Character, Room>();
-	private Set<BoardCell> targets;
-	private Set<BoardCell> visited;
-	private Set<BoardCell> roomCenters = new HashSet<BoardCell>();
+	private BoardCell[][] grid; 		// creation of grid
+	private int numRows;				// instance variables
+	private int numColumns;				//
+	private String layoutConfigFile;	//
+	private String setupConfigFile;		// 
+	private Map<Character, Room> roomMap = new HashMap<Character, Room>();		// map of all the initials w/ their room
+	private Set<BoardCell> targets;		//all target cells
+	private Set<BoardCell> visited;		// all visited cells
+	private Set<BoardCell> roomCenters = new HashSet<BoardCell>();				// set of roomCenters
 	private Map<Character, BoardCell> passagewayCells = new HashMap<Character, BoardCell>();
-	private static final Set<Character> VALID_SYMBOLS = new HashSet<Character>(Arrays.asList('<','>','^','v','#','*'));
+	private static final Set<Character> VALID_SYMBOLS = new HashSet<Character>(Arrays.asList('<','>','^','v','#','*'));		// valid characters to use
 
 	/*
 	 * variable and methods used for singleton pattern
@@ -41,10 +42,10 @@ public class Board {
 	 * initialize the board (since we are using singleton pattern)
 	 */
 
-	public void initialize() {
+	public void initialize() {		// initializing the game
 		try {
-			loadSetupConfig();
-			loadLayoutConfig();
+			loadSetupConfig();		// loading in the file
+			loadLayoutConfig();		// loading the layout
 		} catch(Exception e) {
 			System.out.println(e);
 		}
@@ -52,6 +53,8 @@ public class Board {
 	}
 
 	public void loadSetupConfig() throws BadConfigFormatException, FileNotFoundException {
+		// if the file being read in is invalid this will throw an error
+		// we read in the file using scanner
 		FileReader f = new FileReader(setupConfigFile);
 		Scanner in = new Scanner(f);
 		String line;
@@ -59,16 +62,18 @@ public class Board {
 		while(in.hasNextLine()) {
 			line = in.nextLine();
 			if(!line.contains("//")) {
-				String[] lineData = line.split(", ");
+				String[] lineData = line.split(", ");	// we use this as a delimeter
 				Room room_data = new Room(lineData[1]);
 				roomMap.put(lineData[2].charAt(0), room_data);
 				
 			}
 		}
-		in.close();
+		in.close();		//closing the input file
 	}
 
 	public void loadLayoutConfig() throws BadConfigFormatException, FileNotFoundException {
+		// if the file being read in is invalid this will throw an error
+		// we read in the file using scanner
 		FileReader f = new FileReader(layoutConfigFile);
 		Scanner in = new Scanner(f);
 		String line;
@@ -102,17 +107,23 @@ public class Board {
 			if(length != numColumns) {
 				throw new BadConfigFormatException();
 			}
-			for(int j = 0; j < numColumns; j++) {
+			for(int j = 0; j < numColumns; j++) {		// checking if the character is to the right of the initial
 				grid[i][j] = new BoardCell(i, j);
 				grid[i][j].setInitial(currentLine[j].charAt(0));
+
 				
 				if(currentLine[j].length() == 2) {
 					if(!VALID_SYMBOLS.contains(currentLine[j].charAt(1)) && !roomMap.containsKey(currentLine[j].charAt(1))) {
 						System.out.println(currentLine[j].charAt(1));
+
+
+				if(currentLine[j].length() == 2) {		// checking if the character is NOT a valid character
+					if(!VALID_SYMBOLS.contains(currentLine[j].charAt(1))) {
+
 						throw new BadConfigFormatException();
 					}
 				}
-				
+				// these if statements check the door direction when reading in the board
 				if(currentLine[j].contains("^")) {
 					grid[i][j].setIsDoor(true);
 					grid[i][j].setDoorDirection(DoorDirection.UP);
@@ -144,8 +155,8 @@ public class Board {
 				}
 			}
 			i++;
-		}
-		in.close();
+				}
+		in.close();		// closing input file
 	}
 
 	public Room getRoom(char roomName) {
@@ -187,6 +198,8 @@ public class Board {
 	}
 
 	private void generateTargets(BoardCell startCell, int pathLength) {
+		// has checks for doorway(), roomCenter() and isOccupied()
+		// then add depending on which conditions are true
 		for(BoardCell cell : startCell.getAdjList()) {
 			if( startCell.isDoorway() && cell.isRoomCenter()) {
 				if(!visited.contains(cell)) {
@@ -214,6 +227,7 @@ public class Board {
 	}
 
 	private void generateAllAdjacencies() {
+		// need to figure out how to undo hardcode* 
 		for(int i = 0; i < numRows; i++) {
 			for(int j = 0; j < numColumns; j++) {
 				if((grid[i][j].isDoorway()) || (grid[i][j].isRoomCenter()) || (grid[i][j].getInitial() == 'W') || (grid[i][j].getInitial() == 'H')) {
@@ -226,6 +240,8 @@ public class Board {
 	private void generateAdjList(BoardCell cell) {
 		int row = cell.getRow();
 		int column = cell.getColumn();
+		// this method look at the left, right, upper, and lower cells and then creates the adjList based on the conditions
+
 		if( (cell.isDoorway()) || (cell.getInitial() == 'W') || (cell.getInitial() == 'H')) {
 			//left square
 			if( (row > 0) && (getCell(row-1, column).getInitial() == 'W') || ((row > 0) && (getCell(row-1, column).getInitial() == 'H')) ) {
@@ -247,6 +263,7 @@ public class Board {
 
 		if(cell.isDoorway()) {
 			char initial;
+			// checks each possible door direction and then adds to adjList
 			if(cell.getDoorDirection() == DoorDirection.UP) {
 				initial = grid[cell.getRow()-1][cell.getColumn()].getInitial();
 				BoardCell centerCell = roomMap.get(initial).getCenterCell();
@@ -272,6 +289,7 @@ public class Board {
 				centerCell.addAdj(cell);
 			}
 		}
+		// checks if roomCenter then adds to adjList
 		if(cell.isRoomCenter()) {
 			if(passagewayCells.containsKey(cell.getInitial())) {
 				for(BoardCell centerCell : roomCenters) {
