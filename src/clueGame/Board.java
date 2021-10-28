@@ -8,10 +8,6 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-import clueGame.BoardCell;
-import experiment.TestBoardCell;
-import clueGame.BadConfigFormatException;
-
 import java.io.*;
 
 public class Board {
@@ -66,6 +62,7 @@ public class Board {
 				String[] lineData = line.split(", ");
 				Room room_data = new Room(lineData[1]);
 				roomMap.put(lineData[2].charAt(0), room_data);
+				
 			}
 		}
 		in.close();
@@ -110,7 +107,8 @@ public class Board {
 				grid[i][j].setInitial(currentLine[j].charAt(0));
 				
 				if(currentLine[j].length() == 2) {
-					if(!VALID_SYMBOLS.contains(currentLine[j].charAt(1))) {
+					if(!VALID_SYMBOLS.contains(currentLine[j].charAt(1)) && !roomMap.containsKey(currentLine[j].charAt(1))) {
+						System.out.println(currentLine[j].charAt(1));
 						throw new BadConfigFormatException();
 					}
 				}
@@ -226,22 +224,24 @@ public class Board {
 	}
 
 	private void generateAdjList(BoardCell cell) {
+		int row = cell.getRow();
+		int column = cell.getColumn();
 		if( (cell.isDoorway()) || (cell.getInitial() == 'W') || (cell.getInitial() == 'H')) {
 			//left square
-			if( (cell.getRow() > 0) && (getCell(cell.getRow()-1, cell.getColumn()).getInitial() == 'W') || ((cell.getRow() > 0) && (getCell(cell.getRow()-1, cell.getColumn()).getInitial() == 'H')) ) {
-				cell.addAdj(getCell(cell.getRow()-1, cell.getColumn()));
+			if( (row > 0) && (getCell(row-1, column).getInitial() == 'W') || ((row > 0) && (getCell(row-1, column).getInitial() == 'H')) ) {
+				cell.addAdj(getCell(row-1, column));
 			}
 			//right square
-			if( (cell.getRow() < (numRows - 1)) && (getCell(cell.getRow()+1, cell.getColumn()).getInitial() == 'W') || ((cell.getRow() < (numRows - 1)) && (getCell(cell.getRow()+1, cell.getColumn()).getInitial() == 'H')) ) {
-				cell.addAdj(getCell(cell.getRow()+1, cell.getColumn()));
+			if( (row < (numRows - 1)) && (getCell(row+1, column).getInitial() == 'W') || (row < (numRows - 1)) && (getCell(row+1, column).getInitial() == 'H')) {
+				cell.addAdj(getCell(row+1, column));
 			}
 			//upper square
-			if( (cell.getColumn() > 0) && (getCell(cell.getRow(), cell.getColumn()-1).getInitial() == 'W') || ((cell.getColumn() > 0) && (getCell(cell.getRow(), cell.getColumn()-1).getInitial() == 'H')) ) {
-				cell.addAdj(getCell(cell.getRow(), cell.getColumn()-1));
+			if( (column > 0) && (getCell(row, column-1).getInitial() == 'W') || ((column > 0) && (getCell(row, column-1).getInitial() == 'H')) ) {
+				cell.addAdj(getCell(row, column-1));
 			}
 			//lower square
-			if( (cell.getColumn() < (numColumns - 1)) && (getCell(cell.getRow(), cell.getColumn()+1).getInitial() == 'W') || ((cell.getColumn() < (numColumns - 1)) && (getCell(cell.getRow(), cell.getColumn()+1).getInitial() == 'H')) ) {
-				cell.addAdj(getCell(cell.getRow(), cell.getColumn()+1));
+			if( (column < (numColumns - 1)) && (getCell(row, column+1).getInitial() == 'W') || ((column < (numColumns - 1)) && (getCell(row, column+1).getInitial() == 'H')) ) {
+				cell.addAdj(getCell(row, column+1));
 			}
 		}
 
