@@ -24,7 +24,7 @@ public class Board {
 	private Set<BoardCell> roomCenters = new HashSet<BoardCell>();				// set of roomCenters
 	private Map<Character, BoardCell> passagewayCells = new HashMap<Character, BoardCell>();
 	private static final Set<Character> VALID_SYMBOLS = new HashSet<Character>(Arrays.asList('<','>','^','v','#','*'));		// valid characters to use
-
+	
 	/*
 	 * variable and methods used for singleton pattern
 	 */
@@ -64,12 +64,19 @@ public class Board {
 			line = in.nextLine();
 			if(!line.contains("//")) {
 				String[] lineData = line.split(", ");	// we use this as a delimeter
-				Room room_data = new Room(lineData[1]);
-				roomMap.put(lineData[2].charAt(0), room_data);
+				
+				readCards(lineData);
 				
 			}
 		}
 		in.close();		//closing the input file
+	}
+	
+	public void readCards(String[] lineData) {
+		String type = lineData[0];
+		
+		Room room_data = new Room(lineData[1]);
+		roomMap.put(lineData[2].charAt(0), room_data);
 	}
 
 	public void loadLayoutConfig() throws BadConfigFormatException, FileNotFoundException {
@@ -302,6 +309,18 @@ public class Board {
 	
 	public void deal() {
 		
+	}
+
+	public Set<Card> getRoomCards() {
+		// TODO Auto-generated method stub
+		Set<Card> emptySet = new HashSet<Card>();
+		return emptySet;
+	}
+
+	public Card getCard(String string) {
+		// TODO Auto-generated method stub
+		Card card = new Card("blnak", CardType.ROOM);
+		return card;
 	}
 	
 }
