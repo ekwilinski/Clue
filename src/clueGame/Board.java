@@ -299,4 +299,9 @@ public class Board {
 	public Set<BoardCell> getTargets() {
 		return targets;
 	}
+	
+	public void deal() {
+		
+	}
+	
 }

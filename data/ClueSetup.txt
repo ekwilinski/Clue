@@ -11,3 +11,17 @@ Room, Regional Manager's Office, M
 // other spaces
 Space, Storage, X
 Space, Hallway, H
+// player cards
+Human, Jim Halpert, blue, 9, 6
+Computer, Michael Scott, grey, 19, 8
+Computer, Dwight Schrute, tan, 13, 4
+Computer, Pam Beesly, purple, 4, 8
+Computer, Toby Flenderson, yellow, 11, 11
+Computer, Angela Schrute, white, 12, 3
+// weapons
+Weapon, Pepper Spray
+Weapon, Baton
+Weapon, Brass Knuckles
+Weapon, Boomerang
+Weapon, Taser
+Weapon, Revolver
