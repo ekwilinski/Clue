@@ -28,6 +28,8 @@ public class Board {
 	private Set<Card> roomCards = new HashSet<Card>();
 	private Set<Card> playerCards = new HashSet<Card>();
 	private Set<Card> weaponCards = new HashSet<Card>();
+	private Set<Card> humanPlayers = new HashSet<Card>();
+	
 	
 	/*
 	 * variable and methods used for singleton pattern
@@ -358,12 +360,14 @@ public class Board {
 	}
 
 	public Set<Card> getPlayerCards() {
-		// TODO Auto-generated method stub
 		return playerCards;
 	}
 
 	public Set<Card> getWeaponCards() {
-		// TODO Auto-generated method stub
 		return weaponCards;
+	}
+
+	public Set<Card> getHumanPlayer() {
+		return humanPlayers;
 	}
 }

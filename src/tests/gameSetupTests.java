@@ -69,5 +69,20 @@ class gameSetupTests {
 		Card revolver = new Card("Revolver", CardType.WEAPON);
 		assertTrue(revolver.equals(board.getCard("Revolver")));
 	}
+	
+	@Test
+	public void testHumanPlayer() {
+		Set<Card> humanPlayers = board.getHumanPlayer();
+		assertEquals(1, humanPlayers.size());
+		
+		Card jim = new Card("Jim Halpert", CardType.WEAPON);
+		assertTrue(jim.equals(board.getCard("Jim Halpert")));
+	}
+	
+	@Test
+	public void testComputerPlayer() {
+		
+	}
+	
 
 }
