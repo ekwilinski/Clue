@@ -70,7 +70,6 @@ public class Board {
 				String[] lineData = line.split(", ");	// we use this as a delimeter
 				
 				readCards(lineData);
-				
 			}
 		}
 		in.close();		//closing the input file
@@ -321,7 +320,6 @@ public class Board {
 				for(BoardCell centerCell : roomCenters) {
 					if(centerCell.getInitial() == passagewayCells.get(cell.getInitial()).getSecretPassage()) {
 						cell.addAdj(centerCell);
-
 					}
 				}
 			}
@@ -363,5 +361,9 @@ public class Board {
 		// TODO Auto-generated method stub
 		return playerCards;
 	}
-	
+
+	public Set<Card> getWeaponCards() {
+		// TODO Auto-generated method stub
+		return weaponCards;
+	}
 }
