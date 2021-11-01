@@ -39,5 +39,21 @@ class gameSetupTests {
 		Card manager = new Card("Regional Manager's Office", CardType.ROOM);
 		assertTrue(manager.equals(board.getCard("Regional Manager's Office")));
 	}
+	
+	@Test
+	public void testPlayerCards() {
+		Set<Card> playerCards = board.getPlayerCards();
+		assertEquals(6, playerCards.size());
+		
+		Card jim = new Card("Jim Halpert", CardType.PERSON);
+		assertTrue(jim.equals(board.getCard("Jim Halpert")));
+		
+		Card dwight = new Card("Dwight Schrute", CardType.PERSON);
+		assertTrue(dwight.equals(board.getCard("Dwight Schrute")));
+		
+		Card angela = new Card("Angela Schrute", CardType.PERSON);
+		assertTrue(dwight.equals(board.getCard("Angela Schrute")));
+		
+	}
 
 }
