@@ -346,7 +346,22 @@ public class Board {
 				return card;
 			}
 		}
+		for(Card card : playerCards) {
+			if(card.getName().equals(name)) {
+				return card;
+			}
+		}
+		for(Card card : weaponCards) {
+			if(card.getName().equals(name)) {
+				return card;
+			}
+		}
 		return null;
+	}
+
+	public Set<Card> getPlayerCards() {
+		// TODO Auto-generated method stub
+		return playerCards;
 	}
 	
 }

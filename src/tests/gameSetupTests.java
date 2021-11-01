@@ -52,7 +52,7 @@ class gameSetupTests {
 		assertTrue(dwight.equals(board.getCard("Dwight Schrute")));
 		
 		Card angela = new Card("Angela Schrute", CardType.PERSON);
-		assertTrue(dwight.equals(board.getCard("Angela Schrute")));
+		assertTrue(angela.equals(board.getCard("Angela Schrute")));
 		
 	}
 
