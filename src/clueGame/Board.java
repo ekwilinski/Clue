@@ -25,6 +25,10 @@ public class Board {
 	private Map<Character, BoardCell> passagewayCells = new HashMap<Character, BoardCell>();
 	private static final Set<Character> VALID_SYMBOLS = new HashSet<Character>(Arrays.asList('<','>','^','v','#','*'));		// valid characters to use
 	
+	private Set<Card> roomCards = new HashSet<Card>();
+	private Set<Card> playerCards = new HashSet<Card>();
+	private Set<Card> weaponCards = new HashSet<Card>();
+	
 	/*
 	 * variable and methods used for singleton pattern
 	 */
@@ -72,11 +76,32 @@ public class Board {
 		in.close();		//closing the input file
 	}
 	
-	public void readCards(String[] lineData) {
+	public void readCards(String[] lineData) throws BadConfigFormatException {
 		String type = lineData[0];
 		
-		Room room_data = new Room(lineData[1]);
-		roomMap.put(lineData[2].charAt(0), room_data);
+		if(type.equals("Room")) {
+			Room room_data = new Room(lineData[1]);
+			roomMap.put(lineData[2].charAt(0), room_data);
+			roomCards.add(new Card(lineData[1], CardType.ROOM));
+		}
+		else if(type.equals("Space")) {
+			Room room_data = new Room(lineData[1]);
+			roomMap.put(lineData[2].charAt(0), room_data);
+		}
+		else if(type.equals("Human")) {
+			HumanPlayer human = new HumanPlayer(lineData[1], lineData[2], Integer.parseInt(lineData[3]), Integer.parseInt(lineData[4]));
+			playerCards.add(new Card(lineData[1], CardType.PERSON));
+		}
+		else if(type.equals("Computer")) {
+			playerCards.add(new Card(lineData[1], CardType.PERSON));
+		}
+		else if(type.equals("Weapon")) {
+			weaponCards.add(new Card(lineData[1], CardType.WEAPON));
+		}
+		else {
+			throw new BadConfigFormatException();
+		}
+		
 	}
 
 	public void loadLayoutConfig() throws BadConfigFormatException, FileNotFoundException {
@@ -312,15 +337,16 @@ public class Board {
 	}
 
 	public Set<Card> getRoomCards() {
-		// TODO Auto-generated method stub
-		Set<Card> emptySet = new HashSet<Card>();
-		return emptySet;
+		return roomCards;
 	}
 
-	public Card getCard(String string) {
-		// TODO Auto-generated method stub
-		Card card = new Card("blnak", CardType.ROOM);
-		return card;
+	public Card getCard(String name) {
+		for(Card card : roomCards) {
+			if(card.getName().equals(name)) {
+				return card;
+			}
+		}
+		return null;
 	}
 	
 }

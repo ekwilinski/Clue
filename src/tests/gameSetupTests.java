@@ -31,13 +31,13 @@ class gameSetupTests {
 		Set<Card> roomCards = board.getRoomCards();
 		assertEquals(9, roomCards.size());
 		Card kitchen = new Card("Kitchen", CardType.ROOM);
-		assertEquals(board.getCard("Kitchen"), kitchen);
+		assertTrue(kitchen.equals(board.getCard("Kitchen")));
 		
 		Card cubicle = new Card("Cubicle", CardType.ROOM);
-		assertEquals(board.getCard("Cubicle"), cubicle);
+		assertTrue(cubicle.equals(board.getCard("Cubicle")));
 		
 		Card manager = new Card("Regional Manager's Office", CardType.ROOM);
-		assertEquals(board.getCard("Regional Manager's Office"), manager);
+		assertTrue(manager.equals(board.getCard("Regional Manager's Office")));
 	}
 
 }
