@@ -2,11 +2,14 @@ package clueGame;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.*;
 
@@ -374,8 +377,50 @@ public class Board {
 	}
 
 	private void dealToPlayers() {
-		// TODO Auto-generated method stub
+		Set<Card> playingCards = new HashSet<Card>();
 		
+		for(Card card : roomCards) {
+			if(!solutionCards.contains(card)) {
+				playingCards.add(card);
+			}
+		}
+		for(Card card : weaponCards) {
+			if(!solutionCards.contains(card)) {
+				playingCards.add(card);
+			}
+		}
+		for(Card card : playerCards) {
+			if(!solutionCards.contains(card)) {
+				playingCards.add(card);
+			}
+		}
+		
+		while(!playingCards.isEmpty()) {
+			//get random card
+			for(ComputerPlayer player : computerPlayers) {
+				int rand = (int)(Math.random() * (playingCards.size() - 1) + 1);
+				int i = 1;
+				for(Card card : playingCards) {
+					if(i == rand) {
+						player.updateHand(card);
+						playingCards.remove(card);
+						break;
+					}
+					i++;
+				}
+			}
+			int rand2 = (int)(Math.random() * (playingCards.size() - 1) + 1);
+			int j = 1;
+			for(Card card : playingCards) {
+				if(j == rand2) {
+					humanPlayer.updateHand(card);
+					playingCards.remove(card);
+					break;
+				}
+				j++;
+			}
+				
+		}
 	}
 
 

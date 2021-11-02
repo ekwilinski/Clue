@@ -133,8 +133,8 @@ class gameSetupTests {
 	@Test
 	public void testHands() {
 		for(ComputerPlayer player : board.getComputerPlayers()) {
-			assertEquals(6, player.getHand().size());
+			assertEquals(3, player.getHand().size());
 		}
-		assertEquals(6, board.getHumanPlayer().getHand().size());
+		assertEquals(3, board.getHumanPlayer().getHand().size());
 	}
 }
