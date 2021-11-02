@@ -102,4 +102,30 @@ class gameSetupTests {
 		assertEquals(12, angela.getRow());
 		assertEquals(3, angela.getColumn());
 	}
+	
+	@Test
+	public void testSolution() {
+		
+		Set<Card> solutionCards = board.getSolution();
+		assertEquals(3, solutionCards.size());
+		
+		int numWeapons = 0;
+		int numRooms = 0;
+		int numPlayers = 0;
+		
+		for(Card card : solutionCards) {
+			if(card.getType() == CardType.PERSON) {
+				numPlayers++;
+			}
+			if(card.getType() == CardType.WEAPON) {
+				numWeapons++;
+			}
+			if(card.getType() == CardType.ROOM) {
+				numRooms++;
+			}
+		}
+		assertEquals(1, numWeapons);
+		assertEquals(1, numRooms);
+		assertEquals(1, numPlayers);
+	}
 }

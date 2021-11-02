@@ -29,6 +29,8 @@ public class Board {
 	private HumanPlayer humanPlayer;
 	private Set<ComputerPlayer> computerPlayers = new HashSet<ComputerPlayer>();
 	
+	private Set<Card> solutionCards = new HashSet<Card>();
+	
 	/*
 	 * variable and methods used for singleton pattern
 	 */
@@ -381,5 +383,9 @@ public class Board {
 	}
 	public Set<ComputerPlayer> getComputerPlayers() {
 		return computerPlayers;
+	}
+
+	public Set<Card> getSolution() {
+		return solutionCards;
 	}
 }
