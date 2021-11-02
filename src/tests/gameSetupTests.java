@@ -63,10 +63,8 @@ class gameSetupTests {
 		
 		Card pepper = new Card("Pepper Spray", CardType.WEAPON);
 		assertTrue(pepper.equals(board.getCard("Pepper Spray")));
-		
 		Card brass = new Card("Brass Knuckles", CardType.WEAPON);
 		assertTrue(brass.equals(board.getCard("Brass Knuckles")));
-		
 		Card revolver = new Card("Revolver", CardType.WEAPON);
 		assertTrue(revolver.equals(board.getCard("Revolver")));
 	}
@@ -82,6 +80,25 @@ class gameSetupTests {
 	
 	@Test
 	public void testComputerPlayer() {
+		Set<ComputerPlayer> computerPlayers= board.getComputerPlayers();
+		assertEquals(5, computerPlayers.size());
 		
+		ComputerPlayer michael = new ComputerPlayer();
+		assertTrue(michael.getName().equals("Michael Scott"));
+		assertTrue(michael.getColor().equals("grey"));
+		assertEquals(19, michael.getRow());
+		assertEquals(8, michael.getColumn());
+		
+		ComputerPlayer pam = new ComputerPlayer();
+		assertTrue(pam.getName().equals("Pam Beesly"));
+		assertTrue(pam.getColor().equals("purple"));
+		assertEquals(4, pam.getRow());
+		assertEquals(8, pam.getColumn());
+		
+		ComputerPlayer angela = new ComputerPlayer();
+		assertTrue(angela.getName().equals("Angela Schrute"));
+		assertTrue(angela.getColor().equals("white"));
+		assertEquals(12, pam.getRow());
+		assertEquals(3, pam.getColumn());
 	}
 }
