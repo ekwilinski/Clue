@@ -429,5 +429,6 @@ public class Board {
 	public Set<Card> getSolution() {
 		return solutionCards;
 	}
+
 	
 }

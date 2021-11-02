@@ -13,6 +13,7 @@ import clueGame.Card;
 import clueGame.CardType;
 import clueGame.ComputerPlayer;
 import clueGame.HumanPlayer;
+import clueGame.Player;
 
 class gameSetupTests {
 
@@ -127,5 +128,13 @@ class gameSetupTests {
 		assertEquals(1, numWeapons);
 		assertEquals(1, numRooms);
 		assertEquals(1, numPlayers);
+	}
+	
+	@Test
+	public void testHands() {
+		for(ComputerPlayer player : board.getComputerPlayers()) {
+			assertEquals(6, player.getHand().size());
+		}
+		assertEquals(6, board.getHumanPlayer().getHand().size());
 	}
 }
