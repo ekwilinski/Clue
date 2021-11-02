@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import clueGame.Board;
 import clueGame.Card;
 import clueGame.CardType;
+import clueGame.ComputerPlayer;
 import clueGame.HumanPlayer;
 
 class gameSetupTests {
@@ -80,25 +81,25 @@ class gameSetupTests {
 	
 	@Test
 	public void testComputerPlayer() {
-		Set<ComputerPlayer> computerPlayers= board.getComputerPlayers();
+		Set<ComputerPlayer> computerPlayers = board.getComputerPlayers();
 		assertEquals(5, computerPlayers.size());
 		
-		ComputerPlayer michael = new ComputerPlayer();
+		ComputerPlayer michael = board.getComputerPlayer("Michael Scott");
 		assertTrue(michael.getName().equals("Michael Scott"));
 		assertTrue(michael.getColor().equals("grey"));
 		assertEquals(19, michael.getRow());
 		assertEquals(8, michael.getColumn());
 		
-		ComputerPlayer pam = new ComputerPlayer();
+		ComputerPlayer pam = board.getComputerPlayer("Pam Beesly");
 		assertTrue(pam.getName().equals("Pam Beesly"));
 		assertTrue(pam.getColor().equals("purple"));
 		assertEquals(4, pam.getRow());
 		assertEquals(8, pam.getColumn());
 		
-		ComputerPlayer angela = new ComputerPlayer();
+		ComputerPlayer angela = board.getComputerPlayer("Angela Schrute");
 		assertTrue(angela.getName().equals("Angela Schrute"));
 		assertTrue(angela.getColor().equals("white"));
-		assertEquals(12, pam.getRow());
-		assertEquals(3, pam.getColumn());
+		assertEquals(12, angela.getRow());
+		assertEquals(3, angela.getColumn());
 	}
 }

@@ -8,8 +8,6 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-
-
 import java.io.*;
 
 public class Board {
@@ -29,6 +27,7 @@ public class Board {
 	private Set<Card> playerCards = new HashSet<Card>();
 	private Set<Card> weaponCards = new HashSet<Card>();
 	private HumanPlayer humanPlayer;
+	private Set<ComputerPlayer> computerPlayers = new HashSet<ComputerPlayer>();
 	
 	/*
 	 * variable and methods used for singleton pattern
@@ -93,6 +92,8 @@ public class Board {
 			playerCards.add(new Card(lineData[1], CardType.PERSON));
 		}
 		else if(type.equals("Computer")) {
+			ComputerPlayer computerPlaya = new ComputerPlayer(lineData[1], lineData[2], Integer.parseInt(lineData[3]), Integer.parseInt(lineData[4]));
+			computerPlayers.add(computerPlaya);
 			playerCards.add(new Card(lineData[1], CardType.PERSON));
 		}
 		else if(type.equals("Weapon")) {
@@ -368,5 +369,17 @@ public class Board {
 
 	public HumanPlayer getHumanPlayer() {
 		return humanPlayer;
+	}
+
+	public ComputerPlayer getComputerPlayer(String name) {
+		for(ComputerPlayer cp : computerPlayers) {
+			if(cp.getName().equals(name)) {
+				return cp;
+			}
+		}
+		return null;
+	}
+	public Set<ComputerPlayer> getComputerPlayers() {
+		return computerPlayers;
 	}
 }
