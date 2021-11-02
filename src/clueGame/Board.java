@@ -89,7 +89,7 @@ public class Board {
 			roomMap.put(lineData[2].charAt(0), room_data);
 		}
 		else if(type.equals("Human")) {
-			HumanPlayer human = new HumanPlayer(lineData[1], lineData[2], Integer.parseInt(lineData[3]), Integer.parseInt(lineData[4]));
+			humanPlayer = new HumanPlayer(lineData[1], lineData[2], Integer.parseInt(lineData[3]), Integer.parseInt(lineData[4]));
 			playerCards.add(new Card(lineData[1], CardType.PERSON));
 		}
 		else if(type.equals("Computer")) {

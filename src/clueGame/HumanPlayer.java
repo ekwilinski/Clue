@@ -1,7 +1,6 @@
 package clueGame;
 
 public class HumanPlayer extends Player {
-	
 	private String name;
 	private String color;
 	private int startRow, startColumn;
@@ -14,7 +13,6 @@ public class HumanPlayer extends Player {
 	}
 
 	public Object getColor() {
-		// TODO Auto-generated method stub
 		return color;
 	}
 

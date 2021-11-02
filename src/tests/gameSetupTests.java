@@ -74,16 +74,14 @@ class gameSetupTests {
 	@Test
 	public void testHumanPlayer() {
 		HumanPlayer jim = board.getHumanPlayer();
-		assertEquals(1, jim.getName().equals("Jim Halpert"));
-		assertEquals(1, jim.getColor().equals("blue"));
-		assertEquals(1, jim.getRow() == 9);
-		assertEquals(1, jim.getColumn() == 6);
+		assertTrue(jim.getName().equals("Jim Halpert"));
+		assertTrue(jim.getColor().equals("blue"));
+		assertEquals(9, jim.getRow());
+		assertEquals(6, jim.getColumn());
 	}
 	
 	@Test
 	public void testComputerPlayer() {
 		
 	}
-	
-
 }
