@@ -28,8 +28,7 @@ public class Board {
 	private Set<Card> roomCards = new HashSet<Card>();
 	private Set<Card> playerCards = new HashSet<Card>();
 	private Set<Card> weaponCards = new HashSet<Card>();
-	private Set<Card> humanPlayers = new HashSet<Card>();
-	
+	private HumanPlayer humanPlayer;
 	
 	/*
 	 * variable and methods used for singleton pattern
@@ -367,7 +366,7 @@ public class Board {
 		return weaponCards;
 	}
 
-	public Set<Card> getHumanPlayer() {
-		return humanPlayers;
+	public HumanPlayer getHumanPlayer() {
+		return humanPlayer;
 	}
 }

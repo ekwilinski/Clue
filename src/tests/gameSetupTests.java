@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import clueGame.Board;
 import clueGame.Card;
 import clueGame.CardType;
+import clueGame.HumanPlayer;
 
 class gameSetupTests {
 
@@ -72,11 +73,11 @@ class gameSetupTests {
 	
 	@Test
 	public void testHumanPlayer() {
-		Set<Card> humanPlayers = board.getHumanPlayer();
-		assertEquals(1, humanPlayers.size());
-		
-		Card jim = new Card("Jim Halpert", CardType.WEAPON);
-		assertTrue(jim.equals(board.getCard("Jim Halpert")));
+		HumanPlayer jim = board.getHumanPlayer();
+		assertEquals(1, jim.getName().equals("Jim Halpert"));
+		assertEquals(1, jim.getColor().equals("blue"));
+		assertEquals(1, jim.getRow() == 9);
+		assertEquals(1, jim.getColumn() == 6);
 	}
 	
 	@Test

@@ -12,5 +12,21 @@ public class HumanPlayer extends Player {
 		this.startRow = startRow;
 		this.startColumn = startColumn;
 	}
-	
+
+	public Object getColor() {
+		// TODO Auto-generated method stub
+		return color;
+	}
+
+	public Object getName() {
+		return name;
+	}
+
+	public int getRow() {
+		return startRow;
+	}
+
+	public int getColumn() {
+		return startColumn;
+	}
 }
