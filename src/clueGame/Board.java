@@ -53,6 +53,7 @@ public class Board {
 		try {
 			loadSetupConfig();		// loading in the file
 			loadLayoutConfig();		// loading the layout
+			deal();
 		} catch(Exception e) {
 			System.out.println(e);
 		}
@@ -335,8 +336,48 @@ public class Board {
 	}
 	
 	public void deal() {
+		dealSolution();
+		dealToPlayers();
+	}
+	
+	private void dealSolution() {
+		//get room
+		int rand = (int)(Math.random() * (3 - 1) + 1);
+		int i = 1;
+		for(Card card : roomCards) {
+			if(i == rand) {
+				solutionCards.add(card);
+			}
+			i++;
+		}
+		
+		//get weapon
+		rand = (int)(Math.random() * (3 - 1) + 1);
+		i = 1;
+		for(Card card : weaponCards) {
+			if(i == rand) {
+				solutionCards.add(card);
+			}
+			i++;
+		}
+		
+		//get player
+		rand = (int)(Math.random() * (3 - 1) + 1);
+		i = 1;
+		for(Card card : playerCards) {
+			if(i == rand) {
+				solutionCards.add(card);
+			}
+			i++;
+		}
 		
 	}
+
+	private void dealToPlayers() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 	public Set<Card> getRoomCards() {
 		return roomCards;
@@ -388,4 +429,5 @@ public class Board {
 	public Set<Card> getSolution() {
 		return solutionCards;
 	}
+	
 }
