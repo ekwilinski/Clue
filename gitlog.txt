@@ -1,3 +1,154 @@
+commit 43137d85ad15c27520d0b9223a4611c71f96946d
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Nov 1 22:35:50 2021 -0600
+
+    passed player hand test
+
+commit 86a4006a7b8ae946f135a4e10346e5d4b88ce2c1
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Nov 1 21:52:42 2021 -0600
+
+    created player hand test
+
+commit b0093b6fcbc49537db03a992290541b28f212a3e
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Nov 1 21:42:33 2021 -0600
+
+    passed solution card test
+
+commit 557000e7d323d69b2bc08b997395bbf287cb4241
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Nov 1 21:25:08 2021 -0600
+
+    created solution card test
+
+commit 2df6ff3295935b6a6db63ea3a917bcff49e020d9
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Nov 1 18:56:05 2021 -0600
+
+    Elena- passed testComputerPlayer()
+
+commit f22f88bfe93539fcba64ef8753011cea061683ad
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Nov 1 18:25:39 2021 -0600
+
+    Elena- wrote the testComputerPlayer()
+
+commit 24b7e0ee410ba2b9737c83c0cc033c017b2220e7
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Nov 1 18:13:22 2021 -0600
+
+    Elena- passed testHumanPlayer()
+
+commit d1d6fff8440d140da031081366559bcb43d4c8e9
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Nov 1 18:06:40 2021 -0600
+
+    Elena- added testHumanPlayer()
+
+commit 6dac98c892a704f573f27d838df444229755b0c1
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Nov 1 17:46:32 2021 -0600
+
+    Elena- wrote tests to check if player is human.
+
+commit d33294f5bb2fdb7a41724de6a78b359cb4ba1751
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Nov 1 17:38:10 2021 -0600
+
+     Elena- wrote weapons test and it automatically passed.
+
+commit 58a3420f4ea18ef2c0e3040ce17af5c886cac0fe
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Nov 1 17:29:09 2021 -0600
+
+    Passed player card test
+
+commit e7f3aa174e12cbb532557eacd0a985a62add8246
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Nov 1 17:26:45 2021 -0600
+
+    Created player card test
+
+commit 3dda2087b4bf8998ec03ffe60c8f6b3215d23f6b
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Nov 1 17:19:58 2021 -0600
+
+    Passed first setup test
+
+commit e0aa3f62836f69b3648c397e0639a600121cf223
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Sun Oct 31 17:33:28 2021 -0600
+
+    Added failing room card test
+
+commit 3c458b4bb8d1b23426efb857b5a7fab1d2bf59c9
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Sun Oct 31 16:50:50 2021 -0600
+
+    Changed cluesetup.txt and added file stubs
+
+commit 2d156edda515a0aba41cff2fd7ee08fda12fe06f
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Thu Oct 28 14:59:10 2021 -0600
+
+    fixed merge issues
+
+commit 0e18e5bd01b7aa214a307c76a6694af2b1f40786
+Merge: 6605e10 4ace736
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Wed Oct 27 22:23:50 2021 -0600
+
+    Refactor
+
+commit 6605e100f25e84ef8e7fe4303cbce7211546bb22
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Wed Oct 27 22:13:22 2021 -0600
+
+    Refactor
+
+commit 9a65d0009a7544ec9893fb71862ecfd3654ce376
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Wed Oct 27 22:06:09 2021 -0600
+
+    Refactor - Added row and column placemarkers in adj
+
+commit 4ace7363e2608662354921b317715c7280362e99
+Author: ecorendain <ecorendain@mymail.mines.edu>
+Date:   Wed Oct 27 21:51:51 2021 -0600
+
+    Refactor - also added another condition where a BadConfigFormat is thrown.
+
+commit d3220d57a2958a69cfe9aa72de6ac0398fae9707
+Author: ecorendain <ecorendain@mymail.mines.edu>
+Date:   Wed Oct 27 21:43:35 2021 -0600
+
+    Refactor - added rest of comments.
+
+commit 495d4e8d482dd0b267aa2e4d2bcb7809346f0e65
+Author: ecorendain <ecorendain@mymail.mines.edu>
+Date:   Wed Oct 27 21:37:45 2021 -0600
+
+    Refactor - adding comments to Board.
+
+commit d626a9506b68d732409fca19fa7197fed5fa1694
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Wed Oct 27 21:14:00 2021 -0600
+
+    Refactor - added valid symbol check
+
+commit e0e82a361f2f7b114ffb10548d6c27e3291897bd
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Wed Oct 27 21:05:36 2021 -0600
+
+    Refactor - got rid of roomcenter list
+
+commit d2847c85b9b2da82b172907ad642a35b56d54bc4
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Wed Oct 27 20:56:35 2021 -0600
+
+    Refactor - removed unused variables
+
 commit 29d64a294a7a6ce8fe977f70947c581b5e38143f
 Author: ecorendain <ecorendain@mines.edu>
 Date:   Wed Oct 20 15:35:19 2021 -0600

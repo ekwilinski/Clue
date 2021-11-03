@@ -8,31 +8,34 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.function.BooleanSupplier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.*;
 
 public class Board {
-	private BoardCell[][] grid; 		// creation of grid
 	private int numRows;				// instance variables
 	private int numColumns;				//
 	private String layoutConfigFile;	//
-	private String setupConfigFile;		// 
-	private Map<Character, Room> roomMap = new HashMap<Character, Room>();		// map of all the initials w/ their room
-	private Set<BoardCell> targets;		//all target cells
-	private Set<BoardCell> visited;		// all visited cells
-	private Set<BoardCell> roomCenters = new HashSet<BoardCell>();				// set of roomCenters
-	private Map<Character, BoardCell> passagewayCells = new HashMap<Character, BoardCell>();
+	private String setupConfigFile;		// 		// map of all the initials w/ their room
+	private Solution solution = new Solution();
 	private static final Set<Character> VALID_SYMBOLS = new HashSet<Character>(Arrays.asList('<','>','^','v','#','*'));		// valid characters to use
 	
-	private Set<Card> roomCards = new HashSet<Card>();
-	private Set<Card> playerCards = new HashSet<Card>();
-	private Set<Card> weaponCards = new HashSet<Card>();
+	private Set<BoardCell> targets;		//all target cells
+	private Set<BoardCell> visited;		// all visited cells
+	private BoardCell[][] grid; 		// creation of grid
+	private Map<Character, Room> roomMap;
+	private Set<BoardCell> roomCenters;				// set of roomCenters
+	private Map<Character, BoardCell> passagewayCells;
+	private Set<Card> roomCards;
+	private Set<Card> playerCards;
+	private Set<Card> weaponCards;
 	private HumanPlayer humanPlayer;
-	private Set<ComputerPlayer> computerPlayers = new HashSet<ComputerPlayer>();
+	private Set<ComputerPlayer> computerPlayers;
+	private Set<Card> solutionCards;
 	
-	private Set<Card> solutionCards = new HashSet<Card>();
+	//pull out instance declarations to load setup config
 	
 	/*
 	 * variable and methods used for singleton pattern
@@ -56,14 +59,25 @@ public class Board {
 		try {
 			loadSetupConfig();		// loading in the file
 			loadLayoutConfig();		// loading the layout
+			generateAllAdjacencies();
 			deal();
 		} catch(Exception e) {
 			System.out.println(e);
 		}
-		generateAllAdjacencies();
 	}
 
 	public void loadSetupConfig() throws BadConfigFormatException, FileNotFoundException {
+		
+		//allocate memory
+		roomMap = new HashMap<Character, Room>();
+		roomCenters = new HashSet<BoardCell>();				// set of roomCenters
+		passagewayCells = new HashMap<Character, BoardCell>();
+		roomCards = new HashSet<Card>();
+		playerCards = new HashSet<Card>();
+		weaponCards = new HashSet<Card>();
+		computerPlayers = new HashSet<ComputerPlayer>();
+		solutionCards = new HashSet<Card>();
+		
 		// if the file being read in is invalid this will throw an error
 		// we read in the file using scanner
 		FileReader f = new FileReader(setupConfigFile);
@@ -112,6 +126,8 @@ public class Board {
 	}
 
 	public void loadLayoutConfig() throws BadConfigFormatException, FileNotFoundException {
+		
+		
 		// if the file being read in is invalid this will throw an error
 		// we read in the file using scanner
 		FileReader f = new FileReader(layoutConfigFile);
@@ -350,6 +366,7 @@ public class Board {
 		for(Card card : roomCards) {
 			if(i == rand) {
 				solutionCards.add(card);
+				solution.addRoom(card);
 			}
 			i++;
 		}
@@ -360,6 +377,7 @@ public class Board {
 		for(Card card : weaponCards) {
 			if(i == rand) {
 				solutionCards.add(card);
+				solution.addWeapon(card);
 			}
 			i++;
 		}
@@ -370,6 +388,7 @@ public class Board {
 		for(Card card : playerCards) {
 			if(i == rand) {
 				solutionCards.add(card);
+				solution.addPlayer(card);
 			}
 			i++;
 		}
@@ -473,6 +492,16 @@ public class Board {
 
 	public Set<Card> getSolution() {
 		return solutionCards;
+	}
+
+	public void setSolution(Card person, Card room, Card weapon) {
+		// TODO Auto-generated method stu
+		
+	}
+
+	public Boolean checkAccusation(Solution testAnswer) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	
