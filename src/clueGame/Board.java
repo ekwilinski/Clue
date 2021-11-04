@@ -493,6 +493,10 @@ public class Board {
 	public Set<Card> getSolution() {
 		return solutionCards;
 	}
+	
+	public Solution getSolutionType() {
+		return solution;
+	}
 
 	public void setSolution(Card person, Card room, Card weapon) {
 		solution.addPlayer(person);

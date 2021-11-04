@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import clueGame.Board;
 import clueGame.Card;
 import clueGame.CardType;
+import clueGame.HumanPlayer;
+import clueGame.Player;
 import clueGame.Solution;
 
 class GameSolutionTest {
@@ -71,6 +73,19 @@ class GameSolutionTest {
 		testAnswer.addRoom(kitchen);
 		testAnswer.addPlayer(elena);
 		assertFalse(board.checkAccusation(testAnswer));
+	}
+	
+	@Test 
+	void testDisproveSuggestion() {
+		Player humanPlayer = new HumanPlayer("player", "red", 0, 0);
+		
+		humanPlayer.updateHand(ak47);
+		humanPlayer.updateHand(aretha);
+		humanPlayer.updateHand(bathroom);
+		
+		board.setSolution(aretha, kitchen, glock19);
+		
+		assertEquals(humanPlayer.disproveSuggestion(board.getSolutionType()), aretha);
 	}
 
 }
