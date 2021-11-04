@@ -495,12 +495,16 @@ public class Board {
 	}
 
 	public void setSolution(Card person, Card room, Card weapon) {
-		// TODO Auto-generated method stu
+		solution.addPlayer(person);
+		solution.addRoom(room);
+		solution.addWeapon(weapon);
 		
 	}
 
 	public Boolean checkAccusation(Solution testAnswer) {
 		// TODO Auto-generated method stub
+		if(testAnswer.getRoom().equals(solution.getRoom()) && testAnswer.getWeapon().equals(solution.getWeapon()) && testAnswer.getPlayer().equals(solution.getPlayer()) )
+			return true;
 		return false;
 	}
 

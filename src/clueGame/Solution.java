@@ -15,4 +15,14 @@ public class Solution {
 		person = card;
 	}
 	
+	public Card getRoom() {
+		return room;
+	}
+	public Card getWeapon() {
+		return weapon;
+	}
+	public Card getPlayer() {
+		return person;
+	}
+	
 }
