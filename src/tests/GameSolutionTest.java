@@ -78,11 +78,9 @@ class GameSolutionTest {
 	@Test 
 	void testDisproveSuggestion() {
 		Player humanPlayer = new HumanPlayer("player", "red", 0, 0);
-		
 		humanPlayer.updateHand(ak47);
 		humanPlayer.updateHand(aretha);
 		humanPlayer.updateHand(bathroom);
-		
 		board.setSolution(aretha, kitchen, glock19);
 		
 		assertEquals(humanPlayer.disproveSuggestion(board.getSolutionType()), aretha);

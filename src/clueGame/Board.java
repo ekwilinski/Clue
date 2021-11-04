@@ -502,7 +502,6 @@ public class Board {
 		solution.addPlayer(person);
 		solution.addRoom(room);
 		solution.addWeapon(weapon);
-		
 	}
 
 	public Boolean checkAccusation(Solution testAnswer) {
