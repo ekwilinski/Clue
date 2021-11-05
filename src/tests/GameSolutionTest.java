@@ -19,7 +19,8 @@ import clueGame.Solution;
 class GameSolutionTest {
 	
 	private static Board board;
-	private static Card jim, bob, steve, aretha, elena, elliot, sword, knife, ak47, glock19, cal50bmg, thumbs, culina, kitchen, bathroom, dungeon, library, dining, bedroom, poolhouse, traphouse; 
+	private static Card jim, bob, steve, aretha, elena, elliot, sword, knife, ak47, glock19, cal50bmg, thumbs, culina, kitchen, bathroom, dungeon,
+	 library, dining, bedroom, poolhouse, traphouse; 
 
 	@BeforeAll
 	public static void setUp() {
@@ -89,7 +90,6 @@ class GameSolutionTest {
 	
 	@Test
 	void testHandleSuggestions() {
-		
 		Set<ComputerPlayer> computerPlayers = new HashSet<ComputerPlayer>();
 		//no players can disprove
 		HumanPlayer humanPlayer = new HumanPlayer("HP", "blue", 0, 0, 0);
@@ -134,5 +134,4 @@ class GameSolutionTest {
 		computerPlayer3.updateHand(aretha);
 		assertEquals(aretha, board.handleSuggestion(humanPlayer, suggestion));
 	}
-
 }

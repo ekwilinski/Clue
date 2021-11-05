@@ -18,7 +18,7 @@ public class Board {
 	private int numRows;				// instance variables
 	private int numColumns;				//
 	private String layoutConfigFile;	//
-	private String setupConfigFile;		// 		// map of all the initials w/ their room
+	private String setupConfigFile;		// map of all the initials w/ their room
 	private Solution solution;
 	private static final Set<Character> VALID_SYMBOLS = new HashSet<Character>(Arrays.asList('<','>','^','v','#','*'));		// valid characters to use
 	
@@ -545,6 +545,4 @@ public class Board {
 	public void setComputerPlayer(Set<ComputerPlayer> computerPlayers) {
 		this.computerPlayers = computerPlayers;
 	}
-
-	
 }

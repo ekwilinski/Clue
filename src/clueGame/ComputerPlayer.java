@@ -32,4 +32,9 @@ public class ComputerPlayer extends Player {
 	public int getPosition() {
 		return position;
 	}
+	
+	public BoardCell selectTarget() {
+		BoardCell boardCell = new BoardCell(0, 0);
+		return boardCell;
+	}
 }

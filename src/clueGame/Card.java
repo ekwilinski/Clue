@@ -1,7 +1,6 @@
 package clueGame;
 
 public class Card {
-	
 	private String name;
 	private CardType type;
 	
@@ -30,5 +29,4 @@ public class Card {
 	public String getName() {
 		return name;
 	}
-
 }
