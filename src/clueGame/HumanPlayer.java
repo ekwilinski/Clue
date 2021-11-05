@@ -13,7 +13,7 @@ public class HumanPlayer extends Player {
 		this.position = position;
 	}
 
-	public Object getColor() {
+	public String getColor() {
 		return color;
 	}
 
@@ -27,5 +27,9 @@ public class HumanPlayer extends Player {
 
 	public int getColumn() {
 		return startColumn;
+	}
+
+	public int getPosition() {
+		return position;
 	}
 }

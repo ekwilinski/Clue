@@ -2,6 +2,9 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -87,27 +90,35 @@ class GameSolutionTest {
 	@Test
 	void testHandleSuggestions() {
 		
+		Set<ComputerPlayer> computerPlayers = new HashSet<ComputerPlayer>();
 		//no players can disprove
-		HumanPlayer humanPlayer = new HumanPlayer("HP", "red", 0, 0, 0);
+		HumanPlayer humanPlayer = new HumanPlayer("HP", "blue", 0, 0, 0);
 		Solution suggestion = new Solution(aretha, bathroom, ak47);
 		humanPlayer.updateHand(jim);
 		humanPlayer.updateHand(bedroom);
 		humanPlayer.updateHand(thumbs);
-		Player computerPlayer1 = new ComputerPlayer("Computer 1", "black", 1, 1, 1);
+		ComputerPlayer computerPlayer1 = new ComputerPlayer("Computer 1", "grey", 1, 1, 1);
+		computerPlayers.add(computerPlayer1);
 		computerPlayer1.updateHand(elena);
 		computerPlayer1.updateHand(culina);
 		computerPlayer1.updateHand(sword);
-		Player computerPlayer2 = new ComputerPlayer("Computer 2", "black", 1, 1, 2);
+		ComputerPlayer computerPlayer2 = new ComputerPlayer("Computer 2", "tan", 1, 1, 2);
+		computerPlayers.add(computerPlayer2);
 		computerPlayer2.updateHand(elliot);
 		computerPlayer2.updateHand(kitchen);
 		computerPlayer2.updateHand(knife);
+		
+		board.setComputerPlayer(computerPlayers);
+		board.setHumanPlayer(humanPlayer);
 		assertEquals(null, board.handleSuggestion(humanPlayer, suggestion));
 		
 		//accuser can disprove
-		Player computerPlayer3 = new ComputerPlayer("Computer 3", "black", 1, 1, 3);
+		ComputerPlayer computerPlayer3 = new ComputerPlayer("Computer 3", "purple", 1, 1, 3);
 		computerPlayer3.updateHand(aretha);
 		computerPlayer3.updateHand(poolhouse);
 		computerPlayer3.updateHand(ak47);
+		computerPlayers.add(computerPlayer3);
+		board.setComputerPlayer(computerPlayers);
 		assertEquals(null, board.handleSuggestion(computerPlayer3, suggestion));
 		
 		//humanPlayer accuser computerPlayer1 and computerPlayer2 can disprove

@@ -516,8 +516,34 @@ public class Board {
 	}
 
 	public Card handleSuggestion(Player accuser, Solution suggestion) {
-		// TODO Auto-generated method stub
+		//loop through players by position
+		Card refutal;
+		for(int i = 0; i < 6; i++) {
+			if((humanPlayer.getPosition() == i) && (!accuser.getColor().equals(humanPlayer.getColor()))) {
+				refutal = humanPlayer.disproveSuggestion(suggestion);
+				if(refutal != null) {
+					return refutal;
+				}
+			}
+			else {
+				for(ComputerPlayer computerPlayer : computerPlayers) {
+					if((computerPlayer.getPosition() == i) && (!accuser.getColor().equals(computerPlayer.getColor()))) {
+						refutal = computerPlayer.disproveSuggestion(suggestion);
+						if(refutal != null) {
+							return refutal;
+						}
+					}
+				}
+			}
+		}
 		return null;
+	}
+
+	public void setHumanPlayer(HumanPlayer humanPlayer) {
+		this.humanPlayer = humanPlayer;
+	}
+	public void setComputerPlayer(Set<ComputerPlayer> computerPlayers) {
+		this.computerPlayers = computerPlayers;
 	}
 
 	
