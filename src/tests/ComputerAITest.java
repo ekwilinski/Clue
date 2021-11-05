@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import clueGame.Board;
+import clueGame.BoardCell;
 import clueGame.Card;
 import clueGame.CardType;
 import clueGame.ComputerPlayer;
@@ -36,9 +37,19 @@ class ComputerAITest {
 	
 	@Test
 	void testSelectTargets() {
-		//cp select target. is in room. room not in seenCards. select room or random selection
+		//cp select target
 		ComputerPlayer computerPlayer4 = new ComputerPlayer("Computer 4", "green", 1, 1, 3);
-		assertEquals(computerPlayer4.selectTarget(), board.getTargets());
-		assertFalse(computerPlayer4.selectTarget(), board.getTargets());
+		BoardCell selectedTarget = new BoardCell(2,2);
+		computerPlayer4.selectTarget(board.getTargets(), selectedTarget);
+				
+		//target not in room, select randomly
+		
+		//target in room, but not seen then select it
+		//if the initial is in room
+		assertEquals(board.getRoom(selectedTarget), board.getTargets());
+		
+		//target in room, but seen then random
+		assertEquals(board.getRoom(selectedTarget), board.getTargets());
+		
 	}
 }
