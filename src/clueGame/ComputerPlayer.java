@@ -39,7 +39,32 @@ public class ComputerPlayer extends Player {
 	}
 	
 	public BoardCell selectTarget(Set<BoardCell> targetList, BoardCell selectedTarget) {
-		BoardCell boardCell = new BoardCell(0, 0);
-		return boardCell;
+		targetList= new HashSet<BoardCell>();
+		//looping through targetList to see if in room && not in seen list
+		for(BoardCell cell : targetList) {
+			if(cell.equals(selectedTarget) && ((cell.getInitial() != 'H') || cell.getInitial() != 'X')) {
+				//if multiple then return random room
+				/*
+				if() {
+					//cant figure out how to check if multiple or in seen list :(
+				}
+				else {
+					return cell;		//return room;
+				}
+				*/
+			}
+			else {
+				//return random target from targetList
+				int rand = (int)(Math.random() * (targetList.size() - 1) + 1);
+				int i = 1;
+				for(BoardCell rand_cell : targetList) {
+					if(i == rand) {
+						return rand_cell;
+					}
+					i++;
+				}
+			}
+		}
+		return null;
 	}
 }

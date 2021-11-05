@@ -30,18 +30,18 @@ class ComputerAITest {
 		board.initialize();
 	}
 	
-	@Test
+	/*@Test
 	void testCreateSuggestion() {
 		
 	}
-	
+	*/
 	@Test
 	void testSelectTargets() {
 		//cp select target
 		ComputerPlayer computerPlayer4 = new ComputerPlayer("Computer 4", "green", 1, 1, 3);
-		BoardCell selectedTarget = new BoardCell(2,2);
-		computerPlayer4.selectTarget(board.getTargets(), selectedTarget);
-				
+		BoardCell selectedTarget = new BoardCell(1,1);
+		selectedTarget = computerPlayer4.selectTarget(board.getTargets(), selectedTarget);
+		
 		//target not in room, select randomly
 		
 		//target in room, but not seen then select it
@@ -49,7 +49,6 @@ class ComputerAITest {
 		assertEquals(board.getRoom(selectedTarget), board.getTargets());
 		
 		//target in room, but seen then random
-		assertEquals(board.getRoom(selectedTarget), board.getTargets());
-		
+		assertEquals(board.getRoom(selectedTarget), board.getTargets());	
 	}
 }
