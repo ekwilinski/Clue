@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import clueGame.Board;
 import clueGame.Card;
 import clueGame.CardType;
+import clueGame.ComputerPlayer;
 import clueGame.HumanPlayer;
 import clueGame.Player;
 import clueGame.Solution;
@@ -57,33 +58,70 @@ class GameSolutionTest {
 	@Test
 	void testCheckAccusation() {
 		board.setSolution(jim, kitchen, glock19);
-		Solution testAnswer = new Solution();
-		testAnswer.addPlayer(jim);
-		testAnswer.addRoom(kitchen);
-		testAnswer.addWeapon(glock19);
-		assertTrue(board.checkAccusation(testAnswer));
+		Solution testAccusation = new Solution(jim, kitchen, glock19);
+		assertTrue(board.checkAccusation(testAccusation));
 		//checking the 3 false tests to make sure
-		testAnswer.addWeapon(ak47);
-		assertFalse(board.checkAccusation(testAnswer));
+		testAccusation.addWeapon(ak47);
+		assertFalse(board.checkAccusation(testAccusation));
 		
-		testAnswer.addWeapon(glock19);
-		testAnswer.addRoom(bedroom);
-		assertFalse(board.checkAccusation(testAnswer));
+		testAccusation.addWeapon(glock19);
+		testAccusation.addRoom(bedroom);
+		assertFalse(board.checkAccusation(testAccusation));
 		
-		testAnswer.addRoom(kitchen);
-		testAnswer.addPlayer(elena);
-		assertFalse(board.checkAccusation(testAnswer));
+		testAccusation.addRoom(kitchen);
+		testAccusation.addPlayer(elena);
+		assertFalse(board.checkAccusation(testAccusation));
 	}
 	
 	@Test 
 	void testDisproveSuggestion() {
-		Player humanPlayer = new HumanPlayer("player", "red", 0, 0);
+		Player humanPlayer = new HumanPlayer("player", "red", 0, 0, 0);
 		humanPlayer.updateHand(ak47);
 		humanPlayer.updateHand(aretha);
 		humanPlayer.updateHand(bathroom);
-		board.setSolution(aretha, kitchen, glock19);
+		Solution suggestion = new Solution(aretha, kitchen, glock19);
 		
-		assertEquals(humanPlayer.disproveSuggestion(board.getSolutionType()), aretha);
+		assertEquals(humanPlayer.disproveSuggestion(suggestion), aretha);
+	}
+	
+	@Test
+	void testHandleSuggestions() {
+		
+		//no players can disprove
+		HumanPlayer humanPlayer = new HumanPlayer("HP", "red", 0, 0, 0);
+		Solution suggestion = new Solution(aretha, bathroom, ak47);
+		humanPlayer.updateHand(jim);
+		humanPlayer.updateHand(bedroom);
+		humanPlayer.updateHand(thumbs);
+		Player computerPlayer1 = new ComputerPlayer("Computer 1", "black", 1, 1, 1);
+		computerPlayer1.updateHand(elena);
+		computerPlayer1.updateHand(culina);
+		computerPlayer1.updateHand(sword);
+		Player computerPlayer2 = new ComputerPlayer("Computer 2", "black", 1, 1, 2);
+		computerPlayer2.updateHand(elliot);
+		computerPlayer2.updateHand(kitchen);
+		computerPlayer2.updateHand(knife);
+		assertEquals(null, board.handleSuggestion(humanPlayer, suggestion));
+		
+		//accuser can disprove
+		Player computerPlayer3 = new ComputerPlayer("Computer 3", "black", 1, 1, 3);
+		computerPlayer3.updateHand(aretha);
+		computerPlayer3.updateHand(poolhouse);
+		computerPlayer3.updateHand(ak47);
+		assertEquals(null, board.handleSuggestion(computerPlayer3, suggestion));
+		
+		//humanPlayer accuser computerPlayer1 and computerPlayer2 can disprove
+		computerPlayer3.removeCard(aretha);
+		computerPlayer3.removeCard(ak47);
+		computerPlayer1.updateHand(aretha);
+		computerPlayer2.updateHand(bathroom);
+		assertEquals(aretha, board.handleSuggestion(humanPlayer, suggestion));
+		
+		//humanPlayer accuser and computerplayer3 can disprove
+		computerPlayer1.removeCard(aretha);
+		computerPlayer2.removeCard(bathroom);
+		computerPlayer3.updateHand(aretha);
+		assertEquals(aretha, board.handleSuggestion(humanPlayer, suggestion));
 	}
 
 }

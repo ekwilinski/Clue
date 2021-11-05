@@ -16,12 +16,14 @@ public class BoardAdjTargetTest306 {
 	
 	@BeforeAll
 	public static void setUp() {
+		System.out.println("BoardAdjTargetTest306");
 		// Board is singleton, get the only instance
 		board = Board.getInstance();
 		// set the file names to use my config files
 		board.setConfigFiles("data/ClueLayout306.csv", "data/ClueSetup306.txt");		
 		// Initialize will load config files 
 		board.initialize();
+		System.out.println("BoardAdjTargetTest306 setup complete");
 	}
 
 	// Ensure that player does not move around within room

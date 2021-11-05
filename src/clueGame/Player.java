@@ -13,6 +13,15 @@ public abstract class Player {
 	public void updateHand(Card card) {
 		hand.add(card);
 	}
+	
+	public void removeCard(Card cardToRemove) {
+		for(Card card : hand) {
+			if(card.equals(cardToRemove)) {
+				hand.remove(card);
+				break;
+			}
+		}
+	}
 
 	public Set<Card> getHand() {
 		return hand;

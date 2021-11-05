@@ -19,7 +19,7 @@ public class Board {
 	private int numColumns;				//
 	private String layoutConfigFile;	//
 	private String setupConfigFile;		// 		// map of all the initials w/ their room
-	private Solution solution = new Solution();
+	private Solution solution;
 	private static final Set<Character> VALID_SYMBOLS = new HashSet<Character>(Arrays.asList('<','>','^','v','#','*'));		// valid characters to use
 	
 	private Set<BoardCell> targets;		//all target cells
@@ -69,6 +69,7 @@ public class Board {
 	public void loadSetupConfig() throws BadConfigFormatException, FileNotFoundException {
 		
 		//allocate memory
+		solution = new Solution();
 		roomMap = new HashMap<Character, Room>();
 		roomCenters = new HashSet<BoardCell>();				// set of roomCenters
 		passagewayCells = new HashMap<Character, BoardCell>();
@@ -86,16 +87,17 @@ public class Board {
 
 		while(in.hasNextLine()) {
 			line = in.nextLine();
+			int position = 0;
 			if(!line.contains("//")) {
 				String[] lineData = line.split(", ");	// we use this as a delimeter
 				
-				readCards(lineData);
+				readCards(lineData, position);
 			}
 		}
 		in.close();		//closing the input file
 	}
 	
-	public void readCards(String[] lineData) throws BadConfigFormatException {
+	public void readCards(String[] lineData, int position) throws BadConfigFormatException {
 		String type = lineData[0];
 		
 		if(type.equals("Room")) {
@@ -108,13 +110,15 @@ public class Board {
 			roomMap.put(lineData[2].charAt(0), room_data);
 		}
 		else if(type.equals("Human")) {
-			humanPlayer = new HumanPlayer(lineData[1], lineData[2], Integer.parseInt(lineData[3]), Integer.parseInt(lineData[4]));
+			humanPlayer = new HumanPlayer(lineData[1], lineData[2], Integer.parseInt(lineData[3]), Integer.parseInt(lineData[4]), position);
 			playerCards.add(new Card(lineData[1], CardType.PERSON));
+			position++;
 		}
 		else if(type.equals("Computer")) {
-			ComputerPlayer computerPlaya = new ComputerPlayer(lineData[1], lineData[2], Integer.parseInt(lineData[3]), Integer.parseInt(lineData[4]));
+			ComputerPlayer computerPlaya = new ComputerPlayer(lineData[1], lineData[2], Integer.parseInt(lineData[3]), Integer.parseInt(lineData[4]), position);
 			computerPlayers.add(computerPlaya);
 			playerCards.add(new Card(lineData[1], CardType.PERSON));
+			position++;
 		}
 		else if(type.equals("Weapon")) {
 			weaponCards.add(new Card(lineData[1], CardType.WEAPON));
@@ -509,6 +513,11 @@ public class Board {
 		if(testAnswer.getRoom().equals(solution.getRoom()) && testAnswer.getWeapon().equals(solution.getWeapon()) && testAnswer.getPlayer().equals(solution.getPlayer()) )
 			return true;
 		return false;
+	}
+
+	public Card handleSuggestion(Player accuser, Solution suggestion) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
