@@ -43,12 +43,15 @@ class ComputerAITest {
 		selectedTarget = computerPlayer4.selectTarget(board.getTargets(), selectedTarget);
 		
 		//target not in room, select randomly
+		assertEquals(board.checkTarget(selectedTarget), board.getTargets());
 		
 		//target in room, but not seen then select it
 		//if the initial is in room
-		assertEquals(board.getRoom(selectedTarget), board.getTargets());
+		
+		assertFalse(board.checkTarget(selectedTarget), board.getTargets());
 		
 		//target in room, but seen then random
-		assertEquals(board.getRoom(selectedTarget), board.getTargets());	
+		computerPlayer4.updateSeen(selectedTarget);
+		assertTrue(board.checkTarget(selectedTarget), board.getTargets());	
 	}
 }
