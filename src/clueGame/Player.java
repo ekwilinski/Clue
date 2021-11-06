@@ -4,11 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public abstract class Player {
-	private Set<Card> hand = new HashSet<Card>();
+	protected Set<Card> hand = new HashSet<Card>();
 	protected Set<Card> seenCards = new HashSet<Card>();
 	private Set<Card> allRooms = new HashSet<Card>();
-	private Set<Card> allWeapons = new HashSet<Card>();
-	private Set<Card> allPlayers = new HashSet<Card>();
+	protected Set<Card> allWeapons = new HashSet<Card>();
+	protected Set<Card> allPlayers = new HashSet<Card>();
 	
 	public void updateHand(Card card) {
 		hand.add(card);

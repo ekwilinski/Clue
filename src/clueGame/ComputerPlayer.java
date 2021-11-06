@@ -37,7 +37,7 @@ public class ComputerPlayer extends Player {
 	public int getPosition() {
 		return position;
 	}
-	
+
 	public BoardCell selectTarget(Set<BoardCell> targetList) {
 		boolean hasBeenSeen = false;
 		Set<BoardCell> randomTargets = new HashSet<BoardCell>();
@@ -71,10 +71,48 @@ public class ComputerPlayer extends Player {
 		return null;
 	}
 
-	public Solution createSuggestion() {
-		// TODO Auto-generated method stub
-		return null;
+	public Solution createSuggestion(Card room) {
+		Set<Card> unseenWeapons = new HashSet<Card>();
+		Set<Card> unseenPersons = new HashSet<Card>();
+
+		for(Card weapon : allWeapons) {
+			if(!seenCards.contains(weapon) && !hand.contains(weapon)) {
+				unseenWeapons.add(weapon);
+			}
+		}
+		for(Card person : allPlayers) {
+			if(!seenCards.contains(person) && !hand.contains(person)) {
+				unseenPersons.add(person);
+			}
+		}
+		
+		Card Weapon = null;
+
+		//get random weapon card
+		int rand = (int)(Math.random() * (unseenWeapons.size() - 1) + 1);
+		int i = 1;
+		for(Card weapon : unseenWeapons) {
+			if(i == rand) {
+				Weapon = weapon;
+			}
+			i++;
+		}
+		
+		Card Person = null;
+
+		//get random weapon card
+		rand = (int)(Math.random() * (unseenPersons.size() - 1) + 1);
+		i = 1;
+		for(Card person : unseenPersons) {
+			if(i == rand) {
+				Person = person;
+			}
+			i++;
+		}
+		
+		Solution suggestion = new Solution(Person, room ,Weapon);
+		return suggestion;
 	}
 
-	
+
 }

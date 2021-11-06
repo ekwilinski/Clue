@@ -74,7 +74,7 @@ class ComputerAITest {
 		//set and test player location card
 		board.addToRoomCards(bedroom);
 		board.addToRoomMap('b', bedroom, 2, 2);
-		Solution suggestion = computerPlayer.createSuggestion();
+		Solution suggestion = computerPlayer.createSuggestion(board.getCard(bedroom.getName()));
 		Card computerRoom = board.getCard(bedroom.getName());
 		assertEquals(suggestion.getRoom(), computerRoom);
 
@@ -88,7 +88,7 @@ class ComputerAITest {
 		playerCards.add(aretha);
 		playerCards.add(elliot);
 		computerPlayer.giveCards(roomCards, weaponCards, playerCards);
-		suggestion = computerPlayer.createSuggestion();
+		suggestion = computerPlayer.createSuggestion(board.getCard(bedroom.getName()));
 		
 		//test unseen weapon is selected
 		assertEquals(suggestion.getWeapon(), sword);
