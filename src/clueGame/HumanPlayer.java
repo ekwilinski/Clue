@@ -1,5 +1,7 @@
 package clueGame;
 
+import java.util.Set;
+
 public class HumanPlayer extends Player {
 	private String name;
 	private String color;
@@ -32,4 +34,6 @@ public class HumanPlayer extends Player {
 	public int getPosition() {
 		return position;
 	}
+
+
 }

@@ -6,6 +6,9 @@ import java.util.Set;
 public abstract class Player {
 	private Set<Card> hand = new HashSet<Card>();
 	protected Set<Card> seenCards = new HashSet<Card>();
+	private Set<Card> allRooms = new HashSet<Card>();
+	private Set<Card> allWeapons = new HashSet<Card>();
+	private Set<Card> allPlayers = new HashSet<Card>();
 	
 	public void updateHand(Card card) {
 		hand.add(card);
@@ -73,5 +76,12 @@ public abstract class Player {
 	
 	public Set<Card> getSeenCards() {
 		return seenCards;
+	}
+	
+	public void giveCards(Set<Card> roomCards, Set<Card> weaponCards, Set<Card> playerCards) {
+		allRooms = roomCards;
+		allWeapons = weaponCards;
+		allPlayers = playerCards;
+		
 	}
 }

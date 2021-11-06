@@ -94,9 +94,17 @@ public class Board {
 				readCards(lineData, position);
 			}
 		}
+		givePlayersAllCard();
 		in.close();		//closing the input file
 	}
 	
+	private void givePlayersAllCard() {
+		humanPlayer.giveCards(roomCards, weaponCards, playerCards);
+		for( Player player : computerPlayers) {
+			player.giveCards(roomCards, weaponCards, playerCards);
+		}
+	}
+
 	public void readCards(String[] lineData, int position) throws BadConfigFormatException {
 		String type = lineData[0];
 		
@@ -545,4 +553,17 @@ public class Board {
 	public void setComputerPlayer(Set<ComputerPlayer> computerPlayers) {
 		this.computerPlayers = computerPlayers;
 	}
+
+	public void addToRoomMap(char c, Card living, int i, int j) {
+		Room newRoom = new Room(living.getName());
+		newRoom.setCenterCell(grid[i][j]);
+		roomMap.put('l', newRoom);
+	}
+
+	public void addToRoomCards(Card room) {
+		roomCards.add(room);
+		
+	}
+
+
 }

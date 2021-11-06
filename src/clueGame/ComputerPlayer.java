@@ -70,5 +70,11 @@ public class ComputerPlayer extends Player {
 		}
 		return null;
 	}
+
+	public Solution createSuggestion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }
