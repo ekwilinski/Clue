@@ -37,21 +37,27 @@ class ComputerAITest {
 	*/
 	@Test
 	void testSelectTargets() {
-		//cp select target
-		ComputerPlayer computerPlayer4 = new ComputerPlayer("Computer 4", "green", 1, 1, 3);
-		BoardCell selectedTarget = new BoardCell(1,1);
-		selectedTarget = computerPlayer4.selectTarget(board.getTargets(), selectedTarget);
 		
-		//target not in room, select randomly
-		assertEquals(board.checkTarget(selectedTarget), board.getTargets());
+		//targets contains room - room not in seen list - select room
+		ComputerPlayer computerPlayer4 = new ComputerPlayer("Computer 4", "green", 2, 2, 3);
+		Set<BoardCell> targets = new HashSet<BoardCell>();
+		targets.add(new BoardCell(1,1));
+		targets.add(new BoardCell(1,2));
+		targets.add(new BoardCell(2,2));
+		BoardCell room = new BoardCell(2,3);
+		room.setInitial('k');
+		room.setIsRoomCenter();
+		targets.add(room);
+		assertEquals(room, computerPlayer4.selectTarget(targets));
 		
-		//target in room, but not seen then select it
-		//if the initial is in room
+		//targets contains room - target in seen list - randomly select
+		computerPlayer4.updateSeen(new Card("kitchen", CardType.ROOM));
+		assertTrue(!room.equals(computerPlayer4.selectTarget(targets)));
+		assertTrue(targets.contains(computerPlayer4.selectTarget(targets)));
 		
-		assertFalse(board.checkTarget(selectedTarget), board.getTargets());
+		//no rooms in targets - randomly select
+		targets.remove(room);
+		assertTrue(targets.contains(computerPlayer4.selectTarget(targets)));
 		
-		//target in room, but seen then random
-		computerPlayer4.updateSeen(selectedTarget);
-		assertTrue(board.checkTarget(selectedTarget), board.getTargets());	
 	}
 }

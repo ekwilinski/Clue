@@ -5,7 +5,7 @@ import java.util.Set;
 
 public abstract class Player {
 	private Set<Card> hand = new HashSet<Card>();
-	private Set<Card> seenCards = new HashSet<Card>();
+	protected Set<Card> seenCards = new HashSet<Card>();
 	
 	public void updateHand(Card card) {
 		hand.add(card);

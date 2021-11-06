@@ -3,10 +3,12 @@ package clueGame;
 public class Card {
 	private String name;
 	private CardType type;
+	private char initial;
 	
 	public Card(String name, CardType type) {
 		this.name = name;
 		this.type = type;
+		setInitial(name.charAt(0));
 	}
 	
 	public Boolean equals(Card target) {
@@ -28,5 +30,12 @@ public class Card {
 
 	public String getName() {
 		return name;
+	}
+
+	public void setInitial(char initial) {
+		this.initial = initial;
+	}
+	public char getInitial() {
+		return initial;
 	}
 }

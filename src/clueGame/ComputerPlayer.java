@@ -8,7 +8,7 @@ public class ComputerPlayer extends Player {
 	private String name;
 	private String color;
 	private int startRow, startColumn, position;
-	
+
 
 	public ComputerPlayer(String name, String color, int startRow, int startColumn, int position) {
 		this.name = name;
@@ -33,40 +33,44 @@ public class ComputerPlayer extends Player {
 	public int getColumn() {
 		return startColumn;
 	}
-	
+
 	public int getPosition() {
 		return position;
 	}
-	
-	public BoardCell selectTarget(Set<BoardCell> targetList, BoardCell selectedTarget) {
-		targetList= new HashSet<BoardCell>();
-		//looping through targetList to see if in room and& not in seen list
-		for(BoardCell cell : targetList) {
-			if(cell.equals(selectedTarget) && ((cell.getInitial() != 'H') || cell.getInitial() != 'X')) {
-				//if multiple then return random room
-				/*
-				if() {
-					///TODOcant figure out how to check if multiple or in seen list :(
-					 * 
-					 * return rand_room;
+
+	public BoardCell selectTarget(Set<BoardCell> targetList) {
+		boolean hasBeenSeen = false;
+		Set<BoardCell> randomTargets = new HashSet<BoardCell>();
+		for(BoardCell target : targetList) {
+			if(target.isRoomCenter()) {
+				for(Card card : seenCards) {
+					char cardName = card.getInitial();
+					char targetName = target.getInitial();
+					if(cardName == targetName) {
+						hasBeenSeen = true;
+					}
 				}
-				else {
-					return cell;		//return room;
+				if(!hasBeenSeen) {
+					return target;
 				}
-				*/
 			}
 			else {
-				//return random target from targetList
-				int rand = (int)(Math.random() * (targetList.size() - 1) + 1);
-				int i = 1;
-				for(BoardCell rand_cell : targetList) {
-					if(i == rand) {
-						return rand_cell;
-					}
-					i++;
-				}
+				randomTargets.add(target);
 			}
 		}
+
+		//get random card
+		int rand = (int)(Math.random() * (randomTargets.size() - 1) + 1);
+		int i = 1;
+		for(BoardCell target : randomTargets) {
+			if(i == rand) {
+				return target;
+			}
+			i++;
+		}
 		return null;
+
 	}
+
+
 }

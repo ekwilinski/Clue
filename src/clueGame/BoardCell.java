@@ -13,7 +13,7 @@ public class BoardCell {
 	private char secretPassage;
 	private boolean isSecretPassageway;			// tells us if a cell is secret passageway
 	private Set<BoardCell> adjList = new HashSet<BoardCell>();		//holds the adjList for cells
-	private boolean isDoorway, isRoom, isOccupied;		// bools to help with conditions for adjList	
+	private boolean isDoorway, isOccupied;		// bools to help with conditions for adjList	
 
 	public BoardCell(int row, int column) {
 		this.row = row;
