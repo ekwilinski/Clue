@@ -30,14 +30,14 @@ class ComputerAITest {
 		board.initialize();
 	}
 	
-	/*@Test
+	@Test
 	void testCreateSuggestion() {
 		
 	}
-	*/
+
+	
 	@Test
 	void testSelectTargets() {
-		
 		//targets contains room - room not in seen list - select room
 		ComputerPlayer computerPlayer4 = new ComputerPlayer("Computer 4", "green", 2, 2, 3);
 		Set<BoardCell> targets = new HashSet<BoardCell>();
@@ -58,6 +58,5 @@ class ComputerAITest {
 		//no rooms in targets - randomly select
 		targets.remove(room);
 		assertTrue(targets.contains(computerPlayer4.selectTarget(targets)));
-		
 	}
 }

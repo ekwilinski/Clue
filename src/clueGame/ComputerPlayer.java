@@ -37,7 +37,7 @@ public class ComputerPlayer extends Player {
 	public int getPosition() {
 		return position;
 	}
-
+	
 	public BoardCell selectTarget(Set<BoardCell> targetList) {
 		boolean hasBeenSeen = false;
 		Set<BoardCell> randomTargets = new HashSet<BoardCell>();
@@ -69,8 +69,6 @@ public class ComputerPlayer extends Player {
 			i++;
 		}
 		return null;
-
 	}
-
-
+	
 }
