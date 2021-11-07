@@ -1,8 +1,10 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,10 +16,10 @@ import clueGame.ComputerPlayer;
 
 @SuppressWarnings("serial")
 public class GameControlPanel extends JPanel {
-	private String guessText = "default guess";
 	private JPanel guess, guessResult, upperPanel, bottomPanel, turnPanel, rollPanel;
-	private JLabel turnLabel;
-	private JTextField turnField;
+	private JLabel turnLabel, rollLabel;
+	private JTextField guessField, turnField, rollField, guessResultField;
+	private JButton accusationButton, nextButton;
 	/**
 	 * Constructor for the panel, it does 90% of the work
 	 */
@@ -32,13 +34,25 @@ public class GameControlPanel extends JPanel {
 		upperPanel.setLayout(new GridLayout(1, 4));
 		
 		turnPanel = new JPanel();
-		turnPanel.setLayout(new GridLayout(2, 1));
 		turnLabel = new JLabel("Whose Turn?");
-		turnPanel.add(turnLabel);
-		turnField = new JTextField(16);
-		turnPanel.add(turnField);
+		turnPanel.add(turnLabel, BorderLayout.NORTH);
+		turnField = new JTextField(18);
+		turnPanel.add(turnField, BorderLayout.CENTER);
+		upperPanel.add(turnPanel);
 		
+		rollPanel = new JPanel();
+		rollLabel = new JLabel("Roll:");
+		rollPanel.add(rollLabel, BorderLayout.CENTER);
+		rollField = new JTextField(6);
+		rollPanel.add(rollField, BorderLayout.CENTER);
+		upperPanel.add(rollPanel);
 		
+		accusationButton = new JButton("Make Accusation");
+		upperPanel.add(accusationButton);
+		nextButton = new JButton("NEXT!");
+		upperPanel.add(nextButton);
+		
+		add(upperPanel);
 	}
 	
 	public void createBottomPanel() {
@@ -48,38 +62,65 @@ public class GameControlPanel extends JPanel {
 		
 		guess = new JPanel();
 		guess.setBorder(new TitledBorder ( new EtchedBorder(), "Guess"));
-		JTextField guessText = new JTextField(36);
-		guess.add(guessText, BorderLayout.CENTER);
+		guessField = new JTextField(36);
+		guess.add(guessField, BorderLayout.CENTER);
 		bottomPanel.add(guess, BorderLayout.SOUTH);
 		
 		guessResult = new JPanel();
 		guessResult.setBorder(new TitledBorder ( new EtchedBorder(), "Guess Result"));
-		JTextField guessResultText = new JTextField(36);
-		guessResult.add(guessResultText, BorderLayout.CENTER);
+		guessResultField = new JTextField(36);
+		guessResult.add(guessResultField, BorderLayout.CENTER);
 		bottomPanel.add(guessResult, BorderLayout.SOUTH);
 		
 		add(bottomPanel);
 	}
 
 
-	private void setGuessResult(String string) {
-		// TODO Auto-generated method stub
+	private void setGuessResult(String guessResult) {
+		guessResultField.setText(guessResult);
 		
 	}
 
 
-	private void setGuess(String string) {
-		// TODO Auto-generated method stub
+	private void setGuess(String guess) {
+		guessField.setText(guess);
 		
 	}
 
 
 	private void setTurn(ComputerPlayer computerPlayer, int i) {
-		// TODO Auto-generated method stub
+		turnField.setText(computerPlayer.getName());
+		turnField.setBackground(convertColor(computerPlayer.getColor()));
+		rollField.setText((String.valueOf(i)));
 		
 	}
 	
 	
+	private Color convertColor(String color) {
+		Color convertedColor = new Color(0,0,0);
+		switch(color.toLowerCase()) {
+		case "blue" :
+			convertedColor = Color.BLUE;
+			break;
+		case "tan" :
+			convertedColor = new Color(210, 180, 140);
+			break;
+		case "white":
+			convertedColor = Color.WHITE;
+			break;
+		case "yellow" :
+			convertedColor = Color.YELLOW;
+			break;
+		case "gray" :
+			convertedColor = Color.GRAY;
+			break;
+		case "purple" :
+			convertedColor = new Color(148, 0, 211);
+		}
+		
+		return convertedColor;
+	}
+
 	/**
 	 * Main to test the panel
 	 * 
@@ -94,7 +135,7 @@ public class GameControlPanel extends JPanel {
 		frame.setVisible(true); // make it visible
 		
 		// test filling in the data
-		panel.setTurn(new ComputerPlayer( "Col. Mustard", "orange", 0, 0, 5), 5);
+		panel.setTurn(new ComputerPlayer( "Col. Mustard", "yellow", 0, 0, 5), 5);
 		panel.setGuess( "I have no guess!");
 		panel.setGuessResult( "So you have nothing?");
 	}

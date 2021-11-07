@@ -22,7 +22,7 @@ public class ComputerPlayer extends Player {
 		return color;
 	}
 
-	public Object getName() {
+	public String getName() {
 		return name;
 	}
 
