@@ -1,3 +1,87 @@
+commit c7bce289fff9b4c090a9b26838c47293febc05fa
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Fri Nov 5 23:58:21 2021 -0600
+
+    passed all tests
+
+commit 8037a892274fac4c868ea799bb7b782ab67ca1ce
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Fri Nov 5 23:41:09 2021 -0600
+
+    created test for createSuggestion
+
+commit 85e98db4bba6ff73bb996c005671fb4eed313f5b
+Author: ecorendain <ecorendain@mymail.mines.edu>
+Date:   Fri Nov 5 18:47:08 2021 -0600
+
+     added comments
+
+commit cfc3b11f02877965b71614cdf9672e81dde8e333
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Fri Nov 5 18:13:21 2021 -0600
+
+    passed AI select traget
+
+commit b28b4bf46ff2494e8e60972eb5317e291f279f38
+Author: ecorendain <ecorendain@mymail.mines.edu>
+Date:   Fri Nov 5 13:41:12 2021 -0600
+
+    Code in process, not passing yet
+
+commit fd596bba1e7796d5d650d7ecae922612d9bb56e4
+Author: ecorendain <ecorendain@mymail.mines.edu>
+Date:   Fri Nov 5 13:29:27 2021 -0600
+
+    Added code for testSelectedTargets, but not passing
+
+commit 5644e60a1bb5689722a85703376a5773af203b39
+Author: ecorendain <ecorendain@mymail.mines.edu>
+Date:   Fri Nov 5 12:53:31 2021 -0600
+
+    Setup testSelectTargets() to pass.
+
+commit 932b2f4ec931b64c8476103e9192bfba92cd1dde
+Author: ecorendain <ecorendain@mymail.mines.edu>
+Date:   Fri Nov 5 12:20:09 2021 -0600
+
+    Set up testSelectTargets()
+
+commit 22b7c47d405e261b580e1d04c61f4aefb5284e39
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Thu Nov 4 21:43:33 2021 -0600
+
+    passed handleSuggestion test
+
+commit 3921005a5236d69a89dff76d2f18d00782981b8f
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Thu Nov 4 20:51:04 2021 -0600
+
+    created handleSuggestion test
+
+commit 49a6f9beeededc6876d9a6a080f2c09f7746d9c7
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Wed Nov 3 18:52:30 2021 -0600
+
+    Elena- passed disproveSuggestion tests
+
+commit 4164b0a75b24a8914205e7ad835b09a095f814dd
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Wed Nov 3 18:39:00 2021 -0600
+
+    created disproveSuggestion test
+
+commit bb2f353090c2440719d7d3d9e37a66ad5915898a
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Wed Nov 3 18:05:55 2021 -0600
+
+    passed solutionCheck test
+
+commit da88d8c5fceabb9b16e4222bf871675cc33d76d7
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Wed Nov 3 17:59:58 2021 -0600
+
+    created solutionCheck test
+
 commit 43137d85ad15c27520d0b9223a4611c71f96946d
 Author: Elliot Kwilinski <ekwilinski@mines.edu>
 Date:   Mon Nov 1 22:35:50 2021 -0600
