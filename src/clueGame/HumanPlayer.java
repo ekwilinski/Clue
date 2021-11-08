@@ -19,7 +19,7 @@ public class HumanPlayer extends Player {
 		return color;
 	}
 
-	public Object getName() {
+	public String getName() {
 		return name;
 	}
 

@@ -12,13 +12,16 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import clueGame.Card;
 import clueGame.ComputerPlayer;
+import clueGame.HumanPlayer;
 
+@SuppressWarnings("serial")
 public class CardPanel extends JPanel{
 	private JPanel cardPanel,peoplePanel, roomPanel, weaponPanel;
 	private JLabel peopleLabel, roomLabel, weaponLabel, seenPLabel, seenRLabel, seenWLabel;
 	private JTextField peopleField, seenPField, roomField, seenRField, weaponField, seenWField;
-	
+
 	/**
 	 * Constructor for the panel, it does 90% of the work
 	 */
@@ -26,12 +29,12 @@ public class CardPanel extends JPanel{
 		setLayout(new GridLayout(1,3));
 		createCardPanel();
 	}
-	
+
 	public void createCardPanel() {
 		cardPanel = new JPanel();
 		cardPanel.setLayout(new GridLayout(3, 1));
 		cardPanel.setBorder(new TitledBorder(new EtchedBorder(), "Known Cards", TitledBorder.CENTER, TitledBorder.TOP));
-	
+
 		peoplePanel = new JPanel();
 		peoplePanel.setLayout(new GridLayout(4, 1));
 		peopleLabel = new JLabel("In Hand:");
@@ -44,7 +47,7 @@ public class CardPanel extends JPanel{
 		peoplePanel.add(seenPLabel, BorderLayout.SOUTH);
 		peoplePanel.add(seenPField, BorderLayout.SOUTH);
 		cardPanel.add(peoplePanel, BorderLayout.NORTH);
-		
+
 		roomPanel = new JPanel();
 		roomPanel.setLayout(new GridLayout(4, 1));
 		roomLabel = new JLabel("In Hand:");
@@ -57,7 +60,7 @@ public class CardPanel extends JPanel{
 		roomPanel.add(seenRLabel, BorderLayout.SOUTH);
 		roomPanel.add(seenRField, BorderLayout.SOUTH);
 		cardPanel.add(roomPanel, BorderLayout.CENTER);
-		
+
 		weaponPanel = new JPanel();
 		weaponPanel.setLayout(new GridLayout(4, 1));
 		weaponLabel = new JLabel("In Hand:");
@@ -70,28 +73,40 @@ public class CardPanel extends JPanel{
 		weaponPanel.add(seenWLabel, BorderLayout.SOUTH);
 		weaponPanel.add(seenWField, BorderLayout.SOUTH);
 		cardPanel.add(weaponPanel, BorderLayout.SOUTH);
-		
+
 		add(cardPanel);
 	}
-	
-	private void setInHandP(String inHand) {
-		peopleField.setText(inHand);
+
+	private void setInHandP(HumanPlayer humanPlayer) {
+		for(Card card: humanPlayer.getHand()) {
+			peoplePanel.add(peopleField, BorderLayout.NORTH);
+			peopleField.setText(String.valueOf(card));
+		}
+	}
+	/*
+	private void setSeenP(ComputerPlayer computerPlayer) {
+		seenPField.setText(computerPlayer.getName());
+		seenPField.setBackground(convertColor(computerPlayer.getColor()));
 	}
 
-	private void setSeenP(ComputerPlayer computerPlayer, int i) {
-		turnField.setText(computerPlayer.getName());
-		turnField.setBackground(convertColor(computerPlayer.getColor()));
-		rollField.setText((String.valueOf(i)));
-	}
-	
 	private void setInHandR(String inHand) {
 		roomField.setText(inHand);
 	}
-	
+
+	private void setSeenR(ComputerPlayer computerPlayer) {
+		seenRField.setText(computerPlayer.getName());
+		seenRField.setBackground(convertColor(computerPlayer.getColor()));
+	}
+
 	private void setInHandW(String inHand) {
 		weaponField.setText(inHand);
 	}
-	
+
+	private void setSeenW(ComputerPlayer computerPlayer) {
+		seenWField.setText(computerPlayer.getName());
+		seenWField.setBackground(convertColor(computerPlayer.getColor()));
+	}
+	 */	
 	private Color convertColor(String color) {
 		Color convertedColor = new Color(0,0,0);
 		switch(color.toLowerCase()) {
@@ -113,10 +128,10 @@ public class CardPanel extends JPanel{
 		case "purple" :
 			convertedColor = new Color(148, 0, 211);
 		}
-		
+
 		return convertedColor;
 	}
-	
+
 	/**
 	 * Main to test the panel
 	 * 
@@ -129,5 +144,10 @@ public class CardPanel extends JPanel{
 		frame.setSize(750, 180);  // size the frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
 		frame.setVisible(true); // make it visible
+
+		// test filling in the data
+		panel.setInHandP(new HumanPlayer("Jim", name, flags, flags, flags));
+		panel.setGuess( "I have no guess!");
+		panel.setGuessResult( "So you have nothing?");
 	}
 }
