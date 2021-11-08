@@ -20,6 +20,7 @@ public class GameControlPanel extends JPanel {
 	private JLabel turnLabel, rollLabel;
 	private JTextField guessField, turnField, rollField, guessResultField;
 	private JButton accusationButton, nextButton;
+	
 	/**
 	 * Constructor for the panel, it does 90% of the work
 	 */
@@ -56,45 +57,37 @@ public class GameControlPanel extends JPanel {
 	}
 	
 	public void createBottomPanel() {
-		
 		bottomPanel = new JPanel();
 		bottomPanel.setLayout(new GridLayout(1, 2));
 		
 		guess = new JPanel();
-		guess.setBorder(new TitledBorder ( new EtchedBorder(), "Guess"));
+		guess.setBorder(new TitledBorder (new EtchedBorder(), "Guess"));
 		guessField = new JTextField(36);
 		guess.add(guessField, BorderLayout.CENTER);
 		bottomPanel.add(guess, BorderLayout.SOUTH);
 		
 		guessResult = new JPanel();
-		guessResult.setBorder(new TitledBorder ( new EtchedBorder(), "Guess Result"));
+		guessResult.setBorder(new TitledBorder (new EtchedBorder(), "Guess Result"));
 		guessResultField = new JTextField(36);
 		guessResult.add(guessResultField, BorderLayout.CENTER);
 		bottomPanel.add(guessResult, BorderLayout.SOUTH);
 		
 		add(bottomPanel);
 	}
-
-
+	
 	private void setGuessResult(String guessResult) {
 		guessResultField.setText(guessResult);
-		
 	}
-
 
 	private void setGuess(String guess) {
 		guessField.setText(guess);
-		
 	}
-
 
 	private void setTurn(ComputerPlayer computerPlayer, int i) {
 		turnField.setText(computerPlayer.getName());
 		turnField.setBackground(convertColor(computerPlayer.getColor()));
 		rollField.setText((String.valueOf(i)));
-		
 	}
-	
 	
 	private Color convertColor(String color) {
 		Color convertedColor = new Color(0,0,0);
@@ -120,7 +113,7 @@ public class GameControlPanel extends JPanel {
 		
 		return convertedColor;
 	}
-
+	
 	/**
 	 * Main to test the panel
 	 * 
@@ -139,6 +132,4 @@ public class GameControlPanel extends JPanel {
 		panel.setGuess( "I have no guess!");
 		panel.setGuessResult( "So you have nothing?");
 	}
-	
-	
 }
