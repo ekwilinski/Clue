@@ -1,3 +1,21 @@
+commit 1e9a032629fca4243c682c4b347f94c150be21ff
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Sun Nov 7 16:50:34 2021 -0700
+
+    finished bottom panel and part of top panel
+
+commit ab62e595ae075f1e61069ef29e65a884b4afd682
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Sun Nov 7 16:12:46 2021 -0700
+
+    Created bottom panel and part of top panel
+
+commit 27cc233b3272cfff8d0a7b890d36a0f8829e1ae9
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Sun Nov 7 15:19:16 2021 -0700
+
+    Created gui package and control panel class
+
 commit c7bce289fff9b4c090a9b26838c47293febc05fa
 Author: Elliot Kwilinski <ekwilinski@mines.edu>
 Date:   Fri Nov 5 23:58:21 2021 -0600
