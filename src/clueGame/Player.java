@@ -1,6 +1,8 @@
 package clueGame;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public abstract class Player {
@@ -9,9 +11,14 @@ public abstract class Player {
 	private Set<Card> allRooms = new HashSet<Card>();
 	protected Set<Card> allWeapons = new HashSet<Card>();
 	protected Set<Card> allPlayers = new HashSet<Card>();
+	protected Map<Card, String> seenAndColors = new HashMap<Card, String>();
 	
 	public void updateHand(Card card) {
 		hand.add(card);
+	}
+	
+	public void updateSeen(Card card, String color) {
+		seenAndColors.put(card, color);
 	}
 	
 	public void removeCard(Card cardToRemove) {
@@ -76,6 +83,10 @@ public abstract class Player {
 	
 	public Set<Card> getSeenCards() {
 		return seenCards;
+	}
+	
+	public Map<Card, String> getSeenAndColorCards() {
+		return seenAndColors;
 	}
 	
 	public void giveCards(Set<Card> roomCards, Set<Card> weaponCards, Set<Card> playerCards) {

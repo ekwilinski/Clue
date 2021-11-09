@@ -1,3 +1,58 @@
+commit 67c960fd07533c333b14735368cad72b9ac724b8
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Nov 8 18:44:10 2021 -0700
+
+    created layout for multiple cards and humans card colors
+
+commit 054303c4256db027312c7ab83dd9e86bc99670f2
+Merge: 10f1b76 7b04ad8
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Nov 8 17:34:14 2021 -0700
+
+    Merge branch 'main' of https://github.com/ekwilinski/Clue
+
+commit 10f1b76a55af9255bbfc2ffefe0dca164f30f0fd
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Nov 8 17:34:11 2021 -0700
+
+    added gitlog
+
+commit 7b04ad8e317815a4f8610bca36124e11928a9cd6
+Author: ecorendain <ecorendain@mymail.mines.edu>
+Date:   Mon Nov 8 17:11:12 2021 -0700
+
+    Created basic format, setInHand, and setSeen. Running into issues updating the panel with the elements of the sets.
+
+commit 2f787ab55cc222f7200aa2c18467a8471a288f6f
+Author: ecorendain <ecorendain@mymail.mines.edu>
+Date:   Mon Nov 8 17:01:32 2021 -0700
+
+    Created setSeen
+
+commit 9eadc7c83313735bc360de3630e6d9a03e28067f
+Author: ecorendain <ecorendain@mymail.mines.edu>
+Date:   Mon Nov 8 16:34:58 2021 -0700
+
+    Added setInHand method to set the inHand field based on the humanPlayers deck
+
+commit 5f99d87a20e65e15c9763adadb3160004d0014f9
+Author: ecorendain <ecorendain@mymail.mines.edu>
+Date:   Mon Nov 8 16:15:37 2021 -0700
+
+    Adding method to add Human cards in hand
+
+commit d62cb51705369acbc55b50ca496f2a7d8539b84d
+Author: ecorendain <ecorendain@mymail.mines.edu>
+Date:   Mon Nov 8 16:01:08 2021 -0700
+
+    Added CardPanel
+
+commit 30d065d356ad2a38d5c12df7373bb2f6783b0b79
+Author: ecorendain <ecorendain@mymail.mines.edu>
+Date:   Mon Nov 8 16:00:44 2021 -0700
+
+    Created CardPanel class, set up methods
+
 commit 1e9a032629fca4243c682c4b347f94c150be21ff
 Author: Elliot Kwilinski <ekwilinski@mines.edu>
 Date:   Sun Nov 7 16:50:34 2021 -0700
