@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -44,9 +45,9 @@ public class CardPanel extends JPanel{
 		peopleField = new JTextField(13);
 		seenPField = new JTextField(13);
 		peoplePanel.add(peopleLabel, BorderLayout.NORTH);
-		//peoplePanel.add(peopleField, BorderLayout.NORTH);
+		peoplePanel.add(peopleField, BorderLayout.NORTH);
 		peoplePanel.add(seenPLabel, BorderLayout.SOUTH);
-		//peoplePanel.add(seenPField, BorderLayout.SOUTH);
+		peoplePanel.add(seenPField, BorderLayout.SOUTH);
 		cardPanel.add(peoplePanel, BorderLayout.NORTH);
 
 		roomPanel = new JPanel();
@@ -57,9 +58,9 @@ public class CardPanel extends JPanel{
 		roomField = new JTextField(13);
 		seenRField = new JTextField(13);
 		roomPanel.add(roomLabel, BorderLayout.NORTH);
-		//roomPanel.add(roomField, BorderLayout.NORTH);
+		roomPanel.add(roomField, BorderLayout.NORTH);
 		roomPanel.add(seenRLabel, BorderLayout.SOUTH);
-		//roomPanel.add(seenRField, BorderLayout.SOUTH);
+		roomPanel.add(seenRField, BorderLayout.SOUTH);
 		cardPanel.add(roomPanel, BorderLayout.CENTER);
 
 		weaponPanel = new JPanel();
@@ -70,22 +71,24 @@ public class CardPanel extends JPanel{
 		weaponField = new JTextField(13);
 		seenWField = new JTextField(13);
 		weaponPanel.add(weaponLabel, BorderLayout.NORTH);
-		//weaponPanel.add(weaponField, BorderLayout.NORTH);
+		weaponPanel.add(weaponField, BorderLayout.NORTH);
 		weaponPanel.add(seenWLabel, BorderLayout.SOUTH);
-		//weaponPanel.add(seenWField, BorderLayout.SOUTH);
+		weaponPanel.add(seenWField, BorderLayout.SOUTH);
 		cardPanel.add(weaponPanel, BorderLayout.SOUTH);
 
 		add(cardPanel);
 	}
 
 	private void setInHand(HumanPlayer humanPlayer) {
-		for(Card card: humanPlayer.getHand()) {
+		Set<Card> humanHand = humanPlayer.getHand();
+		String cards = "";
+		
+		for(Card card : humanHand) {
 			if(card.getType().equals(CardType.PERSON))
 			{
-				peopleField.setText(String.valueOf(card));
-				peoplePanel.add(peopleField, BorderLayout.NORTH);
-				cardPanel.add(peoplePanel);
+				cards+= card;
 			}
+			
 			else if(card.getType().equals(CardType.ROOM)) {
 				roomField.setText(String.valueOf(card));
 				roomPanel.add(roomField, BorderLayout.NORTH);
@@ -96,11 +99,38 @@ public class CardPanel extends JPanel{
 				weaponPanel.add(weaponField, BorderLayout.NORTH);
 				cardPanel.add(weaponPanel);
 			}
+			
+			peopleField.setText(cards);
+			peoplePanel.add(peopleField, BorderLayout.NORTH);
+			cardPanel.add(peoplePanel);
 		}
 		add(cardPanel);
 	}
-	private void setSeen( ) {
-		
+	private void setSeen(HumanPlayer humanPlayer) {
+		//ComputerPlayer cardHolder = new ComputerPlayer();
+		for(Card card : humanPlayer.getSeenCards())
+		{
+			if(card.getType().equals(CardType.PERSON))
+			{
+				seenPField.setText(String.valueOf(card));
+				//seenPField.setBackground(convertColor(cardHolder.getColor()));
+				peoplePanel.add(seenPField, BorderLayout.SOUTH);
+				cardPanel.add(peoplePanel);
+			}
+			else if(card.getType().equals(CardType.ROOM)) {
+				seenRField.setText(String.valueOf(card));
+				//seenRField.setBackground(convertColor(cardHolder.getColor()));
+				roomPanel.add(seenRField, BorderLayout.SOUTH);
+				cardPanel.add(roomPanel);
+			}
+			else {
+				seenWField.setText(String.valueOf(card));
+				//seenWField.setBackground(convertColor(cardHolder.getColor()));
+				weaponPanel.add(seenWField, BorderLayout.SOUTH);
+				cardPanel.add(weaponPanel);
+			}
+		}
+		add(cardPanel);
 	}
 	
 	private Color convertColor(String color) {
@@ -139,10 +169,12 @@ public class CardPanel extends JPanel{
 		frame.setContentPane(panel); // put the panel in the frame
 		frame.setSize(750, 180);  // size the frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
-		frame.setVisible(true); // make it visible
+		frame.setVisible(false); // make it visible
 
 		// test filling in the data
-		panel.setInHand(new HumanPlayer( "Jim Halpert", "blue", 9, 6, 5));
-		panel.setSeen();
+		HumanPlayer jim = new HumanPlayer( "Jim Halpert", "blue", 9, 6, 5);
+		panel.setInHand(jim);
+		panel.setSeen(jim);
+		frame.setVisible(true); // make it visible
 	}
 }
