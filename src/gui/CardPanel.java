@@ -81,14 +81,14 @@ public class CardPanel extends JPanel{
 
 	private void setInHand(HumanPlayer humanPlayer) {
 		Set<Card> humanHand = humanPlayer.getHand();
-		String cards = "";
 		
 		for(Card card : humanHand) {
 			if(card.getType().equals(CardType.PERSON))
 			{
-				cards+= card;
+				peopleField.setText(String.valueOf(card));
+				peoplePanel.add(peopleField, BorderLayout.NORTH);
+				cardPanel.add(peoplePanel);
 			}
-			
 			else if(card.getType().equals(CardType.ROOM)) {
 				roomField.setText(String.valueOf(card));
 				roomPanel.add(roomField, BorderLayout.NORTH);
@@ -99,16 +99,14 @@ public class CardPanel extends JPanel{
 				weaponPanel.add(weaponField, BorderLayout.NORTH);
 				cardPanel.add(weaponPanel);
 			}
-			
-			peopleField.setText(cards);
-			peoplePanel.add(peopleField, BorderLayout.NORTH);
-			cardPanel.add(peoplePanel);
 		}
 		add(cardPanel);
 	}
 	private void setSeen(HumanPlayer humanPlayer) {
 		//ComputerPlayer cardHolder = new ComputerPlayer();
-		for(Card card : humanPlayer.getSeenCards())
+		Set<Card> humanSeen = humanPlayer.getSeenCards();
+		
+		for(Card card : humanSeen)
 		{
 			if(card.getType().equals(CardType.PERSON))
 			{
@@ -169,7 +167,7 @@ public class CardPanel extends JPanel{
 		frame.setContentPane(panel); // put the panel in the frame
 		frame.setSize(750, 180);  // size the frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
-		frame.setVisible(false); // make it visible
+		frame.setVisible(false); // make it invisible
 
 		// test filling in the data
 		HumanPlayer jim = new HumanPlayer( "Jim Halpert", "blue", 9, 6, 5);
