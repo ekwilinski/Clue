@@ -2,26 +2,28 @@ package clueGame;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.function.BooleanSupplier;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.io.*;
 
-public class Board {
+@SuppressWarnings("serial")
+public class Board extends JPanel{
 	private int numRows;				// instance variables
 	private int numColumns;				//
 	private String layoutConfigFile;	//
 	private String setupConfigFile;		// map of all the initials w/ their room
 	private Solution solution;
 	private static final Set<Character> VALID_SYMBOLS = new HashSet<Character>(Arrays.asList('<','>','^','v','#','*'));		// valid characters to use
-	
+
 	private Set<BoardCell> targets;		//all target cells
 	private Set<BoardCell> visited;		// all visited cells
 	private BoardCell[][] grid; 		// creation of grid
@@ -34,9 +36,9 @@ public class Board {
 	private HumanPlayer humanPlayer;
 	private Set<ComputerPlayer> computerPlayers;
 	private Set<Card> solutionCards;
-	
+
 	//pull out instance declarations to load setup config
-	
+
 	/*
 	 * variable and methods used for singleton pattern
 	 */
@@ -67,7 +69,7 @@ public class Board {
 	}
 
 	public void loadSetupConfig() throws BadConfigFormatException, FileNotFoundException {
-		
+
 		//allocate memory
 		solution = new Solution();
 		roomMap = new HashMap<Character, Room>();
@@ -78,7 +80,7 @@ public class Board {
 		weaponCards = new HashSet<Card>();
 		computerPlayers = new HashSet<ComputerPlayer>();
 		solutionCards = new HashSet<Card>();
-		
+
 		// if the file being read in is invalid this will throw an error
 		// we read in the file using scanner
 		FileReader f = new FileReader(setupConfigFile);
@@ -90,14 +92,14 @@ public class Board {
 			int position = 0;
 			if(!line.contains("//")) {
 				String[] lineData = line.split(", ");	// we use this as a delimeter
-				
+
 				readCards(lineData, position);
 			}
 		}
 		givePlayersAllCard();
 		in.close();		//closing the input file
 	}
-	
+
 	private void givePlayersAllCard() {
 		humanPlayer.giveCards(roomCards, weaponCards, playerCards);
 		for( Player player : computerPlayers) {
@@ -107,7 +109,7 @@ public class Board {
 
 	public void readCards(String[] lineData, int position) throws BadConfigFormatException {
 		String type = lineData[0];
-		
+
 		if(type.equals("Room")) {
 			Room room_data = new Room(lineData[1]);
 			roomMap.put(lineData[2].charAt(0), room_data);
@@ -134,12 +136,12 @@ public class Board {
 		else {
 			throw new BadConfigFormatException();
 		}
-		
+
 	}
 
 	public void loadLayoutConfig() throws BadConfigFormatException, FileNotFoundException {
-		
-		
+
+
 		// if the file being read in is invalid this will throw an error
 		// we read in the file using scanner
 		FileReader f = new FileReader(layoutConfigFile);
@@ -178,13 +180,13 @@ public class Board {
 			for(int j = 0; j < numColumns; j++) {		// checking if the character is to the right of the initial
 				grid[i][j] = new BoardCell(i, j);
 				grid[i][j].setInitial(currentLine[j].charAt(0));
-				
+
 				if(currentLine[j].length() == 2) {
 					if(!VALID_SYMBOLS.contains(currentLine[j].charAt(1)) && !roomMap.containsKey(currentLine[j].charAt(1))) {
 						System.out.println(currentLine[j].charAt(1));
 					}
 				}
-				
+
 				// these if statements check the door direction when reading in the board
 				if(currentLine[j].contains("^")) {
 					grid[i][j].setIsDoor(true);
@@ -365,12 +367,12 @@ public class Board {
 	public Set<BoardCell> getTargets() {
 		return targets;
 	}
-	
+
 	public void deal() {
 		dealSolution();
 		dealToPlayers();
 	}
-	
+
 	private void dealSolution() {
 		//get room
 		int rand = (int)(Math.random() * (3 - 1) + 1);
@@ -382,7 +384,7 @@ public class Board {
 			}
 			i++;
 		}
-		
+
 		//get weapon
 		rand = (int)(Math.random() * (3 - 1) + 1);
 		i = 1;
@@ -393,7 +395,7 @@ public class Board {
 			}
 			i++;
 		}
-		
+
 		//get player
 		rand = (int)(Math.random() * (3 - 1) + 1);
 		i = 1;
@@ -404,12 +406,12 @@ public class Board {
 			}
 			i++;
 		}
-		
+
 	}
 
 	private void dealToPlayers() {
 		Set<Card> playingCards = new HashSet<Card>();
-		
+
 		for(Card card : roomCards) {
 			if(!solutionCards.contains(card)) {
 				playingCards.add(card);
@@ -425,7 +427,7 @@ public class Board {
 				playingCards.add(card);
 			}
 		}
-		
+
 		while(!playingCards.isEmpty()) {
 			//get random card
 			for(ComputerPlayer player : computerPlayers) {
@@ -450,7 +452,7 @@ public class Board {
 				}
 				j++;
 			}
-				
+
 		}
 	}
 
@@ -505,7 +507,7 @@ public class Board {
 	public Set<Card> getSolution() {
 		return solutionCards;
 	}
-	
+
 	public Solution getSolutionType() {
 		return solution;
 	}
@@ -562,8 +564,55 @@ public class Board {
 
 	public void addToRoomCards(Card room) {
 		roomCards.add(room);
-		
+
 	}
 
+	//GUI Methods
+
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		int panelWidth = getWidth();
+		int panelHeight = getHeight();
+
+		int boardCellWidth = panelWidth / numColumns;
+		int boardCellHeight = panelHeight / numRows;
+
+		for(int row = 0; row < numRows; row++) {
+			for(int columns = 0; columns < numColumns; columns++) {
+				grid[row][columns].draw(boardCellWidth, boardCellHeight, g);
+			}
+		}
+		
+		for(int row = 0; row < numRows; row++) {
+			for(int columns = 0; columns < numColumns; columns++) {
+				if(grid[row][columns].isLabel()) {
+					String name = getRoom(grid[row][columns]).getName();
+					g.setColor(Color.BLACK);
+					g.drawString(name, columns * boardCellWidth, (row+1) * boardCellHeight);
+				}
+			}
+		}
+		
+		humanPlayer.draw(boardCellWidth, boardCellHeight, g);
+		for(ComputerPlayer cpu : computerPlayers) {
+			cpu.draw(boardCellWidth, boardCellHeight, g);
+		}
+	}
+
+	public static void main(String[] args) {
+		
+		JFrame frame = new JFrame();
+		Board board = Board.getInstance();
+		frame.add(board);
+		frame.setSize(500, 500);
+		// set the file names to use my config files
+		board.setConfigFiles("data/ClueLayout.csv", "data/ClueSetup.txt");		
+		// Initialize will load config files 
+		board.initialize();
+		
+		
+		frame.setVisible(true);
+	}
 
 }

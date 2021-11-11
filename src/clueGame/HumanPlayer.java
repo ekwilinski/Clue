@@ -3,9 +3,7 @@ package clueGame;
 import java.util.Set;
 
 public class HumanPlayer extends Player {
-	private String name;
-	private String color;
-	private int startRow, startColumn, position;
+
 
 	public HumanPlayer(String name, String color, int startRow, int startColumn, int position) {
 		this.name = name;

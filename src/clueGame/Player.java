@@ -1,11 +1,16 @@
 package clueGame;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 public abstract class Player {
+	protected String name;
+	protected String color;
+	protected int startRow, startColumn, position;
 	protected Set<Card> hand = new HashSet<Card>();
 	protected Set<Card> seenCards = new HashSet<Card>();
 	private Set<Card> allRooms = new HashSet<Card>();
@@ -94,5 +99,36 @@ public abstract class Player {
 		allWeapons = weaponCards;
 		allPlayers = playerCards;
 		
+	}
+	
+	public void draw(int boardCellWidth, int boardCellHeight, Graphics g) {
+		Color drawColor = convertColor(color); 
+		g.setColor(drawColor);
+		g.fillOval(boardCellWidth * startColumn,boardCellHeight * startRow, boardCellWidth, boardCellHeight);
+	}
+
+	public Color convertColor(String color2) {
+		Color convertedColor = new Color(0,0,0);
+		switch(color.toLowerCase()) {
+		case "blue" :
+			convertedColor = Color.BLUE;
+			break;
+		case "tan" :
+			convertedColor = new Color(210, 180, 140);
+			break;
+		case "white":
+			convertedColor = Color.WHITE;
+			break;
+		case "yellow" :
+			convertedColor = Color.YELLOW;
+			break;
+		case "gray" :
+			convertedColor = Color.GRAY;
+			break;
+		case "purple" :
+			convertedColor = new Color(148, 0, 211);
+		}
+
+		return convertedColor;
 	}
 }
