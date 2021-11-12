@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,21 +18,20 @@ public class ClueGame extends JFrame {
 	}
 
 	public void createLayout() {
-
-		gamePanel = new JPanel();
 		
 		board = Board.getInstance();
-		gamePanel.add(board, BorderLayout.CENTER);
 		
 		board.setConfigFiles("data/ClueLayout.csv", "data/ClueSetup.txt");	
 		board.initialize();
 		
+		add(board, BorderLayout.CENTER);
+		
 		GameControlPanel controlPanel = new GameControlPanel();
-		//gamePanel.add(controlPanel, BorderLayout.SOUTH);
+		add(controlPanel, BorderLayout.SOUTH);
 		
 		CardPanel cardPanel = new CardPanel();
-		//gamePanel.add(cardPanel, BorderLayout.EAST);
-		setContentPane(gamePanel);
+		add(cardPanel, BorderLayout.EAST);
+		cardPanel.setPreferredSize(new Dimension(140,500));
 	}
 	
 	public static void main(String[] args) {

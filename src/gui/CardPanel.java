@@ -69,6 +69,10 @@ public class CardPanel extends JPanel{
 		
 
 	}
+	
+	public void refresh() {
+		
+	}
 
 	private void setInHand(HumanPlayer humanPlayer) {
 		Set<Card> humanHand = humanPlayer.getHand();
