@@ -601,7 +601,6 @@ public class Board extends JPanel{
 	}
 
 	public static void main(String[] args) {
-		
 		JFrame frame = new JFrame();
 		Board board = Board.getInstance();
 		frame.add(board);
@@ -610,7 +609,6 @@ public class Board extends JPanel{
 		board.setConfigFiles("data/ClueLayout.csv", "data/ClueSetup.txt");		
 		// Initialize will load config files 
 		board.initialize();
-		
 		
 		frame.setVisible(true);
 	}

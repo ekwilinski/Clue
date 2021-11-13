@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import clueGame.Board;
+import clueGame.HumanPlayer;
 
 @SuppressWarnings("serial")
 public class ClueGame extends JFrame {
@@ -18,7 +19,6 @@ public class ClueGame extends JFrame {
 	}
 
 	public void createLayout() {
-		
 		board = Board.getInstance();
 		
 		board.setConfigFiles("data/ClueLayout.csv", "data/ClueSetup.txt");	
@@ -38,7 +38,7 @@ public class ClueGame extends JFrame {
 		ClueGame clueGame = new ClueGame();
 		clueGame.setSize(600, 600);
 		clueGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		clueGame.setVisible(true);
 	}
-
 }
