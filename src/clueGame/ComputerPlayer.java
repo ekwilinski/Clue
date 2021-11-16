@@ -22,14 +22,6 @@ public class ComputerPlayer extends Player {
 		return name;
 	}
 
-	public int getRow() {
-		return startRow;
-	}
-
-	public int getColumn() {
-		return startColumn;
-	}
-
 	public int getPosition() {
 		return position;
 	}

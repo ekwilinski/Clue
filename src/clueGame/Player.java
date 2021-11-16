@@ -131,4 +131,16 @@ public abstract class Player {
 
 		return convertedColor;
 	}
+	
+	public int getRow() {
+		return startRow;
+	}
+
+	public int getColumn() {
+		return startColumn;
+	}
+	
+	public String getName() {
+		return name;
+	}
 }

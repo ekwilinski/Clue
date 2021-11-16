@@ -17,6 +17,8 @@ import java.io.*;
 
 @SuppressWarnings("serial")
 public class Board extends JPanel{
+	
+	private Boolean playerFinished = false;
 	private int numRows;				// instance variables
 	private int numColumns;				//
 	private String layoutConfigFile;	//
@@ -34,6 +36,7 @@ public class Board extends JPanel{
 	private Set<Card> playerCards;
 	private Set<Card> weaponCards;
 	private HumanPlayer humanPlayer;
+	private Player currentPlayer;
 	private Set<ComputerPlayer> computerPlayers;
 	private Set<Card> solutionCards;
 
@@ -611,6 +614,19 @@ public class Board extends JPanel{
 		board.initialize();
 		
 		frame.setVisible(true);
+	}
+	
+	public Boolean getPlayerFinished() {
+		return playerFinished;
+	}
+
+	public void updateCurrentPlayer() {
+		Player boberto = new HumanPlayer("BOBORTA", "yellow", 1, 2, 3);
+		currentPlayer = boberto;
+	}
+	
+	public Player getCurrentPlayer() {
+		return currentPlayer;
 	}
 
 }

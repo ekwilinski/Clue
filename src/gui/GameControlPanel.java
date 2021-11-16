@@ -3,6 +3,8 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,8 +13,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-
+import javax.swing.JOptionPane;
+import clueGame.Board;
 import clueGame.ComputerPlayer;
+import clueGame.HumanPlayer;
 
 @SuppressWarnings("serial")
 public class GameControlPanel extends JPanel {
@@ -20,7 +24,8 @@ public class GameControlPanel extends JPanel {
 	private JLabel turnLabel, rollLabel;
 	private JTextField guessField, turnField, rollField, guessResultField;
 	private JButton accusationButton, nextButton;
-	
+	private Board board = Board.getInstance();
+	private Boolean isFinished = true;
 	/**
 	 * Constructor for the panel, it does 90% of the work
 	 */
@@ -50,7 +55,10 @@ public class GameControlPanel extends JPanel {
 		
 		accusationButton = new JButton("Make Accusation");
 		upperPanel.add(accusationButton);
+		
 		nextButton = new JButton("NEXT!");
+		nextButtonListener bob = new nextButtonListener();
+		nextButton.addActionListener(bob);
 		upperPanel.add(nextButton);
 		
 		add(upperPanel);
@@ -114,6 +122,44 @@ public class GameControlPanel extends JPanel {
 		return convertedColor;
 	}
 	
+	private class nextButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			if(isFinished) {
+				//board.updateCurrentPlayer();
+				int roll = rollDice();
+				board.calcTargets(board.getCell(board.getCurrentPlayer().getRow(), board.getCurrentPlayer().getColumn()), roll);
+				updatePanel(roll, board.getCurrentPlayer().getName());
+				if(board.getCurrentPlayer() instanceof HumanPlayer) {
+					displayTargets();
+					isFinished = false;
+				} 
+				else {
+					doAccusation();
+					doMove();
+				}
+			}
+			else {
+				JFrame error = new JFrame();
+				JOptionPane.showMessageDialog(error, "Your turn is not over yet!", "oopsies...", JOptionPane.WARNING_MESSAGE);
+			}
+		}
+
+		private void doAccusation() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		private void displayTargets() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		private int rollDice() {
+			// TODO Auto-generated method stub
+			return 2;
+		}
+	}
+	
 	/**
 	 * Main to test the panel
 	 * 
@@ -131,5 +177,10 @@ public class GameControlPanel extends JPanel {
 		panel.setTurn(new ComputerPlayer( "Col. Mustard", "yellow", 0, 0, 5), 5);
 		panel.setGuess( "I have no guess!");
 		panel.setGuessResult( "So you have nothing?");
+	}
+
+	public void updatePanel(int roll, String name) {
+		rollField.setText(String.valueOf(roll)); 
+		turnField.setText(name);
 	}
 }

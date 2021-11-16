@@ -37,6 +37,7 @@ public class ClueGame extends JFrame {
 		cardPanel.setPreferredSize(new Dimension(140,500));
 	}
 	
+	
 	public static void main(String[] args) {
 		ClueGame clueGame = new ClueGame();
 		clueGame.setSize(600, 600);
