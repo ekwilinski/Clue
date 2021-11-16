@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import clueGame.Board;
@@ -15,14 +16,16 @@ public class ClueGame extends JFrame {
 	private Board board;
 
 	ClueGame() {
+		board = Board.getInstance();
+		board.setConfigFiles("data/ClueLayout.csv", "data/ClueSetup.txt");	
+		board.initialize();
+		
+		JOptionPane.showMessageDialog(this, "You are " + board.getHumanPlayer().getName() + ".\nCan you find the solution\nbefore the computer players?", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
+		
 		createLayout();
 	}
 
 	public void createLayout() {
-		board = Board.getInstance();
-		
-		board.setConfigFiles("data/ClueLayout.csv", "data/ClueSetup.txt");	
-		board.initialize();
 		
 		add(board, BorderLayout.CENTER);
 		
