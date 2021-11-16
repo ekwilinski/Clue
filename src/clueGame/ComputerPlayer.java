@@ -11,7 +11,7 @@ public class ComputerPlayer extends Player {
 		this.color = color;
 		this.startRow = startRow;
 		this.startColumn = startColumn;
-		this.position = position;
+		this.position  = position;
 	}
 
 	public String getColor() {
@@ -22,9 +22,6 @@ public class ComputerPlayer extends Player {
 		return name;
 	}
 
-	public int getPosition() {
-		return position;
-	}
 
 	public BoardCell selectTarget(Set<BoardCell> targetList) {
 		boolean hasBeenSeen = false;

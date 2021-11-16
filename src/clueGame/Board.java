@@ -9,15 +9,25 @@ import java.util.Scanner;
 import java.util.Set;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.*;
 
 @SuppressWarnings("serial")
 public class Board extends JPanel{
 	
+	public static Boolean DEBUG_01 = false;
+	
+	private int position;
 	private Boolean playerFinished = false;
 	private int numRows;				// instance variables
 	private int numColumns;				//
@@ -66,6 +76,13 @@ public class Board extends JPanel{
 			loadLayoutConfig();		// loading the layout
 			generateAllAdjacencies();
 			deal();
+			boardListener tom = new boardListener();
+			addMouseListener(tom);
+			
+			if(DEBUG_01) {
+				currentPlayer = humanPlayer;
+			}
+			
 		} catch(Exception e) {
 			System.out.println(e);
 		}
@@ -74,6 +91,7 @@ public class Board extends JPanel{
 	public void loadSetupConfig() throws BadConfigFormatException, FileNotFoundException {
 
 		//allocate memory
+		position = 0;
 		solution = new Solution();
 		roomMap = new HashMap<Character, Room>();
 		roomCenters = new HashSet<BoardCell>();				// set of roomCenters
@@ -92,11 +110,10 @@ public class Board extends JPanel{
 
 		while(in.hasNextLine()) {
 			line = in.nextLine();
-			int position = 0;
 			if(!line.contains("//")) {
 				String[] lineData = line.split(", ");	// we use this as a delimeter
 
-				readCards(lineData, position);
+				readCards(lineData);
 			}
 		}
 		givePlayersAllCard();
@@ -110,7 +127,7 @@ public class Board extends JPanel{
 		}
 	}
 
-	public void readCards(String[] lineData, int position) throws BadConfigFormatException {
+	public void readCards(String[] lineData) throws BadConfigFormatException {
 		String type = lineData[0];
 
 		if(type.equals("Room")) {
@@ -125,13 +142,14 @@ public class Board extends JPanel{
 		else if(type.equals("Human")) {
 			humanPlayer = new HumanPlayer(lineData[1], lineData[2], Integer.parseInt(lineData[3]), Integer.parseInt(lineData[4]), position);
 			playerCards.add(new Card(lineData[1], CardType.PERSON));
-			position++;
+			position = position + 1;
+			currentPlayer = humanPlayer;
 		}
 		else if(type.equals("Computer")) {
 			ComputerPlayer computerPlaya = new ComputerPlayer(lineData[1], lineData[2], Integer.parseInt(lineData[3]), Integer.parseInt(lineData[4]), position);
 			computerPlayers.add(computerPlaya);
 			playerCards.add(new Card(lineData[1], CardType.PERSON));
-			position++;
+			position = position + 1;
 		}
 		else if(type.equals("Weapon")) {
 			weaponCards.add(new Card(lineData[1], CardType.WEAPON));
@@ -271,11 +289,13 @@ public class Board extends JPanel{
 			if( startCell.isDoorway() && cell.isRoomCenter()) {
 				if(!visited.contains(cell)) {
 					targets.add(cell);
+					cell.setTarget(currentPlayer);
 				}
 			}
 			else if( startCell.isRoomCenter() && cell.isRoomCenter()) {
 				if(!visited.contains(cell)) {
 					targets.add(cell);
+					cell.setTarget(currentPlayer);
 				}
 			}
 			else if(!cell.isOccupied() || cell.isRoomCenter()) {
@@ -283,6 +303,7 @@ public class Board extends JPanel{
 					visited.add(cell);
 					if(pathLength == 1) {
 						targets.add(cell);
+						cell.setTarget(currentPlayer);
 					}
 					else {
 						generateTargets(cell, pathLength-1);
@@ -621,12 +642,122 @@ public class Board extends JPanel{
 	}
 
 	public void updateCurrentPlayer() {
-		Player boberto = new HumanPlayer("BOBORTA", "yellow", 1, 2, 3);
-		currentPlayer = boberto;
+		int currentID = currentPlayer.getPosition(); 
+		
+		if(currentPlayer instanceof HumanPlayer) {
+			for(ComputerPlayer cpu : computerPlayers) {
+				if(cpu.getPosition() == (currentID+1)) {
+					currentPlayer = cpu;
+					break;
+				}
+			}
+		} 
+		else {
+			currentPlayer = humanPlayer;
+			
+			for(ComputerPlayer cpu : computerPlayers) {
+				if(cpu.getPosition() == currentID+1) {
+					currentPlayer = cpu;
+					break;
+				}
+			}
+		}
 	}
 	
 	public Player getCurrentPlayer() {
 		return currentPlayer;
+	}
+	
+	public class boardListener implements MouseListener {
+		 
+		public void mouseClicked(MouseEvent jerry) {
+			Point click = jerry.getLocationOnScreen();
+			
+			int panelWidth = getWidth();
+			int panelHeight = getHeight();
+			int boardCellWidth = panelWidth / numColumns;
+			int boardCellHeight = panelHeight / numRows;
+			
+			if(currentPlayer instanceof HumanPlayer) {
+				
+				for(int row = 0; row < numRows; row++) {
+					for(int columns = 0; columns < numColumns; columns++) {
+						
+						Rectangle rect = new Rectangle(columns*boardCellWidth+1, (row+1)*boardCellHeight, boardCellWidth, boardCellHeight);
+						if (rect.contains(click)) {
+							if(grid[row][columns].isTarget()) {
+								movePlayer(row, columns);
+								for(BoardCell tCell : targets) {
+									tCell.removeTarget();
+								}
+								repaint();
+								if(grid[row][columns].isRoomCenter()) {
+									Solution s = createSuggestion();
+									handleSuggestion(currentPlayer, s);
+									updateResult();
+								}
+								playerFinished = true;
+								break;
+							}
+							else {
+								JOptionPane.showMessageDialog(Board.getInstance(), "Not a Target!", "oopsies...", JOptionPane.WARNING_MESSAGE);
+							}
+						}
+							
+					}
+				}
+				
+			}
+			else {
+				JOptionPane.showMessageDialog(Board.getInstance(), "Not your turn!", "oopsies...", JOptionPane.WARNING_MESSAGE);
+			}
+			
+		}
+
+		private void updateResult() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		private Solution createSuggestion() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+
+	public void movePlayer(int row, int columns) {
+		// TODO Auto-generated method stub
+		currentPlayer.setLocation(row, columns);
+	}
+	
+	public void setPlayerNotFinished() {
+		// TODO Auto-generated method stub
+		playerFinished = false;
 	}
 
 }

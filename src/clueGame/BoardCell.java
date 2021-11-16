@@ -15,7 +15,7 @@ public class BoardCell {
 	private char secretPassage;
 	private boolean isSecretPassageway;			// tells us if a cell is secret passageway
 	private Set<BoardCell> adjList = new HashSet<BoardCell>();		//holds the adjList for cells
-	private boolean isDoorway, isOccupied, isUnused;		// bools to help with conditions for adjList	
+	private boolean isDoorway, isOccupied, isUnused, isTarget;		// bools to help with conditions for adjList	
 
 	public BoardCell(int row, int column) {
 		this.row = row;
@@ -147,11 +147,32 @@ public class BoardCell {
 			g.setColor(Color.BLACK);
 			g.drawRect(xCoord, yCoord, boardCellWidth, boardCellHeight);
 		}
+		
+		if(isTarget) {
+			g.setColor(Color.RED);
+			g.fillRect(xCoord, yCoord, boardCellWidth, boardCellHeight);
+		}
 
 	}
 
 	private boolean isUnused() {
 		// TODO Auto-generated method stub
 		return isUnused;
+	}
+
+	public void setTarget(Player currentPlayer) {
+		if(currentPlayer instanceof HumanPlayer) {
+			isTarget = true;
+		}
+	}
+	
+	public boolean isTarget() {
+		// TODO Auto-generated method stub
+		return isTarget;
+	}
+
+	public void removeTarget() {
+		isTarget = false;
+		
 	}
 }

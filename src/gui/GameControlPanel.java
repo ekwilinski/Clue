@@ -15,8 +15,10 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.JOptionPane;
 import clueGame.Board;
+import clueGame.BoardCell;
 import clueGame.ComputerPlayer;
 import clueGame.HumanPlayer;
+import clueGame.Player;
 
 @SuppressWarnings("serial")
 public class GameControlPanel extends JPanel {
@@ -42,7 +44,10 @@ public class GameControlPanel extends JPanel {
 		turnPanel = new JPanel();
 		turnLabel = new JLabel("Whose Turn?");
 		turnPanel.add(turnLabel, BorderLayout.NORTH);
+		
 		turnField = new JTextField(18);
+		turnField.setText(board.getCurrentPlayer().getName());
+		turnField.setBackground(convertColor(board.getCurrentPlayer().getColor()));
 		turnPanel.add(turnField, BorderLayout.CENTER);
 		upperPanel.add(turnPanel);
 		
@@ -52,6 +57,11 @@ public class GameControlPanel extends JPanel {
 		rollField = new JTextField(6);
 		rollPanel.add(rollField, BorderLayout.CENTER);
 		upperPanel.add(rollPanel);
+		
+		int firstRoll = rollDice();
+		rollField.setText(String.valueOf(firstRoll));
+		board.calcTargets(board.getCell(board.getCurrentPlayer().getRow(), board.getCurrentPlayer().getColumn()), firstRoll);
+		repaint();
 		
 		accusationButton = new JButton("Make Accusation");
 		upperPanel.add(accusationButton);
@@ -79,6 +89,7 @@ public class GameControlPanel extends JPanel {
 		guessResultField = new JTextField(36);
 		guessResult.add(guessResultField, BorderLayout.CENTER);
 		bottomPanel.add(guessResult, BorderLayout.SOUTH);
+	
 		
 		add(bottomPanel);
 	}
@@ -91,7 +102,7 @@ public class GameControlPanel extends JPanel {
 		guessField.setText(guess);
 	}
 
-	private void setTurn(ComputerPlayer computerPlayer, int i) {
+	private void setTurn(Player computerPlayer, int i) {
 		turnField.setText(computerPlayer.getName());
 		turnField.setBackground(convertColor(computerPlayer.getColor()));
 		rollField.setText((String.valueOf(i)));
@@ -124,18 +135,23 @@ public class GameControlPanel extends JPanel {
 	
 	private class nextButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if(isFinished) {
-				//board.updateCurrentPlayer();
+			if(board.getPlayerFinished()) {
+				board.updateCurrentPlayer();
 				int roll = rollDice();
+				setTurn(board.getCurrentPlayer(), roll);
 				board.calcTargets(board.getCell(board.getCurrentPlayer().getRow(), board.getCurrentPlayer().getColumn()), roll);
 				updatePanel(roll, board.getCurrentPlayer().getName());
 				if(board.getCurrentPlayer() instanceof HumanPlayer) {
 					displayTargets();
-					isFinished = false;
+					board.setPlayerNotFinished();
 				} 
 				else {
 					doAccusation();
-					doMove();
+					System.out.println("cpu");
+					BoardCell moveto = board.getCurrentPlayer().selectTarget(board.getTargets());
+					board.movePlayer(moveto.getRow(), moveto.getColumn());
+					board.repaint();
+					doSuggestion();
 				}
 			}
 			else {
@@ -144,20 +160,25 @@ public class GameControlPanel extends JPanel {
 			}
 		}
 
+		private void doSuggestion() {
+			// TODO Auto-generated method stub
+			
+		}
+
 		private void doAccusation() {
 			// TODO Auto-generated method stub
 			
 		}
 
-		private void displayTargets() {
-			// TODO Auto-generated method stub
-			
-		}
+	}
+	
+	private void displayTargets() {
+		board.repaint();
+	}
 
-		private int rollDice() {
-			// TODO Auto-generated method stub
-			return 2;
-		}
+	private int rollDice() {
+		// TODO Auto-generated method stub
+		return 2;
 	}
 	
 	/**

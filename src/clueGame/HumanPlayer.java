@@ -21,10 +21,11 @@ public class HumanPlayer extends Player {
 		return name;
 	}
 
-	public int getPosition() {
-		return position;
+	@Override
+	public BoardCell selectTarget(Set<BoardCell> targets) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-
 
 
 }

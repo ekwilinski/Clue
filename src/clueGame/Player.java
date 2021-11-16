@@ -143,4 +143,16 @@ public abstract class Player {
 	public String getName() {
 		return name;
 	}
+	
+	public void setLocation(int x, int y) {
+		startRow = x;
+		startColumn = y;
+	}
+	
+	public int getPosition() {
+		return position;
+	}
+
+	public abstract BoardCell selectTarget(Set<BoardCell> targets);
+	
 }
