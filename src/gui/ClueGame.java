@@ -13,6 +13,7 @@ import clueGame.HumanPlayer;
 @SuppressWarnings("serial")
 public class ClueGame extends JFrame {
 	private JPanel gamePanel;
+	private CardPanel cardPanel;
 	private Board board;
 
 	ClueGame() {
@@ -23,6 +24,8 @@ public class ClueGame extends JFrame {
 		JOptionPane.showMessageDialog(this, "You are " + board.getHumanPlayer().getName() + ".\nCan you find the solution\nbefore the computer players?", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 		
 		createLayout();
+		
+		System.out.println(board.getSolutionType().getPlayer().getName() + " " + board.getSolutionType().getRoom().getName() + " " + board.getSolutionType().getWeapon().getName());
 	}
 
 	public void createLayout() {
@@ -32,11 +35,13 @@ public class ClueGame extends JFrame {
 		GameControlPanel controlPanel = new GameControlPanel();
 		add(controlPanel, BorderLayout.SOUTH);
 		
-		CardPanel cardPanel = new CardPanel();
+		cardPanel = new CardPanel();
 		add(cardPanel, BorderLayout.EAST);
 		cardPanel.setPreferredSize(new Dimension(140,500));
+		cardPanel.createCardPanel(board.getHumanPlayer());
+		board.setCP(cardPanel);
+		board.setControlPanel(controlPanel);
 	}
-	
 	
 	public static void main(String[] args) {
 		ClueGame clueGame = new ClueGame();

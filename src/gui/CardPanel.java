@@ -30,12 +30,12 @@ public class CardPanel extends JPanel{
 	 * Constructor for the panel, it does 90% of the work
 	 */
 	public CardPanel()  {
-		setLayout(new GridLayout(1,3));
 		createBlankPanel();
 	}
 	
 	public void refresh() {
 		removeAll();
+		setLayout(new GridLayout(1,3));
 	}
 	
 	public void createBlankPanel() {
@@ -94,6 +94,7 @@ public class CardPanel extends JPanel{
 		weaponPanel.add(seenLabel, BorderLayout.SOUTH);
 		
 		setSeen(humanPlayer);
+		
 	}
 
 	private void setInHand(Player humanPlayer) {

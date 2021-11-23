@@ -5,6 +5,8 @@ import java.util.Set;
 import clueGame.Board;
 
 public class ComputerPlayer extends Player {
+	
+	private Boolean makeAccusation = false;
 
 	public ComputerPlayer(String name, String color, int startRow, int startColumn, int position) {
 		this.name = name;
@@ -20,6 +22,14 @@ public class ComputerPlayer extends Player {
 
 	public String getName() {
 		return name;
+	}
+	
+	public void makeAccusation() {
+		makeAccusation = true;
+	}
+	
+	public boolean getMakeAccusation() {
+		return makeAccusation;
 	}
 
 
@@ -97,6 +107,48 @@ public class ComputerPlayer extends Player {
 		
 		Solution suggestion = new Solution(Person, room ,Weapon);
 		return suggestion;
+	}
+
+	@Override
+	public Card disproveSuggestion(Solution solution) {
+		Set<Card> matches = new HashSet<Card>();
+		for(Card card : hand) {
+			if(card.getType() == CardType.PERSON) {
+				if(card.equals(solution.getPlayer())) {
+					matches.add(card);
+				}
+			}
+			else if(card.getType() == CardType.ROOM) {
+				if(card.equals(solution.getRoom())) {
+					matches.add(card);
+				}
+			}
+			else {
+				if(card.equals(solution.getWeapon())) {
+					matches.add(card);
+				}
+			}
+		}
+		if(matches.isEmpty()) {
+			return null;
+		}
+		else if(matches.size()>1) {
+			//get weapon
+			int rand = (int)(Math.random() * (matches.size() - 1) + 1);
+			int i = 1;
+			for(Card cardmatch : matches) {
+				if(i == rand) {
+					return cardmatch;
+				}
+				i++;
+			}
+		}
+		else {
+			for(Card cardmatch : matches) {
+				return cardmatch;
+			}
+		}
+		return null;
 	}
 
 

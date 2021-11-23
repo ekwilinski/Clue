@@ -8,10 +8,16 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import gui.CardPanel;
+import gui.GameControlPanel;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -49,6 +55,11 @@ public class Board extends JPanel{
 	private Player currentPlayer;
 	private Set<ComputerPlayer> computerPlayers;
 	private Set<Card> solutionCards;
+	private Set<Card> allCards;
+
+	private CardPanel cardPanel;
+
+	private GameControlPanel controlPanel;
 
 	//pull out instance declarations to load setup config
 
@@ -451,7 +462,12 @@ public class Board extends JPanel{
 				playingCards.add(card);
 			}
 		}
-
+		
+		allCards = new HashSet<Card>(playingCards);
+		allCards.add(solution.getPlayer());
+		allCards.add(solution.getRoom());
+		allCards.add(solution.getWeapon());
+		
 		while(!playingCards.isEmpty()) {
 			//get random card
 			for(ComputerPlayer player : computerPlayers) {
@@ -672,6 +688,17 @@ public class Board extends JPanel{
 		 
 		public void mouseClicked(MouseEvent jerry) {
 			Point click = jerry.getLocationOnScreen();
+			int mouseX = click.x;
+			int mouseY = click.y;
+			
+			Point boardLoc = getLocationOnScreen();
+			int boardX = boardLoc.x;
+			int boardY = boardLoc.y;
+			
+			mouseX = mouseX - boardX;
+			mouseY = mouseY - boardY;
+			
+			Point offsetClick = new Point(mouseX, mouseY);
 			
 			int panelWidth = getWidth();
 			int panelHeight = getHeight();
@@ -683,21 +710,26 @@ public class Board extends JPanel{
 				for(int row = 0; row < numRows; row++) {
 					for(int columns = 0; columns < numColumns; columns++) {
 						
-						Rectangle rect = new Rectangle(columns*boardCellWidth+1, (row+1)*boardCellHeight, boardCellWidth, boardCellHeight);
-						if (rect.contains(click)) {
+						Rectangle rect = new Rectangle((columns)*boardCellWidth,(row)*boardCellHeight, boardCellWidth, boardCellHeight);
+						if (rect.contains(offsetClick)) {
 							if(grid[row][columns].isTarget()) {
 								movePlayer(row, columns);
 								for(BoardCell tCell : targets) {
 									tCell.removeTarget();
 								}
-								repaint();
 								if(grid[row][columns].isRoomCenter()) {
 									Solution s = createSuggestion();
-									handleSuggestion(currentPlayer, s);
-									updateResult();
+									Card result = handleSuggestion(currentPlayer, s);
+									updateResult(result);
+									movePlayerToRoom(s.getPlayer(), s.getRoom());
 								}
+								repaint();
 								playerFinished = true;
 								break;
+							}
+							else if(targets.size() == 0) {
+								JOptionPane.showMessageDialog(Board.getInstance(), "You can't move", "oopsies...", JOptionPane.WARNING_MESSAGE);
+								playerFinished = true;
 							}
 							else {
 								JOptionPane.showMessageDialog(Board.getInstance(), "Not a Target!", "oopsies...", JOptionPane.WARNING_MESSAGE);
@@ -712,16 +744,6 @@ public class Board extends JPanel{
 				JOptionPane.showMessageDialog(Board.getInstance(), "Not your turn!", "oopsies...", JOptionPane.WARNING_MESSAGE);
 			}
 			
-		}
-
-		private void updateResult() {
-			// TODO Auto-generated method stub
-			
-		}
-
-		private Solution createSuggestion() {
-			// TODO Auto-generated method stub
-			return null;
 		}
 
 
@@ -752,12 +774,135 @@ public class Board extends JPanel{
 
 	public void movePlayer(int row, int columns) {
 		// TODO Auto-generated method stub
+		BoardCell removeOccupied = grid[currentPlayer.startRow][currentPlayer.startColumn];
+		removeOccupied.setOccupied(false);
 		currentPlayer.setLocation(row, columns);
+		BoardCell setOccupied = grid[row][columns];
+		setOccupied.setOccupied(true);
+	}
+	
+	public void movePlayerToRoom(Card player, Card room) {
+		Player toMove = null;
+		for(Player cpu : computerPlayers) {
+			if(cpu.getName() == player.getName()) {
+				toMove = cpu;
+			}
+		}
+		BoardCell removeOccupied = grid[toMove.getRow()][toMove.getColumn()];
+		removeOccupied.setOccupied(false);
+		BoardCell moveLoc = getRoom(room.getName().charAt(0)).getCenterCell();
+		moveLoc.setOccupied(true);
+		toMove.setLocation(moveLoc.getRow(), moveLoc.getColumn());
 	}
 	
 	public void setPlayerNotFinished() {
 		// TODO Auto-generated method stub
 		playerFinished = false;
+	}
+	
+	private Solution createSuggestion() {
+		
+		String[] weaponCardList = new String[6];
+		String[] personCardList = new String[6];
+		
+		int i = 0;
+		int j = 0;
+		for(Card cardInHand : allCards) {
+			if(cardInHand.getType() == CardType.WEAPON) {
+				weaponCardList[i] = cardInHand.getName();
+				i++;
+			}
+			else if(cardInHand.getType() == CardType.PERSON) {
+				personCardList[j] = cardInHand.getName();
+				j++;
+			}
+		}
+		
+		JComboBox weaponCards = new JComboBox(weaponCardList);
+		JComboBox personCards = new JComboBox(personCardList);
+		
+		JPanel suggestions = new JPanel();
+		suggestions.add(weaponCards, BorderLayout.NORTH);
+		suggestions.add(personCards, BorderLayout.SOUTH);
+		
+		Object[] options = { "Submit", "Cancel" };
+		 JOptionPane.showOptionDialog(null, suggestions, null, 
+		 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, 
+		 options[0]);
+		 
+		 int weaponIDX = weaponCards.getSelectedIndex();
+		 String weaponName = weaponCardList[weaponIDX];
+		 int personIDX = personCards.getSelectedIndex();
+		 String personName = personCardList[personIDX];
+		 
+		 Room roomSugg = getRoom(grid[currentPlayer.getRow()][currentPlayer.getColumn()]);
+		 Card room = getCard(roomSugg.getName());
+		 
+		 Card weapon = null;
+		 Card person = null;
+		 
+		 for(Card cards : allCards) {
+			 if(weaponName == cards.getName()) {
+				 weapon = cards;
+			 }
+			 else if(personName == cards.getName()) {
+				 person = cards;
+			 }
+		 }
+		 
+		 Solution sol = new Solution(person, room, weapon);
+		 
+		 controlPanel.setGuess(person.getName() + ", " + weapon.getName() + ", " + room.getName());
+		 controlPanel.revalidate();
+		 
+		 return sol;
+		 
+	}
+	
+	private void updateResult(Card result) {
+		if(result == null) {
+			controlPanel.setGuessResult("No player could disprove the suggestion...");
+		}
+		else if(currentPlayer instanceof HumanPlayer){
+			String color = getOwnerColor(result);
+			currentPlayer.updateSeen(result, color);
+			cardPanel.createCardPanel(currentPlayer);
+			cardPanel.revalidate();
+			controlPanel.setGuessResult(result.getName() + " disproved the suggestion.");
+		}
+		controlPanel.revalidate();
+	}
+
+	private String getOwnerColor(Card result) {
+		for(ComputerPlayer cpu : computerPlayers) {
+			for(Card card : cpu.getHand()) {
+				if(card.getName() == result.getName()) {
+					return cpu.getColor();
+				}
+			}
+		}
+		return null;
+	}
+
+	public void removeCurrentPlayer() {
+		computerPlayers.remove(currentPlayer);
+	}
+
+	public Room getCurrentRoom() {
+		// TODO Auto-generated method stub
+		return getRoom(grid[currentPlayer.getRow()][currentPlayer.getColumn()]);
+	}
+
+	public void setCP(CardPanel cardPanel) {
+		this.cardPanel = cardPanel;
+	}
+	public void setControlPanel(GameControlPanel controlPanel) {
+		this.controlPanel = controlPanel;
+	}
+
+	public Set<Card> getAllCards() {
+		// TODO Auto-generated method stub
+		return allCards;
 	}
 
 }

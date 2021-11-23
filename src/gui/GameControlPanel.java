@@ -5,8 +5,10 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,9 +18,14 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JOptionPane;
 import clueGame.Board;
 import clueGame.BoardCell;
+import clueGame.Card;
+import clueGame.CardType;
 import clueGame.ComputerPlayer;
 import clueGame.HumanPlayer;
 import clueGame.Player;
+import clueGame.Room;
+import clueGame.Solution;
+import jdk.jshell.SourceCodeAnalysis.Suggestion;
 
 @SuppressWarnings("serial")
 public class GameControlPanel extends JPanel {
@@ -28,6 +35,7 @@ public class GameControlPanel extends JPanel {
 	private JButton accusationButton, nextButton;
 	private Board board = Board.getInstance();
 	private Boolean isFinished = true;
+	private Solution noDispute;
 	/**
 	 * Constructor for the panel, it does 90% of the work
 	 */
@@ -64,6 +72,8 @@ public class GameControlPanel extends JPanel {
 		repaint();
 		
 		accusationButton = new JButton("Make Accusation");
+		accusationButtonListener jim = new accusationButtonListener();
+		accusationButton.addActionListener(jim);
 		upperPanel.add(accusationButton);
 		
 		nextButton = new JButton("NEXT!");
@@ -94,11 +104,11 @@ public class GameControlPanel extends JPanel {
 		add(bottomPanel);
 	}
 	
-	private void setGuessResult(String guessResult) {
+	public void setGuessResult(String guessResult) {
 		guessResultField.setText(guessResult);
 	}
 
-	private void setGuess(String guess) {
+	public void setGuess(String guess) {
 		guessField.setText(guess);
 	}
 
@@ -133,9 +143,21 @@ public class GameControlPanel extends JPanel {
 		return convertedColor;
 	}
 	
+	private class accusationButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			if(!board.getPlayerFinished()) {
+				board.getCurrentPlayer().makeAccusation();
+				doHumanAccusation();
+			}
+		}
+	}
+	
 	private class nextButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if(board.getPlayerFinished()) {
+				setGuess("");
+				setGuessResult("");
+				
 				board.updateCurrentPlayer();
 				int roll = rollDice();
 				setTurn(board.getCurrentPlayer(), roll);
@@ -146,28 +168,22 @@ public class GameControlPanel extends JPanel {
 					board.setPlayerNotFinished();
 				} 
 				else {
-					doAccusation();
-					System.out.println("cpu");
-					BoardCell moveto = board.getCurrentPlayer().selectTarget(board.getTargets());
-					board.movePlayer(moveto.getRow(), moveto.getColumn());
-					board.repaint();
-					doSuggestion();
+					Boolean skip = doAccusation();
+					if(!skip) {
+						BoardCell removeOccupied = board.getCell(board.getCurrentPlayer().getRow(), board.getCurrentPlayer().getColumn());
+						removeOccupied.setOccupied(false);
+						BoardCell moveto = board.getCurrentPlayer().selectTarget(board.getTargets());
+						moveto.setOccupied(true);
+						board.movePlayer(moveto.getRow(), moveto.getColumn());
+						board.repaint();
+						doSuggestion();
+					}
 				}
 			}
 			else {
 				JFrame error = new JFrame();
 				JOptionPane.showMessageDialog(error, "Your turn is not over yet!", "oopsies...", JOptionPane.WARNING_MESSAGE);
 			}
-		}
-
-		private void doSuggestion() {
-			// TODO Auto-generated method stub
-			
-		}
-
-		private void doAccusation() {
-			// TODO Auto-generated method stub
-			
 		}
 
 	}
@@ -178,7 +194,8 @@ public class GameControlPanel extends JPanel {
 
 	private int rollDice() {
 		// TODO Auto-generated method stub
-		return 2;
+		Random roll = new Random();
+		return roll.nextInt(6)+1;
 	}
 	
 	/**
@@ -203,5 +220,113 @@ public class GameControlPanel extends JPanel {
 	public void updatePanel(int roll, String name) {
 		rollField.setText(String.valueOf(roll)); 
 		turnField.setText(name);
+	}
+	
+	private void doHumanAccusation() {
+		String[] roomCardList = new String[9];
+		String[] weaponCardList = new String[6];
+		String[] personCardList = new String[6];
+		
+		int i = 0;
+		int j = 0;
+		int k = 0;
+		for(Card cardInHand : board.getAllCards()) {
+			if(cardInHand.getType() == CardType.WEAPON) {
+				weaponCardList[i] = cardInHand.getName();
+				i++;
+			}
+			else if(cardInHand.getType() == CardType.PERSON) {
+				personCardList[j] = cardInHand.getName();
+				j++;
+			}
+			else {
+				roomCardList[k] = cardInHand.getName();
+				k++;
+			}
+		}
+		
+		JComboBox roomCards = new JComboBox(roomCardList);
+		JComboBox weaponCards = new JComboBox(weaponCardList);
+		JComboBox personCards = new JComboBox(personCardList);
+		
+		JPanel suggestions = new JPanel();
+		suggestions.add(roomCards, BorderLayout.NORTH);
+		suggestions.add(weaponCards, BorderLayout.CENTER);
+		suggestions.add(personCards, BorderLayout.SOUTH);
+		
+		Object[] options = { "Submit", "Cancel" };
+		 JOptionPane.showOptionDialog(null, suggestions, null, 
+		 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, 
+		 options[0]);
+		 
+		 int roomIDX = roomCards.getSelectedIndex();
+		 String roomName = roomCardList[roomIDX];
+		 int weaponIDX = weaponCards.getSelectedIndex();
+		 String weaponName = weaponCardList[weaponIDX];
+		 int personIDX = personCards.getSelectedIndex();
+		 String personName = personCardList[personIDX];
+		 
+		 Card room = null;
+		 Card weapon = null;
+		 Card person = null;
+		 
+		 for(Card cards : board.getAllCards()) {
+			 if(weaponName == cards.getName()) {
+				 weapon = cards;
+			 }
+			 else if(personName == cards.getName()) {
+				 person = cards;
+			 }
+			 else if(roomName == cards.getName()){
+				 room = cards;
+			 }
+		 }
+		 
+		 Solution sol = new Solution(person, room, weapon);
+		 if(board.checkAccusation(sol)) {
+			JOptionPane.showMessageDialog(this, "You won! Good game.");
+			System.exit(0);
+		 }
+		 else {
+			JOptionPane.showMessageDialog(this, "You lost... Game over.");
+			System.exit(0);
+		 }
+	}
+	
+	private boolean doAccusation() {
+		if(board.getCurrentPlayer().getMakeAccusation()) {
+			Boolean win = board.checkAccusation(noDispute);
+			String name = board.getCurrentPlayer().getName();
+			if(win) {
+				JOptionPane.showMessageDialog(this, name + " won! Game over.");
+				System.exit(0);
+			}
+			else {
+				board.removeCurrentPlayer();
+				JOptionPane.showMessageDialog(this, name + " made the wrong accusation! They're out.");
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private void doSuggestion() {
+		if(board.getCell(board.getCurrentPlayer().getRow(), board.getCurrentPlayer().getColumn()).isRoomCenter()) {
+			Card currentRoom = board.getCard(board.getCurrentRoom().getName());
+			Solution s = ((ComputerPlayer) board.getCurrentPlayer()).createSuggestion(currentRoom);
+			setGuess(s.getPlayer().getName() + ", " + s.getWeapon().getName() + ", " + s.getRoom().getName());
+			Card disproval = board.handleSuggestion(board.getCurrentPlayer(), s);
+			if(disproval == null) {
+				setGuessResult("no one disproved the suggestion!");
+				noDispute = s;
+				((ComputerPlayer) board.getCurrentPlayer()).makeAccusation();
+			}
+			else {
+				board.getCurrentPlayer().updateSeen(disproval);
+				setGuessResult("someone disproved the result!");
+			}
+			
+		}
+		
 	}
 }

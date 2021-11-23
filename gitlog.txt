@@ -1,3 +1,51 @@
+commit 7173bf060995786f4973d759d3dcef3d467385e0
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Nov 15 23:42:55 2021 -0700
+
+    finished board turns - forgot to indicate who was typing
+
+commit 9ebdb066122be82b886fda53aed6b356ce48af5c
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Nov 15 19:38:50 2021 -0700
+
+    set up next button flow
+
+commit 7139c23d0564d23fbac7ff3fff975070d380d5e7
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Nov 15 18:21:43 2021 -0700
+
+    Created splash screen
+
+commit 7661608587b46c50eb35056790c37b754aa05d2d
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Fri Nov 12 22:46:32 2021 -0700
+
+    finished full ClueGame panel
+
+commit 23bc0b4d34645e66cdef07faa0bf1d0d06cdc290
+Author: ecorendain <ecorendain@mymail.mines.edu>
+Date:   Fri Nov 12 22:03:46 2021 -0700
+
+    created function to deal w hand and seen
+
+commit fe0e75fd4fef57eeb503c0c56f8e388ab25f1ac6
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Fri Nov 12 16:50:58 2021 -0700
+
+    Added all pieces to ClueGame
+
+commit 25f3a74677397c0d0e766dd61dd287905763af8b
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Wed Nov 10 17:42:27 2021 -0700
+
+    finished baord drawing and created ClueGame
+
+commit 1f6ff2b945e2f2955efa6ed35177cdeb30254892
+Author: Elliot Kwilinski <ekwilinski@mines.edu>
+Date:   Mon Nov 8 19:35:20 2021 -0700
+
+    added seen colors
+
 commit 67c960fd07533c333b14735368cad72b9ac724b8
 Author: Elliot Kwilinski <ekwilinski@mines.edu>
 Date:   Mon Nov 8 18:44:10 2021 -0700
