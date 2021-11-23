@@ -108,31 +108,47 @@ public class CardPanel extends JPanel{
 				JTextField human = new JTextField(13);
 				if(humanPlayer.getColor().equals(Color.WHITE) || humanPlayer.getColor().equals(Color.YELLOW)){
 					human.setForeground(Color.BLACK);
+					human.setText(card.getName());
+					human.setBackground(humanColor);
+					peoplePanel.add(human, BorderLayout.NORTH);
 				}
-				human.setForeground(Color.WHITE);
-				human.setText(card.getName());
-				human.setBackground(humanColor);
-				peoplePanel.add(human, BorderLayout.NORTH);
+				else {
+					human.setForeground(Color.WHITE);
+					human.setText(card.getName());
+					human.setBackground(humanColor);
+					peoplePanel.add(human, BorderLayout.NORTH);
+				}
+				
 			}
 			else if(card.getType().equals(CardType.ROOM)) {
 				JTextField room = new JTextField(13);
 				if(humanPlayer.getColor().equals(Color.WHITE) || humanPlayer.getColor().equals(Color.YELLOW)){
 					room.setForeground(Color.BLACK);
+					room.setText(card.getName());
+					room.setBackground(humanColor);
+					roomPanel.add(room, BorderLayout.NORTH);
 				}
-				room.setForeground(Color.WHITE);
-				room.setText(card.getName());
-				room.setBackground(humanColor);
-				roomPanel.add(room, BorderLayout.NORTH);
+				else {
+					room.setForeground(Color.WHITE);
+					room.setText(card.getName());
+					room.setBackground(humanColor);
+					roomPanel.add(room, BorderLayout.NORTH);
+				}
 			}
 			else {
 				JTextField weapon = new JTextField(13);
 				if(humanPlayer.getColor().equals(Color.WHITE) || humanPlayer.getColor().equals(Color.YELLOW)){
 					weapon.setForeground(Color.BLACK);
+					weapon.setText(card.getName());
+					weapon.setBackground(humanColor);
+					weaponPanel.add(weapon, BorderLayout.NORTH);
 				}
-				weapon.setForeground(Color.WHITE);
-				weapon.setText(card.getName());
-				weapon.setBackground(humanColor);
-				weaponPanel.add(weapon, BorderLayout.NORTH);
+				else {
+					weapon.setForeground(Color.WHITE);
+					weapon.setText(card.getName());
+					weapon.setBackground(humanColor);
+					weaponPanel.add(weapon, BorderLayout.NORTH);
+				}
 			}
 		}
 	}
@@ -162,6 +178,9 @@ public class CardPanel extends JPanel{
 				JTextField room = new JTextField(13);
 				if(humanPlayer.getColor().equals(Color.WHITE) || humanPlayer.getColor().equals(Color.YELLOW)){
 					room.setForeground(Color.BLACK);
+					room.setText(card.getKey().getName());
+					room.setBackground(convertColor(card.getValue()));
+					roomPanel.add(room, BorderLayout.SOUTH);
 				}
 				else {
 					room.setForeground(Color.WHITE);
@@ -175,11 +194,16 @@ public class CardPanel extends JPanel{
 				JTextField weapon = new JTextField(13);
 				if(humanPlayer.getColor().equals(Color.WHITE) || humanPlayer.getColor().equals(Color.YELLOW)){
 					weapon.setForeground(Color.BLACK);
+					weapon.setText(card.getKey().getName());
+					weapon.setBackground(convertColor(card.getValue()));
+					weaponPanel.add(weapon, BorderLayout.SOUTH);
 				}
-				weapon.setForeground(Color.WHITE);
-				weapon.setText(card.getKey().getName());
-				weapon.setBackground(convertColor(card.getValue()));
-				weaponPanel.add(weapon, BorderLayout.SOUTH);
+				else {
+					weapon.setForeground(Color.WHITE);
+					weapon.setText(card.getKey().getName());
+					weapon.setBackground(convertColor(card.getValue()));
+					weaponPanel.add(weapon, BorderLayout.SOUTH);
+				}
 			}
 		}
 	}
