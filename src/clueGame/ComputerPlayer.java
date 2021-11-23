@@ -32,7 +32,6 @@ public class ComputerPlayer extends Player {
 		return makeAccusation;
 	}
 
-
 	public BoardCell selectTarget(Set<BoardCell> targetList) {
 		boolean hasBeenSeen = false;
 		Set<BoardCell> randomTargets = new HashSet<BoardCell>();
@@ -150,6 +149,4 @@ public class ComputerPlayer extends Player {
 		}
 		return null;
 	}
-
-
 }

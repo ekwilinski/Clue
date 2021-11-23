@@ -10,6 +10,7 @@ import java.util.Set;
 public abstract class Player {
 	protected String name;
 	protected String color;
+	private int roomOffsetWidth, roomOffsetHeight, numInRoom;
 	protected int startRow, startColumn, position;
 	protected Set<Card> hand = new HashSet<Card>();
 	protected Set<Card> seenCards = new HashSet<Card>();
@@ -59,13 +60,45 @@ public abstract class Player {
 		allRooms = roomCards;
 		allWeapons = weaponCards;
 		allPlayers = playerCards;
-		
 	}
 	
 	public void draw(int boardCellWidth, int boardCellHeight, Graphics g) {
 		Color drawColor = convertColor(color); 
 		g.setColor(drawColor);
 		g.fillOval(boardCellWidth * startColumn,boardCellHeight * startRow, boardCellWidth, boardCellHeight);
+		//get position in list and if they're in the room, if so then add to offset (location in deck), if not do nothing. Don't need to check player 0
+		//how many players of lower positions than current player
+		//make offset based on how many players lower are in that room
+		//if the currentPlayers location is the same as any other players than they are in the same room
+		
+		Board board = Board.getInstance();
+		for(Player p: board.getComputerPlayers()) {
+			if(getRow() == p.getRow() && getColumn() == p.getColumn()) {	          //in same room
+				//check to see how many players are currently lower than it's position
+				if(getPosition() != 0) {
+					if(getPosition() < p.getPosition()) {
+						numInRoom += 1;
+						roomOffsetWidth = boardCellWidth / (numInRoom + 1);
+						roomOffsetHeight = boardCellHeight / (numInRoom + 1);
+						//g.setColor(drawColor);
+						g.fillOval((boardCellWidth * startColumn)+ roomOffsetWidth, (boardCellHeight * startRow) + roomOffsetHeight, boardCellWidth, boardCellHeight);
+					}
+				}
+			}
+		}
+	
+		if(getRow() == board.getHumanPlayer().getRow() && getColumn() == board.getHumanPlayer().getColumn()) {	          //in same room
+		//check to see how many players are currently lower than it's position
+			if(getPosition() == 0) {
+				if(getPosition() > board.getCurrentPlayer().getPosition()) {
+					numInRoom += 1;
+					roomOffsetWidth = boardCellWidth / (numInRoom + 1);
+					roomOffsetHeight = boardCellHeight / (numInRoom + 1);
+					//g.setColor(drawColor);
+					g.fillOval((boardCellWidth * startColumn)+ roomOffsetWidth, (boardCellHeight * startRow) + roomOffsetHeight, boardCellWidth, boardCellHeight);
+				}
+			}
+		}
 	}
 
 	public Color convertColor(String color2) {

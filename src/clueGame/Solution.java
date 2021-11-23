@@ -31,5 +31,4 @@ public class Solution {
 	public Card getPlayer() {
 		return person;
 	}
-	
 }

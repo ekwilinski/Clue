@@ -100,7 +100,6 @@ public class Board extends JPanel{
 	}
 
 	public void loadSetupConfig() throws BadConfigFormatException, FileNotFoundException {
-
 		//allocate memory
 		position = 0;
 		solution = new Solution();
@@ -168,12 +167,9 @@ public class Board extends JPanel{
 		else {
 			throw new BadConfigFormatException();
 		}
-
 	}
 
 	public void loadLayoutConfig() throws BadConfigFormatException, FileNotFoundException {
-
-
 		// if the file being read in is invalid this will throw an error
 		// we read in the file using scanner
 		FileReader f = new FileReader(layoutConfigFile);
@@ -441,7 +437,6 @@ public class Board extends JPanel{
 			}
 			i++;
 		}
-
 	}
 
 	private void dealToPlayers() {
@@ -492,10 +487,8 @@ public class Board extends JPanel{
 				}
 				j++;
 			}
-
 		}
 	}
-
 
 	public Set<Card> getRoomCards() {
 		return roomCards;
@@ -604,7 +597,6 @@ public class Board extends JPanel{
 
 	public void addToRoomCards(Card room) {
 		roomCards.add(room);
-
 	}
 
 	//GUI Methods
@@ -637,7 +629,7 @@ public class Board extends JPanel{
 		humanPlayer.draw(boardCellWidth, boardCellHeight, g);
 		for(ComputerPlayer cpu : computerPlayers) {
 			cpu.draw(boardCellWidth, boardCellHeight, g);
-		}
+		}		
 	}
 
 	public static void main(String[] args) {
@@ -685,7 +677,6 @@ public class Board extends JPanel{
 	}
 	
 	public class boardListener implements MouseListener {
-		 
 		public void mouseClicked(MouseEvent jerry) {
 			Point click = jerry.getLocationOnScreen();
 			int mouseX = click.x;
@@ -706,10 +697,8 @@ public class Board extends JPanel{
 			int boardCellHeight = panelHeight / numRows;
 			
 			if(currentPlayer instanceof HumanPlayer) {
-				
 				for(int row = 0; row < numRows; row++) {
 					for(int columns = 0; columns < numColumns; columns++) {
-						
 						Rectangle rect = new Rectangle((columns)*boardCellWidth,(row)*boardCellHeight, boardCellWidth, boardCellHeight);
 						if (rect.contains(offsetClick)) {
 							if(grid[row][columns].isTarget()) {
@@ -734,16 +723,13 @@ public class Board extends JPanel{
 							else {
 								JOptionPane.showMessageDialog(Board.getInstance(), "Not a Target!", "oopsies...", JOptionPane.WARNING_MESSAGE);
 							}
-						}
-							
+						}	
 					}
 				}
-				
 			}
 			else {
 				JOptionPane.showMessageDialog(Board.getInstance(), "Not your turn!", "oopsies...", JOptionPane.WARNING_MESSAGE);
 			}
-			
 		}
 
 
@@ -793,6 +779,7 @@ public class Board extends JPanel{
 		BoardCell moveLoc = getRoom(room.getName().charAt(0)).getCenterCell();
 		moveLoc.setOccupied(true);
 		toMove.setLocation(moveLoc.getRow(), moveLoc.getColumn());
+		
 	}
 	
 	public void setPlayerNotFinished() {
@@ -856,7 +843,6 @@ public class Board extends JPanel{
 		 controlPanel.revalidate();
 		 
 		 return sol;
-		 
 	}
 	
 	private void updateResult(Card result) {

@@ -53,7 +53,7 @@ public class GameControlPanel extends JPanel {
 		turnLabel = new JLabel("Whose Turn?");
 		turnPanel.add(turnLabel, BorderLayout.NORTH);
 		
-		turnField = new JTextField(18);
+		turnField = new JTextField(15);
 		turnField.setText(board.getCurrentPlayer().getName());
 		turnField.setBackground(convertColor(board.getCurrentPlayer().getColor()));
 		turnPanel.add(turnField, BorderLayout.CENTER);
@@ -90,13 +90,13 @@ public class GameControlPanel extends JPanel {
 		
 		guess = new JPanel();
 		guess.setBorder(new TitledBorder (new EtchedBorder(), "Guess"));
-		guessField = new JTextField(36);
+		guessField = new JTextField(30);
 		guess.add(guessField, BorderLayout.CENTER);
 		bottomPanel.add(guess, BorderLayout.SOUTH);
 		
 		guessResult = new JPanel();
 		guessResult.setBorder(new TitledBorder (new EtchedBorder(), "Guess Result"));
-		guessResultField = new JTextField(36);
+		guessResultField = new JTextField(30);
 		guessResult.add(guessResultField, BorderLayout.CENTER);
 		bottomPanel.add(guessResult, BorderLayout.SOUTH);
 	
@@ -185,7 +185,6 @@ public class GameControlPanel extends JPanel {
 				JOptionPane.showMessageDialog(error, "Your turn is not over yet!", "oopsies...", JOptionPane.WARNING_MESSAGE);
 			}
 		}
-
 	}
 	
 	private void displayTargets() {
@@ -317,16 +316,14 @@ public class GameControlPanel extends JPanel {
 			setGuess(s.getPlayer().getName() + ", " + s.getWeapon().getName() + ", " + s.getRoom().getName());
 			Card disproval = board.handleSuggestion(board.getCurrentPlayer(), s);
 			if(disproval == null) {
-				setGuessResult("no one disproved the suggestion!");
+				setGuessResult("No one disproved the suggestion!");
 				noDispute = s;
 				((ComputerPlayer) board.getCurrentPlayer()).makeAccusation();
 			}
 			else {
 				board.getCurrentPlayer().updateSeen(disproval);
-				setGuessResult("someone disproved the result!");
+				setGuessResult("Someone disproved the result!");
 			}
-			
 		}
-		
 	}
 }
